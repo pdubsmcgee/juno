@@ -20,6 +20,12 @@
     <Variable name="throwner_guidance" number="0" />
     <Variable name="throwner_circularization" number="0" />
     <Variable name="manual" number="0" />
+    <Variable name="fc_init_done" number="0" />
+    <Variable name="fc_status_code" number="0" />
+    <Variable name="fc_fault_code" number="0" />
+    <Variable name="countdown_timeout_s" number="0" />
+    <Variable name="countdown_elapsed_s" number="0" />
+    <Variable name="countdown_abort" number="0" />
     <Variable name="gt_tsv" number="0" />
     <Variable name="gt_tev" number="0" />
     <Variable name="gt_pitchmin" number="0" />
@@ -118,6 +124,12 @@
     <Comment id="1" style="comment">
       <Constant style="comment-text" canReplace="false" text="GT Guidance (frame-synced guidance loop tick)" />
     </Comment>
+    <WaitUntil id="500" style="wait-until">
+      <Comparison op="=" style="op-eq">
+        <Variable list="false" local="false" variableName="fc_init_done" />
+        <Constant text="1" />
+      </Comparison>
+    </WaitUntil>
     <SetVariable id="2" style="set-variable">
       <Variable list="false" local="false" variableName="gt_tsv" />
       <Constant text="250" />
@@ -284,12 +296,12 @@
               <Variable list="false" local="false" variableName="gt_pitchcmd" />
             </SetTargetHeading>
             <WaitSeconds id="31" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </ElseIf>
         <WaitSeconds id="32" style="wait-seconds">
-          <Constant text="0" />
+          <Constant text="0.05" />
         </WaitSeconds>
       </Instructions>
     </While>
@@ -304,6 +316,12 @@
     <Comment id="35" style="comment">
       <Constant style="comment-text" canReplace="false" text="K solver" />
     </Comment>
+    <WaitUntil id="501" style="wait-until">
+      <Comparison op="=" style="op-eq">
+        <Variable list="false" local="false" variableName="fc_init_done" />
+        <Constant text="1" />
+      </Comparison>
+    </WaitUntil>
     <SetVariable id="36" style="set-variable">
       <Variable list="false" local="false" variableName="peg_readyk" />
       <Constant number="0" />
@@ -462,6 +480,18 @@
       <Variable list="false" local="false" variableName="throwner" />
       <Variable list="false" local="false" variableName="throwner_none" />
     </SetVariable>
+    <SetVariable id="506" style="set-variable">
+      <Variable list="false" local="false" variableName="fc_status_code" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="507" style="set-variable">
+      <Variable list="false" local="false" variableName="fc_fault_code" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="508" style="set-variable">
+      <Variable list="false" local="false" variableName="fc_init_done" />
+      <Constant text="0" />
+    </SetVariable>
     <UserInput id="56" style="user-input">
       <Variable list="false" local="false" variableName="targetalt_m" />
       <Constant text="Target altitude (m AGL). Enter 10000 to 500000." />
@@ -577,6 +607,14 @@
         </SetVariable>
       </Instructions>
     </ElseIf>
+    <LogFlight id="509" style="flightlog">
+      <Constant text="Preflight normalized inputs: altitude/inclination/autostage configured." />
+      <Constant style="false" bool="false" />
+    </LogFlight>
+    <SetVariable id="510" style="set-variable">
+      <Variable list="false" local="false" variableName="fc_init_done" />
+      <Constant text="1" />
+    </SetVariable>
     <While id="59" style="while">
       <Constant style="true" bool="true" />
       <Instructions>
@@ -589,7 +627,7 @@
         <If id="61" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="manual" />
-            <Constant style="true" bool="true" />
+            <Constant text="1" />
           </Comparison>
           <Instructions>
             <SetVariable id="62" style="set-variable">
@@ -611,6 +649,10 @@
             <Variable list="false" local="false" variableName="fc_mode_countdown" />
           </Comparison>
           <Instructions>
+            <SetVariable id="511" style="set-variable">
+              <Variable list="false" local="false" variableName="fc_status_code" />
+              <Constant text="10" />
+            </SetVariable>
             <CallCustomInstruction call="Countdown" id="66" style="call-custom-instruction" />
           </Instructions>
         </If>
@@ -620,6 +662,10 @@
             <Variable list="false" local="false" variableName="fc_mode_ascent" />
           </Comparison>
           <Instructions>
+            <SetVariable id="512" style="set-variable">
+              <Variable list="false" local="false" variableName="fc_status_code" />
+              <Constant text="20" />
+            </SetVariable>
             <If id="68" style="if">
               <Comparison op="l" style="op-lt">
                 <CraftProperty property="Altitude.AGL" style="prop-altitude" />
@@ -700,6 +746,10 @@
             <Variable list="false" local="false" variableName="fc_mode_circularization" />
           </Comparison>
           <Instructions>
+            <SetVariable id="513" style="set-variable">
+              <Variable list="false" local="false" variableName="fc_status_code" />
+              <Constant text="30" />
+            </SetVariable>
             <SetVariable id="82" style="set-variable">
               <Variable list="false" local="false" variableName="attowner" />
               <Variable list="false" local="false" variableName="attowner_circularization" />
@@ -716,6 +766,10 @@
             <Variable list="false" local="false" variableName="fc_mode_done" />
           </Comparison>
           <Instructions>
+            <SetVariable id="514" style="set-variable">
+              <Variable list="false" local="false" variableName="fc_status_code" />
+              <Constant text="40" />
+            </SetVariable>
             <If id="85" style="if">
               <Comparison op="=" style="op-eq">
                 <Variable list="false" local="false" variableName="circ_active" />
@@ -734,6 +788,10 @@
                   <Variable list="false" local="false" variableName="throwner" />
                   <Variable list="false" local="false" variableName="throwner_none" />
                 </SetVariable>
+                <SetVariable id="515" style="set-variable">
+                  <Variable list="false" local="false" variableName="fc_status_code" />
+                  <Constant text="0" />
+                </SetVariable>
               </Instructions>
             </If>
           </Instructions>
@@ -749,6 +807,12 @@
     <Comment id="91" style="comment">
       <Constant style="comment-text" canReplace="false" text="Autostager (staging/status loop tick: 0.05s)" />
     </Comment>
+    <WaitUntil id="502" style="wait-until">
+      <Comparison op="=" style="op-eq">
+        <Variable list="false" local="false" variableName="fc_init_done" />
+        <Constant text="1" />
+      </Comparison>
+    </WaitUntil>
     <WaitUntil id="92" style="wait-until">
       <Comparison op="ge" style="op-gte">
         <Variable list="false" local="false" variableName="fc_mode" />
@@ -926,6 +990,12 @@
     <Comment id="127" style="comment">
       <Constant style="comment-text" canReplace="false" text="Throttle Manager (throttle control loop mostly frame-synced; idle gates 0.05s)" />
     </Comment>
+    <WaitUntil id="503" style="wait-until">
+      <Comparison op="=" style="op-eq">
+        <Variable list="false" local="false" variableName="fc_init_done" />
+        <Constant text="1" />
+      </Comparison>
+    </WaitUntil>
     <WaitUntil id="128" style="wait-until">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_mode" />
@@ -1084,7 +1154,7 @@
               <Variable list="false" local="false" variableName="thr" />
             </SetInput>
             <WaitSeconds id="158" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -1135,7 +1205,7 @@
               <Variable list="false" local="false" variableName="thr" />
             </SetInput>
             <WaitSeconds id="166" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -1160,7 +1230,7 @@
               </BoolOp>
               <Instructions>
                 <WaitSeconds id="169" style="wait-seconds">
-                  <Constant text="0" />
+                  <Constant text="0.05" />
                 </WaitSeconds>
               </Instructions>
             </If>
@@ -1259,7 +1329,7 @@
                   <Constant number="0" />
                 </SetInput>
                 <WaitSeconds id="184" style="wait-seconds">
-                  <Constant text="0" />
+                  <Constant text="0.05" />
                 </WaitSeconds>
               </Instructions>
             </If>
@@ -1298,12 +1368,12 @@
               <Variable list="false" local="false" variableName="thr" />
             </SetInput>
             <WaitSeconds id="191" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
         <WaitSeconds id="192" style="wait-seconds">
-          <Constant text="0" />
+          <Constant text="0.05" />
         </WaitSeconds>
       </Instructions>
     </While>
@@ -1313,6 +1383,12 @@
     <Comment id="194" style="comment">
       <Constant style="comment-text" canReplace="false" text="Circularize (burn guidance frame-synced; inactive gates 0.05s)" />
     </Comment>
+    <WaitUntil id="504" style="wait-until">
+      <Comparison op="=" style="op-eq">
+        <Variable list="false" local="false" variableName="fc_init_done" />
+        <Constant text="1" />
+      </Comparison>
+    </WaitUntil>
     <WaitUntil id="195" style="wait-until">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_mode" />
@@ -1769,7 +1845,7 @@
               </Instructions>
             </If>
             <WaitSeconds id="277" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </While>
@@ -1784,6 +1860,12 @@
     <Comment id="280" style="comment">
       <Constant style="comment-text" canReplace="false" text="PEG Guidance (active guidance loop frame-synced; standby gate 0.05s)" />
     </Comment>
+    <WaitUntil id="505" style="wait-until">
+      <Comparison op="=" style="op-eq">
+        <Variable list="false" local="false" variableName="fc_init_done" />
+        <Constant text="1" />
+      </Comparison>
+    </WaitUntil>
     <SetVariable id="281" style="set-variable">
       <Variable list="false" local="false" variableName="escale" />
       <Constant text="2000000" />
@@ -2469,7 +2551,7 @@
               <Variable list="false" local="false" variableName="peg_headingcmd" />
             </SetTargetHeading>
             <WaitSeconds id="381" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </While>
@@ -2484,79 +2566,166 @@
     </SetVariable>
     <LockNavSphere indicatorType="Current" id="384" style="lock-nav-sphere" />
     <DisplayMessage id="385" style="display">
-      <Constant text="Set Throttle&gt;90% to count down." />
+      <Constant text="Set Throttle&gt;90% to arm countdown (timeout 30s, AG1 abort)." />
       <Constant number="7" />
     </DisplayMessage>
-    <WaitUntil id="386" style="wait-until">
-      <Comparison op="g" style="op-gt">
-        <CraftProperty property="Input.Throttle" style="prop-input" />
-        <Constant text=".9" />
-      </Comparison>
-    </WaitUntil>
-    <SetCraftProperty property="Sound.Beep" id="387" style="play-beep">
-      <Constant number="1000" />
-      <Constant number="1" />
-      <Constant text=".5" />
-    </SetCraftProperty>
-    <DisplayMessage id="388" style="display">
-      <Constant text="3" />
-      <Constant number="7" />
-    </DisplayMessage>
-    <WaitSeconds id="389" style="wait-seconds">
-      <Constant number="1" />
-    </WaitSeconds>
-    <SetCraftProperty property="Sound.Beep" id="390" style="play-beep">
-      <Constant number="1000" />
-      <Constant number="1" />
-      <Constant text=".5" />
-    </SetCraftProperty>
-    <DisplayMessage id="391" style="display">
-      <Constant text="2" />
-      <Constant number="7" />
-    </DisplayMessage>
-    <WaitSeconds id="392" style="wait-seconds">
-      <Constant number="1" />
-    </WaitSeconds>
-    <SetCraftProperty property="Sound.Beep" id="393" style="play-beep">
-      <Constant number="1000" />
-      <Constant number="1" />
-      <Constant text=".5" />
-    </SetCraftProperty>
-    <DisplayMessage id="394" style="display">
-      <Constant text="1" />
-      <Constant number="7" />
-    </DisplayMessage>
-    <WaitSeconds id="395" style="wait-seconds">
-      <Constant number="1" />
-    </WaitSeconds>
-    <SetCraftProperty property="Sound.Beep" id="396" style="play-beep">
-      <Constant text="1500" />
-      <Constant number="1" />
-      <Constant text=".5" />
-    </SetCraftProperty>
-    <DisplayMessage id="397" style="display">
-      <Constant text="Blastoff!!!!" />
-      <Constant number="7" />
-    </DisplayMessage>
-    <ActivateStage id="398" style="activate-stage" />
-    <WaitUntil id="399" style="wait-until">
-      <Comparison op="g" style="op-gt">
-        <CraftProperty property="Vel.SurfaceVelocity" style="prop-velocity" />
-        <Variable list="false" local="false" variableName="gt_tsv" />
-      </Comparison>
-    </WaitUntil>
-    <SetVariable id="400" style="set-variable">
-      <Variable list="false" local="false" variableName="fc_mode" />
-      <Variable list="false" local="false" variableName="fc_mode_ascent" />
+    <SetVariable id="516" style="set-variable">
+      <Variable list="false" local="false" variableName="countdown_timeout_s" />
+      <Constant text="30" />
     </SetVariable>
-    <DisplayMessage id="401" style="display">
-      <Constant text="Beginning Gravity Turn" />
-      <Constant number="7" />
-    </DisplayMessage>
-    <LogFlight id="402" style="flightlog">
-      <Constant text="Beginning Gravity Turn" />
-      <Constant style="false" bool="false" />
-    </LogFlight>
+    <SetVariable id="517" style="set-variable">
+      <Variable list="false" local="false" variableName="countdown_elapsed_s" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="518" style="set-variable">
+      <Variable list="false" local="false" variableName="countdown_abort" />
+      <Constant text="0" />
+    </SetVariable>
+    <While id="519" style="while">
+      <Constant style="true" bool="true" />
+      <Instructions>
+        <If id="520" style="if">
+          <Comparison op="g" style="op-gt">
+            <CraftProperty property="Input.Throttle" style="prop-input" />
+            <Constant text=".9" />
+          </Comparison>
+          <Instructions>
+            <Break id="521" style="break" />
+          </Instructions>
+        </If>
+        <If id="522" style="if">
+          <Comparison op="=" style="op-eq">
+            <ActivationGroup style="activation-group">
+              <Constant number="1" />
+            </ActivationGroup>
+            <Constant text="1" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="523" style="set-variable">
+              <Variable list="false" local="false" variableName="countdown_abort" />
+              <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="524" style="set-variable">
+              <Variable list="false" local="false" variableName="fc_fault_code" />
+              <Constant text="101" />
+            </SetVariable>
+            <Break id="525" style="break" />
+          </Instructions>
+        </If>
+        <If id="526" style="if">
+          <Comparison op="ge" style="op-gte">
+            <Variable list="false" local="false" variableName="countdown_elapsed_s" />
+            <Variable list="false" local="false" variableName="countdown_timeout_s" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="527" style="set-variable">
+              <Variable list="false" local="false" variableName="countdown_abort" />
+              <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="528" style="set-variable">
+              <Variable list="false" local="false" variableName="fc_fault_code" />
+              <Constant text="100" />
+            </SetVariable>
+            <Break id="529" style="break" />
+          </Instructions>
+        </If>
+        <WaitSeconds id="530" style="wait-seconds">
+          <Constant text="0.1" />
+        </WaitSeconds>
+        <SetVariable id="531" style="set-variable">
+          <Variable list="false" local="false" variableName="countdown_elapsed_s" />
+          <BinaryOp op="+" style="op-add">
+            <Variable list="false" local="false" variableName="countdown_elapsed_s" />
+            <Constant text="0.1" />
+          </BinaryOp>
+        </SetVariable>
+      </Instructions>
+    </While>
+    <If id="532" style="if">
+      <Comparison op="=" style="op-eq">
+        <Variable list="false" local="false" variableName="countdown_abort" />
+        <Constant text="0" />
+      </Comparison>
+      <Instructions>
+        <SetVariable id="533" style="set-variable">
+          <Variable list="false" local="false" variableName="fc_fault_code" />
+          <Constant text="0" />
+        </SetVariable>
+        <SetCraftProperty property="Sound.Beep" id="387" style="play-beep">
+          <Constant number="1000" />
+          <Constant number="1" />
+          <Constant text=".5" />
+        </SetCraftProperty>
+        <DisplayMessage id="388" style="display">
+          <Constant text="3" />
+          <Constant number="7" />
+        </DisplayMessage>
+        <WaitSeconds id="389" style="wait-seconds">
+          <Constant number="1" />
+        </WaitSeconds>
+        <SetCraftProperty property="Sound.Beep" id="390" style="play-beep">
+          <Constant number="1000" />
+          <Constant number="1" />
+          <Constant text=".5" />
+        </SetCraftProperty>
+        <DisplayMessage id="391" style="display">
+          <Constant text="2" />
+          <Constant number="7" />
+        </DisplayMessage>
+        <WaitSeconds id="392" style="wait-seconds">
+          <Constant number="1" />
+        </WaitSeconds>
+        <SetCraftProperty property="Sound.Beep" id="393" style="play-beep">
+          <Constant number="1000" />
+          <Constant number="1" />
+          <Constant text=".5" />
+        </SetCraftProperty>
+        <DisplayMessage id="394" style="display">
+          <Constant text="1" />
+          <Constant number="7" />
+        </DisplayMessage>
+        <WaitSeconds id="395" style="wait-seconds">
+          <Constant number="1" />
+        </WaitSeconds>
+        <SetCraftProperty property="Sound.Beep" id="396" style="play-beep">
+          <Constant text="1500" />
+          <Constant number="1" />
+          <Constant text=".5" />
+        </SetCraftProperty>
+        <DisplayMessage id="397" style="display">
+          <Constant text="Blastoff!!!!" />
+          <Constant number="7" />
+        </DisplayMessage>
+        <ActivateStage id="398" style="activate-stage" />
+        <WaitUntil id="399" style="wait-until">
+          <Comparison op="g" style="op-gt">
+            <CraftProperty property="Vel.SurfaceVelocity" style="prop-velocity" />
+            <Variable list="false" local="false" variableName="gt_tsv" />
+          </Comparison>
+        </WaitUntil>
+        <SetVariable id="400" style="set-variable">
+          <Variable list="false" local="false" variableName="fc_mode" />
+          <Variable list="false" local="false" variableName="fc_mode_ascent" />
+        </SetVariable>
+        <DisplayMessage id="401" style="display">
+          <Constant text="Beginning Gravity Turn" />
+          <Constant number="7" />
+        </DisplayMessage>
+        <LogFlight id="402" style="flightlog">
+          <Constant text="Beginning Gravity Turn" />
+          <Constant style="false" bool="false" />
+        </LogFlight>
+      </Instructions>
+    </If>
+    <ElseIf id="534" style="else">
+      <Constant bool="true" />
+      <Instructions>
+        <LogFlight id="535" style="flightlog">
+          <Constant text="Countdown aborted or timed out; staying in countdown mode." />
+          <Constant style="false" bool="false" />
+        </LogFlight>
+      </Instructions>
+    </ElseIf>
   </Instructions>
   <Expressions />
 </Program>
