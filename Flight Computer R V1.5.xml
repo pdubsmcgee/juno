@@ -116,7 +116,7 @@
   <Instructions>
     <Event event="FlightStart" id="0" style="flight-start" pos="3913.307,81.01453" />
     <Comment id="1" style="comment">
-      <Constant style="comment-text" canReplace="false" text="GT Guidance" />
+      <Constant style="comment-text" canReplace="false" text="GT Guidance (frame-synced guidance loop tick)" />
     </Comment>
     <SetVariable id="2" style="set-variable">
       <Variable list="false" local="false" variableName="gt_tsv" />
@@ -157,7 +157,7 @@
           </Not>
           <Instructions>
             <WaitSeconds id="10" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -387,7 +387,7 @@
   <Instructions>
     <Event event="FlightStart" id="51" style="flight-start" pos="2067.532,-94.64899" />
     <Comment id="52" style="comment">
-      <Constant style="comment-text" canReplace="false" text="Flight Mode Controller" />
+      <Constant style="comment-text" canReplace="false" text="Flight Mode Controller (mode/status loop tick: 0.05s)" />
     </Comment>
     <Comment id="403" style="comment">
       <Constant style="comment-text" canReplace="false" text="fc_mode states: none=0, countdown=1, ascent=2, circularization=3, done=4" />
@@ -498,7 +498,7 @@
               <Variable list="false" local="false" variableName="throwner_none" />
             </SetVariable>
             <WaitSeconds id="64" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -636,7 +636,7 @@
           </Instructions>
         </If>
         <WaitSeconds id="89" style="wait-seconds">
-          <Constant text="0" />
+          <Constant text="0.05" />
         </WaitSeconds>
       </Instructions>
     </While>
@@ -644,7 +644,7 @@
   <Instructions>
     <Event event="FlightStart" id="90" style="flight-start" pos="4003.454,-1469.869" />
     <Comment id="91" style="comment">
-      <Constant style="comment-text" canReplace="false" text="Autostager" />
+      <Constant style="comment-text" canReplace="false" text="Autostager (staging/status loop tick: 0.05s)" />
     </Comment>
     <WaitUntil id="92" style="wait-until">
       <Comparison op="ge" style="op-gte">
@@ -677,7 +677,7 @@
           </Comparison>
           <Instructions>
             <WaitSeconds id="99" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -688,7 +688,7 @@
           </Comparison>
           <Instructions>
             <WaitSeconds id="101" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -813,7 +813,7 @@
           </Instructions>
         </If>
         <WaitSeconds id="125" style="wait-seconds">
-          <Constant text="0" />
+          <Constant text="0.05" />
         </WaitSeconds>
       </Instructions>
     </While>
@@ -821,7 +821,7 @@
   <Instructions>
     <Event event="FlightStart" id="126" style="flight-start" pos="4864.378,1133.246" />
     <Comment id="127" style="comment">
-      <Constant style="comment-text" canReplace="false" text="Throttle Manager" />
+      <Constant style="comment-text" canReplace="false" text="Throttle Manager (throttle control loop mostly frame-synced; idle gates 0.05s)" />
     </Comment>
     <WaitUntil id="128" style="wait-until">
       <Comparison op="=" style="op-eq">
@@ -865,7 +865,7 @@
           </Comparison>
           <Instructions>
             <WaitSeconds id="137" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -876,7 +876,7 @@
           </Comparison>
           <Instructions>
             <WaitSeconds id="139" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -901,7 +901,7 @@
           </Comparison>
           <Instructions>
             <WaitSeconds id="144" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -1208,7 +1208,7 @@
   <Instructions>
     <Event event="FlightStart" id="193" style="flight-start" pos="5576.908,1049.918" />
     <Comment id="194" style="comment">
-      <Constant style="comment-text" canReplace="false" text="Circularize" />
+      <Constant style="comment-text" canReplace="false" text="Circularize (burn guidance frame-synced; inactive gates 0.05s)" />
     </Comment>
     <WaitUntil id="195" style="wait-until">
       <Comparison op="=" style="op-eq">
@@ -1259,7 +1259,7 @@
               </Instructions>
             </If>
             <WaitSeconds id="206" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -1285,7 +1285,7 @@
               </Instructions>
             </If>
             <WaitSeconds id="211" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -1315,7 +1315,7 @@
               <Constant text="0" />
             </SetVariable>
             <WaitSeconds id="217" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -1444,7 +1444,7 @@
                   <Constant text="0" />
                 </SetVariable>
                 <WaitSeconds id="239" style="wait-seconds">
-                  <Constant text="0" />
+                  <Constant text="0.05" />
                 </WaitSeconds>
               </Instructions>
             </If>
@@ -1453,7 +1453,7 @@
               <Constant text="0" />
             </SetVariable>
             <WaitSeconds id="241" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
@@ -1671,7 +1671,7 @@
           </Instructions>
         </While>
         <WaitSeconds id="278" style="wait-seconds">
-          <Constant text="0" />
+          <Constant text="0.05" />
         </WaitSeconds>
       </Instructions>
     </While>
@@ -1679,7 +1679,7 @@
   <Instructions>
     <Event event="FlightStart" id="279" style="flight-start" pos="3039.282,1668.505" />
     <Comment id="280" style="comment">
-      <Constant style="comment-text" canReplace="false" text="PEG Guidance" />
+      <Constant style="comment-text" canReplace="false" text="PEG Guidance (active guidance loop frame-synced; standby gate 0.05s)" />
     </Comment>
     <SetVariable id="281" style="set-variable">
       <Variable list="false" local="false" variableName="escale" />
@@ -1733,7 +1733,7 @@
           </Not>
           <Instructions>
             <WaitSeconds id="292" style="wait-seconds">
-              <Constant text="0" />
+              <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
         </If>
