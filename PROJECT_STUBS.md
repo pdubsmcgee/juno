@@ -1,59 +1,39 @@
-# XML Program Issue Backlog (Project Stubs)
-Based on a static pass over `Flight Computer R V1.5.xml`, these project stubs target likely cleanup/quality issues.
+# Codex Task Stubs — `The Rocket Whisperer`
 
-## Stub 1 — Guidance variable namespace consolidation
-- **Status:** Completed (static XML reference audit + declaration cleanup).
-- **Issue:** Legacy guidance variables were declared but unreferenced, while `gt_*` variables are actively referenced.
-- **Migration mapping (legacy → active equivalent):**
-  - `tsv` → `gt_tsv`
-  - `tev` → `gt_tev`
-  - `MaxAoA` → `gt_maxaoa`
-  - `pitchCmd` / `targetpitch` / `pitchmin` → `gt_pitchcmd` / `gt_pitchmin`
-  - `headingCmd` / `headingtarget` / `targetinc` → `gt_headingcmd` / `targetinc_deg`
-- **Actions taken:**
-  - [x] Mapped each legacy variable to current equivalent (`gt_*` or renamed variable).
-  - [x] Deleted legacy declarations confirmed dead by zero `variableName="..."` references.
-  - [x] Added migration notes in this backlog doc for future edits.
+This backlog is a repository-grounded static review of `Flight Computer R V1.5.xml` and is intended to be directly actionable in Codex.
 
-## Stub 2 — Throttle command path completion
-- **Status:** Deferred (external interface ownership unresolved from in-repo evidence).
-- **Issue:** `thrcmd` and `thrcmdvalid` are declared but currently unreferenced in the instruction body.
-- **Decision for now:** Keep both variables as an **externally consumed/API allowlist** pair until throttle authority ownership is explicitly specified.
-- **Remaining tasks:**
-  - [ ] Confirm whether throttle should be computed by this flight computer or external logic.
-  - [ ] Either wire reads/writes into active instruction flow or remove declarations.
-  - [ ] Add a single source-of-truth variable for throttle authority ownership.
+## Task Stub 1 — Resolve unowned throttle command outputs
+- **Problem:** `thrcmd` and `thrcmdvalid` are declared in `<Variables>` but have no `variableName="..."` references in `<Instructions>`.
+- **Suggested improvement:** Either wire these variables into the active throttle control flow, or remove them and document that throttle output is internal-only.
+- **Codex starter stub:**
+  - [ ] Confirm throttle ownership contract (`throwner`/`thrcut` vs external consumer).
+  - [ ] If external API is intended, add a dedicated comment block marking `thrcmd`/`thrcmdvalid` as interface outputs.
+  - [ ] If not intended, remove both declarations and rerun static usage check.
+  - [ ] Validate no new unreferenced declarations remain.
 
-## Stub 3 — General dead-variable debt sweep
-- **Status:** Partially completed.
-- **Actions taken:**
-  - [x] Ran per-variable classification against static `variableName="..."` usage.
-  - [x] Removed confirmed-dead variables in one audited batch (all dead candidates except throttle allowlist).
-  - [x] Established allowlist policy entry for externally consumed variables: `thrcmd`, `thrcmdvalid`.
+## Task Stub 2 — Replace mode/owner magic numbers with named constants
+- **Problem:** Mode and ownership values are hard-coded as numeric literals across the controller logic (`fc_mode` values like `1..4`, and owner fields like `0..3`).
+- **Suggested improvement:** Introduce explicit constants (or documented variable aliases) for each mode and owner state to reduce ambiguity and editing mistakes.
+- **Codex starter stub:**
+  - [ ] Inventory all literals used for `fc_mode`, `attowner`, and `throwner` comparisons/assignments.
+  - [ ] Define a naming scheme (e.g., `MODE_ASCENT`, `OWNER_GT`) and apply consistently.
+  - [ ] Update assignments/comparisons to use named constants/aliases.
+  - [ ] Run XML sanity pass to ensure no node/link breakage.
 
-## Static classification results (current)
-### Removed as dead declarations (no body references)
-- `tsv`
-- `tev`
-- `targetAlt`
-- `MaxAoA`
-- `targetpitch`
-- `a`
-- `pitchCmd`
-- `cirv`
-- `burntime`
-- `rp`
-- `circ`
-- `targetinc`
-- `incerror`
-- `headingtarget`
-- `headingCmd`
-- `pitchmin`
-- `scale`
-- `vhagl`
-- `pitchbiasapo`
-- `turn`
+## Task Stub 3 — Audit busy-loop cadence (`WaitSeconds 0`)
+- **Problem:** The file contains many `WaitSeconds` blocks with `Constant text="0"` inside `While true` loops, which can create aggressive update loops.
+- **Suggested improvement:** Standardize a minimal scheduler tick (where safe) and reserve zero-wait loops only for latency-critical sections.
+- **Codex starter stub:**
+  - [ ] Enumerate all `WaitSeconds 0` locations and map each to its loop purpose.
+  - [ ] Classify each as latency-critical or safe-to-throttle.
+  - [ ] Replace safe cases with a small non-zero cadence.
+  - [ ] Flight-test behavior equivalence after cadence changes.
 
-### Kept as external API allowlist (unreferenced internally)
-- `thrcmd`
-- `thrcmdvalid`
+## Task Stub 4 — Normalize operator prompts and inline docs
+- **Problem:** User prompts and labels are inconsistent (`"Target Alt?"`, `"Target inc?"`, `"Autostage??  1 or 0"`), and some control intent is encoded only in numeric values.
+- **Suggested improvement:** Standardize operator-facing text and add concise comments near control handoff logic.
+- **Codex starter stub:**
+  - [ ] Rewrite `UserInput` prompt strings for consistent style/units.
+  - [ ] Add comments describing mode transitions and owner handoffs.
+  - [ ] Add one comment block documenting accepted input ranges.
+  - [ ] Re-export and diff-check XML for minimal structural changes.
