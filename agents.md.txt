@@ -1,0 +1,312 @@
+agents.md
+DeltaVinci — Juno: New Origins Flight Software Agent
+1. Operating Mode
+
+This agent operates in:
+
+Adversarial Self-Verification Mode
+
+Syntax Lock Mode
+
+Repository-Grounded Knowledge Mode
+
+The agent must not:
+
+Invent Vizzy commands
+
+Invent toolkit properties
+
+Invent telemetry fields
+
+Assume behavior from other games (e.g., KSP)
+
+Modify XML structure without validation
+
+If uncertain:
+
+Stop
+
+Mark item as UNVERIFIED
+
+Request evidence or clarification
+
+2. Scope
+
+The agent is responsible for:
+
+Maintaining and updating Vizzy XML programs
+
+Building a verified knowledge database of Vizzy syntax and commands
+
+Making safe structural edits to XML exports
+
+Preserving behavioral correctness
+
+The agent is NOT responsible for:
+
+Guessing undocumented functionality
+
+Speculating about unsupported Vizzy features
+
+Refactoring unrelated logic without explicit instruction
+
+3. Repository Structure (Fill After Initial Scan)
+XML Programs
+
+Path(s):
+
+File count:
+
+Schema version(s):
+
+Documentation Sources
+
+Markdown files:
+
+Example programs:
+
+Notes:
+
+Tools Directory
+
+tools/parse_vizzy_xml.*
+
+tools/edit_vizzy_xml.*
+
+tools/validate_vizzy_xml.*
+
+4. Verified Vizzy Knowledge
+
+This section is populated ONLY from repository evidence.
+
+4.1 Verified Commands
+
+(Reference vizzy_kb/commands.json)
+
+ set nav heading to
+
+ set nav pitch to
+
+ set throttle to
+
+ wait
+
+ wait until
+
+ forever
+
+ if / end
+
+ break
+
+ stop
+
+ sqrt
+
+ abs
+
+Each entry must include:
+
+Evidence file path
+
+XML node identifier
+
+Notes on usage constraints
+
+4.2 Verified Telemetry Fields
+
+(Reference vizzy_kb/telemetry.json)
+
+Examples:
+
+apoapsis
+
+periapsis
+
+speed
+
+vertical speed
+
+Mass
+
+MaxEngineThrust
+
+time to apoapsis
+
+gravity
+
+planetRadius
+
+Each must include repo evidence.
+
+4.3 Verified Navigation Modes
+
+prograde
+
+retrograde
+
+heading/pitch mode
+
+All entries require XML evidence.
+
+5. XML Structural Understanding
+
+(Updated as discovered)
+
+Node Model
+
+Node ID format:
+
+Port naming convention:
+
+How links are represented:
+
+Variable storage structure:
+
+Loop representation:
+
+Conditional representation:
+
+6. Knowledge Database Rules
+
+The agent must:
+
+Store verified commands in vizzy_kb/commands.json
+
+Store verified telemetry fields in vizzy_kb/telemetry.json
+
+Store control-flow patterns in vizzy_kb/patterns.md
+
+Store XML schema findings in vizzy_kb/xml_schema.md
+
+Each entry must include:
+
+Evidence reference (file + location)
+
+Confidence level
+
+Notes
+
+No entry may be added without repo-backed evidence.
+
+7. XML Modification Protocol
+
+Before editing:
+
+Parse XML into internal graph
+
+Validate:
+
+Node IDs unique
+
+All links valid
+
+All referenced variables exist
+
+Apply minimal diff changes
+
+Re-validate structure
+
+Output change summary:
+
+Nodes added
+
+Nodes modified
+
+Nodes removed
+
+Variables affected
+
+Never:
+
+Rename variables unless requested
+
+Reorder unrelated nodes
+
+Delete nodes not explicitly targeted
+
+8. Circularization / Burn Math Standard
+
+All orbital math must follow:
+
+r = planetRadius + apoapsis
+μ = gravity × planetRadius²
+v_circ = sqrt(μ / r)
+Δv = v_circ − speed
+t_burn = (Δv × Mass) / MaxEngineThrust
+burnStart = t_burn / 2
+
+If units cannot be verified:
+
+Stop and investigate
+
+9. Change Log
+
+Every time the agent:
+
+Adds verified commands
+
+Discovers new telemetry
+
+Modifies XML
+
+Changes architecture assumptions
+
+It must append a short entry:
+
+[DATE]
+Action:
+Files affected:
+Summary:
+Evidence source:
+10. Open Unknowns
+
+Items that have been requested but are not yet verified in repo:
+
+[ ]
+
+[ ]
+
+[ ]
+
+No assumptions may be made about these.
+
+11. Initialization Procedure
+
+When agent runs for first time:
+
+Scan repo for *.xml files
+
+Scan for markdown/docs referencing Vizzy
+
+Build initial knowledge base
+
+Populate Verified sections
+
+Report:
+
+XML file count
+
+Verified command count
+
+Verified telemetry count
+
+Unknown items
+
+12. Failure Policy
+
+If XML cannot be parsed:
+
+Do not modify file
+
+Report structural issue
+
+Suggest corrective action
+
+If command cannot be verified:
+
+Mark UNVERIFIED
+
+Do not use in edits
+
+End of agents.md
