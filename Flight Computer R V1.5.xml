@@ -6,6 +6,19 @@
     <Variable name="fc_mode" number="0" />
     <Variable name="attowner" number="0" />
     <Variable name="throwner" number="0" />
+    <Variable name="fc_mode_none" number="0" />
+    <Variable name="fc_mode_countdown" number="0" />
+    <Variable name="fc_mode_ascent" number="0" />
+    <Variable name="fc_mode_circularization" number="0" />
+    <Variable name="fc_mode_done" number="0" />
+    <Variable name="attowner_none" number="0" />
+    <Variable name="attowner_gravity_turn" number="0" />
+    <Variable name="attowner_guidance" number="0" />
+    <Variable name="attowner_circularization" number="0" />
+    <Variable name="throwner_none" number="0" />
+    <Variable name="throwner_gravity_turn" number="0" />
+    <Variable name="throwner_guidance" number="0" />
+    <Variable name="throwner_circularization" number="0" />
     <Variable name="manual" number="0" />
     <Variable name="gt_tsv" number="0" />
     <Variable name="gt_tev" number="0" />
@@ -376,17 +389,78 @@
     <Comment id="52" style="comment">
       <Constant style="comment-text" canReplace="false" text="Flight Mode Controller" />
     </Comment>
+    <Comment id="403" style="comment">
+      <Constant style="comment-text" canReplace="false" text="fc_mode states: none=0, countdown=1, ascent=2, circularization=3, done=4" />
+    </Comment>
+    <Comment id="404" style="comment">
+      <Constant style="comment-text" canReplace="false" text="attowner states: none/manual=0, gravity_turn=1, guidance=2, circularization=3" />
+    </Comment>
+    <Comment id="405" style="comment">
+      <Constant style="comment-text" canReplace="false" text="throwner states: none/manual=0, gravity_turn=1, guidance=2, circularization=3" />
+    </Comment>
+    <SetVariable id="406" style="set-variable">
+      <Variable list="false" local="false" variableName="fc_mode_none" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="407" style="set-variable">
+      <Variable list="false" local="false" variableName="fc_mode_countdown" />
+      <Constant text="1" />
+    </SetVariable>
+    <SetVariable id="408" style="set-variable">
+      <Variable list="false" local="false" variableName="fc_mode_ascent" />
+      <Constant text="2" />
+    </SetVariable>
+    <SetVariable id="409" style="set-variable">
+      <Variable list="false" local="false" variableName="fc_mode_circularization" />
+      <Constant text="3" />
+    </SetVariable>
+    <SetVariable id="410" style="set-variable">
+      <Variable list="false" local="false" variableName="fc_mode_done" />
+      <Constant text="4" />
+    </SetVariable>
+    <SetVariable id="411" style="set-variable">
+      <Variable list="false" local="false" variableName="attowner_none" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="412" style="set-variable">
+      <Variable list="false" local="false" variableName="attowner_gravity_turn" />
+      <Constant text="1" />
+    </SetVariable>
+    <SetVariable id="413" style="set-variable">
+      <Variable list="false" local="false" variableName="attowner_guidance" />
+      <Constant text="2" />
+    </SetVariable>
+    <SetVariable id="414" style="set-variable">
+      <Variable list="false" local="false" variableName="attowner_circularization" />
+      <Constant text="3" />
+    </SetVariable>
+    <SetVariable id="415" style="set-variable">
+      <Variable list="false" local="false" variableName="throwner_none" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="416" style="set-variable">
+      <Variable list="false" local="false" variableName="throwner_gravity_turn" />
+      <Constant text="1" />
+    </SetVariable>
+    <SetVariable id="417" style="set-variable">
+      <Variable list="false" local="false" variableName="throwner_guidance" />
+      <Constant text="2" />
+    </SetVariable>
+    <SetVariable id="418" style="set-variable">
+      <Variable list="false" local="false" variableName="throwner_circularization" />
+      <Constant text="3" />
+    </SetVariable>
     <SetVariable id="53" style="set-variable">
       <Variable list="false" local="false" variableName="fc_mode" />
-      <Constant text="1" />
+      <Variable list="false" local="false" variableName="fc_mode_countdown" />
     </SetVariable>
     <SetVariable id="54" style="set-variable">
       <Variable list="false" local="false" variableName="attowner" />
-      <Constant number="0" />
+      <Variable list="false" local="false" variableName="attowner_none" />
     </SetVariable>
     <SetVariable id="55" style="set-variable">
       <Variable list="false" local="false" variableName="throwner" />
-      <Constant number="0" />
+      <Variable list="false" local="false" variableName="throwner_none" />
     </SetVariable>
     <UserInput id="56" style="user-input">
       <Variable list="false" local="false" variableName="targetalt_m" />
@@ -417,11 +491,11 @@
           <Instructions>
             <SetVariable id="62" style="set-variable">
               <Variable list="false" local="false" variableName="attowner" />
-              <Constant number="0" />
+              <Variable list="false" local="false" variableName="attowner_none" />
             </SetVariable>
             <SetVariable id="63" style="set-variable">
               <Variable list="false" local="false" variableName="throwner" />
-              <Constant number="0" />
+              <Variable list="false" local="false" variableName="throwner_none" />
             </SetVariable>
             <WaitSeconds id="64" style="wait-seconds">
               <Constant text="0" />
@@ -431,7 +505,7 @@
         <If id="65" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="fc_mode" />
-            <Constant text="1" />
+            <Variable list="false" local="false" variableName="fc_mode_countdown" />
           </Comparison>
           <Instructions>
             <CallCustomInstruction call="Countdown" id="66" style="call-custom-instruction" />
@@ -440,7 +514,7 @@
         <If id="67" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="fc_mode" />
-            <Constant text="2" />
+            <Variable list="false" local="false" variableName="fc_mode_ascent" />
           </Comparison>
           <Instructions>
             <If id="68" style="if">
@@ -451,11 +525,11 @@
               <Instructions>
                 <SetVariable id="69" style="set-variable">
                   <Variable list="false" local="false" variableName="attowner" />
-                  <Constant text="1" />
+                  <Variable list="false" local="false" variableName="attowner_gravity_turn" />
                 </SetVariable>
                 <SetVariable id="70" style="set-variable">
                   <Variable list="false" local="false" variableName="throwner" />
-                  <Constant text="1" />
+                  <Variable list="false" local="false" variableName="throwner_gravity_turn" />
                 </SetVariable>
               </Instructions>
             </If>
@@ -476,11 +550,11 @@
                   <Instructions>
                     <SetVariable id="73" style="set-variable">
                       <Variable list="false" local="false" variableName="attowner" />
-                      <Constant text="2" />
+                      <Variable list="false" local="false" variableName="attowner_guidance" />
                     </SetVariable>
                     <SetVariable id="74" style="set-variable">
                       <Variable list="false" local="false" variableName="throwner" />
-                      <Constant text="2" />
+                      <Variable list="false" local="false" variableName="throwner_guidance" />
                     </SetVariable>
                   </Instructions>
                 </If>
@@ -489,11 +563,11 @@
                   <Instructions>
                     <SetVariable id="76" style="set-variable">
                       <Variable list="false" local="false" variableName="attowner" />
-                      <Constant text="1" />
+                      <Variable list="false" local="false" variableName="attowner_gravity_turn" />
                     </SetVariable>
                     <SetVariable id="77" style="set-variable">
                       <Variable list="false" local="false" variableName="throwner" />
-                      <Constant text="1" />
+                      <Variable list="false" local="false" variableName="throwner_gravity_turn" />
                     </SetVariable>
                   </Instructions>
                 </ElseIf>
@@ -507,7 +581,7 @@
               <Instructions>
                 <SetVariable id="79" style="set-variable">
                   <Variable list="false" local="false" variableName="fc_mode" />
-                  <Constant text="3" />
+                  <Variable list="false" local="false" variableName="fc_mode_circularization" />
                 </SetVariable>
                 <SetVariable id="80" style="set-variable">
                   <Variable list="false" local="false" variableName="circ_active" />
@@ -520,23 +594,23 @@
         <If id="81" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="fc_mode" />
-            <Constant text="3" />
+            <Variable list="false" local="false" variableName="fc_mode_circularization" />
           </Comparison>
           <Instructions>
             <SetVariable id="82" style="set-variable">
               <Variable list="false" local="false" variableName="attowner" />
-              <Constant text="3" />
+              <Variable list="false" local="false" variableName="attowner_circularization" />
             </SetVariable>
             <SetVariable id="83" style="set-variable">
               <Variable list="false" local="false" variableName="throwner" />
-              <Constant text="3" />
+              <Variable list="false" local="false" variableName="throwner_circularization" />
             </SetVariable>
           </Instructions>
         </If>
         <If id="84" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="fc_mode" />
-            <Constant text="4" />
+            <Variable list="false" local="false" variableName="fc_mode_done" />
           </Comparison>
           <Instructions>
             <If id="85" style="if">
@@ -547,15 +621,15 @@
               <Instructions>
                 <SetVariable id="86" style="set-variable">
                   <Variable list="false" local="false" variableName="fc_mode" />
-                  <Constant text="0" />
+                  <Variable list="false" local="false" variableName="fc_mode_none" />
                 </SetVariable>
                 <SetVariable id="87" style="set-variable">
                   <Variable list="false" local="false" variableName="attowner" />
-                  <Constant text="0" />
+                  <Variable list="false" local="false" variableName="attowner_none" />
                 </SetVariable>
                 <SetVariable id="88" style="set-variable">
                   <Variable list="false" local="false" variableName="throwner" />
-                  <Constant text="0" />
+                  <Variable list="false" local="false" variableName="throwner_none" />
                 </SetVariable>
               </Instructions>
             </If>
@@ -575,7 +649,7 @@
     <WaitUntil id="92" style="wait-until">
       <Comparison op="ge" style="op-gte">
         <Variable list="false" local="false" variableName="fc_mode" />
-        <Constant text="2" />
+        <Variable list="false" local="false" variableName="fc_mode_ascent" />
       </Comparison>
     </WaitUntil>
     <SetVariable id="93" style="set-variable">
@@ -752,7 +826,7 @@
     <WaitUntil id="128" style="wait-until">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_mode" />
-        <Constant text="2" />
+        <Variable list="false" local="false" variableName="fc_mode_ascent" />
       </Comparison>
     </WaitUntil>
     <SetVariable id="129" style="set-variable">
@@ -798,7 +872,7 @@
         <If id="138" style="if">
           <Comparison op="l" style="op-lt">
             <Variable list="false" local="false" variableName="fc_mode" />
-            <Constant text="2" />
+            <Variable list="false" local="false" variableName="fc_mode_ascent" />
           </Comparison>
           <Instructions>
             <WaitSeconds id="139" style="wait-seconds">
@@ -823,7 +897,7 @@
         <If id="143" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="throwner" />
-            <Constant text="0" />
+            <Variable list="false" local="false" variableName="throwner_none" />
           </Comparison>
           <Instructions>
             <WaitSeconds id="144" style="wait-seconds">
@@ -863,7 +937,7 @@
         <If id="151" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="throwner" />
-            <Constant text="1" />
+            <Variable list="false" local="false" variableName="throwner_gravity_turn" />
           </Comparison>
           <Instructions>
             <SetVariable id="152" style="set-variable">
@@ -914,7 +988,7 @@
         <If id="159" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="throwner" />
-            <Constant text="2" />
+            <Variable list="false" local="false" variableName="throwner_guidance" />
           </Comparison>
           <Instructions>
             <SetVariable id="160" style="set-variable">
@@ -965,7 +1039,7 @@
         <If id="167" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="throwner" />
-            <Constant text="3" />
+            <Variable list="false" local="false" variableName="throwner_circularization" />
           </Comparison>
           <Instructions>
             <If id="168" style="if">
@@ -973,7 +1047,7 @@
                 <Not style="op-not">
                   <Comparison op="=" style="op-eq">
                     <Variable list="false" local="false" variableName="attowner" />
-                    <Constant text="3" />
+                    <Variable list="false" local="false" variableName="attowner_circularization" />
                   </Comparison>
                 </Not>
                 <Comparison op="=" style="op-eq">
@@ -1139,7 +1213,7 @@
     <WaitUntil id="195" style="wait-until">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_mode" />
-        <Constant text="3" />
+        <Variable list="false" local="false" variableName="fc_mode_circularization" />
       </Comparison>
     </WaitUntil>
     <SetVariable id="196" style="set-variable">
@@ -1193,7 +1267,7 @@
           <Not style="op-not">
             <Comparison op="=" style="op-eq">
               <Variable list="false" local="false" variableName="attowner" />
-              <Constant text="3" />
+              <Variable list="false" local="false" variableName="attowner_circularization" />
             </Comparison>
           </Not>
           <Instructions>
@@ -1448,7 +1522,7 @@
                 <Not style="op-not">
                   <Comparison op="=" style="op-eq">
                     <Variable list="false" local="false" variableName="attowner" />
-                    <Constant text="3" />
+                    <Variable list="false" local="false" variableName="attowner_circularization" />
                   </Comparison>
                 </Not>
                 <Constant style="true" bool="true" />
@@ -1586,7 +1660,7 @@
                 </SetVariable>
                 <SetVariable id="275" style="set-variable">
                   <Variable list="false" local="false" variableName="fc_mode" />
-                  <Constant text="4" />
+                  <Variable list="false" local="false" variableName="fc_mode_done" />
                 </SetVariable>
                 <Break id="276" style="break" />
               </Instructions>
@@ -1636,7 +1710,7 @@
     <WaitUntil id="287" style="wait-until">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="attowner" />
-        <Constant text="2" />
+        <Variable list="false" local="false" variableName="attowner_guidance" />
       </Comparison>
     </WaitUntil>
     <DisplayMessage id="288" style="display">
@@ -1654,7 +1728,7 @@
           <Not style="op-not">
             <Comparison op="=" style="op-eq">
               <Variable list="false" local="false" variableName="attowner" />
-              <Constant text="2" />
+              <Variable list="false" local="false" variableName="attowner_guidance" />
             </Comparison>
           </Not>
           <Instructions>
@@ -1670,7 +1744,7 @@
         <While id="294" style="while">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="attowner" />
-            <Constant text="2" />
+            <Variable list="false" local="false" variableName="attowner_guidance" />
           </Comparison>
           <Instructions>
             <SetVariable id="295" style="set-variable">
@@ -2370,7 +2444,7 @@
     </WaitUntil>
     <SetVariable id="400" style="set-variable">
       <Variable list="false" local="false" variableName="fc_mode" />
-      <Constant text="2" />
+      <Variable list="false" local="false" variableName="fc_mode_ascent" />
     </SetVariable>
     <DisplayMessage id="401" style="display">
       <Constant text="Beginning Gravity Turn" />
