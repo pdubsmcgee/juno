@@ -24,37 +24,17 @@
     <Variable name="peg_pitchcmd" number="0" />
     <Variable name="peg_headingcmd" number="0" />
     <Variable name="circ_active" number="0" />
-    <Variable name="tsv" number="0" />
-    <Variable name="tev" number="0" />
-    <Variable name="targetAlt" number="0" />
-    <Variable name="MaxAoA" number="0" />
     <Variable name="frac" number="0" />
-    <Variable name="targetpitch" number="0" />
     <Variable name="mu" number="0" />
-    <Variable name="a" number="0" />
-    <Variable name="pitchCmd" number="0" />
-    <Variable name="cirv" number="0" />
     <Variable name="ra" number="0" />
     <Variable name="dv" number="0" />
-    <Variable name="burntime" number="0" />
     <Variable name="burnstart" number="0" />
-    <Variable name="rp" number="0" />
-    <Variable name="circ" number="0" />
     <Variable name="lowfuelcount" number="0" />
     <Variable name="lowthrustcount" number="0" />
     <Variable name="stagelock" number="0" />
-    <Variable name="targetinc" number="0" />
-    <Variable name="incerror" number="0" />
-    <Variable name="headingtarget" number="0" />
-    <Variable name="headingCmd" number="0" />
     <Variable name="init" number="0" />
-    <Variable name="pitchmin" number="0" />
-    <Variable name="scale" number="0" />
     <Variable name="smoothdiv" number="0" />
-    <Variable name="vhagl" number="0" />
     <Variable name="pitchbase" number="0" />
-    <Variable name="pitchbiasapo" number="0" />
-    <Variable name="turn" number="0" />
     <Variable name="vsurf" number="0" />
     <Variable name="denom" number="0" />
     <Variable name="tempmag" number="0" />
