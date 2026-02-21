@@ -92,8 +92,6 @@
     <Variable name="m" number="0" />
     <Variable name="maxt" number="0" />
     <Variable name="tburn" number="0" />
-    <Variable name="thrcmd" number="0" />
-    <Variable name="thrcmdvalid" number="0" />
     <Variable name="thrcut" number="0" />
     <Variable name="twr_target_gt" number="0" />
     <Variable name="twr_target_peg" number="0" />
