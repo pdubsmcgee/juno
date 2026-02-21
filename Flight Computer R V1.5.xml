@@ -464,16 +464,119 @@
     </SetVariable>
     <UserInput id="56" style="user-input">
       <Variable list="false" local="false" variableName="targetalt_m" />
-      <Constant text="Target Alt?" />
+      <Constant text="Target altitude (m AGL). Enter 10000 to 500000." />
     </UserInput>
     <UserInput id="57" style="user-input">
       <Variable list="false" local="false" variableName="targetinc_deg" />
-      <Constant text="Target inc?" />
+      <Constant text="Target inclination (deg). Enter 0 to 180." />
     </UserInput>
     <UserInput id="58" style="user-input">
       <Variable list="false" local="false" variableName="init" />
-      <Constant text="Autostage??  1 or 0" />
+      <Constant text="Autostage enabled? Enter 1=yes, 0=no." />
     </UserInput>
+    <If id="419" style="if">
+      <Comparison op="l" style="op-lt">
+        <Variable list="false" local="false" variableName="targetalt_m" />
+        <Constant text="10000" />
+      </Comparison>
+      <Instructions>
+        <SetVariable id="420" style="set-variable">
+          <Variable list="false" local="false" variableName="targetalt_m" />
+          <Constant text="10000" />
+        </SetVariable>
+        <LogFlight id="421" style="flightlog">
+          <Constant text="Target altitude below limit; clamped to 10000 m." />
+          <Constant style="false" bool="false" />
+        </LogFlight>
+      </Instructions>
+    </If>
+    <ElseIf id="422" style="else">
+      <Comparison op="g" style="op-gt">
+        <Variable list="false" local="false" variableName="targetalt_m" />
+        <Constant text="500000" />
+      </Comparison>
+      <Instructions>
+        <SetVariable id="423" style="set-variable">
+          <Variable list="false" local="false" variableName="targetalt_m" />
+          <Constant text="500000" />
+        </SetVariable>
+        <LogFlight id="424" style="flightlog">
+          <Constant text="Target altitude above limit; clamped to 500000 m." />
+          <Constant style="false" bool="false" />
+        </LogFlight>
+      </Instructions>
+    </ElseIf>
+    <If id="425" style="if">
+      <Comparison op="l" style="op-lt">
+        <Variable list="false" local="false" variableName="targetinc_deg" />
+        <Constant text="0" />
+      </Comparison>
+      <Instructions>
+        <SetVariable id="426" style="set-variable">
+          <Variable list="false" local="false" variableName="targetinc_deg" />
+          <Constant text="0" />
+        </SetVariable>
+        <LogFlight id="427" style="flightlog">
+          <Constant text="Target inclination below range; clamped to 0 deg." />
+          <Constant style="false" bool="false" />
+        </LogFlight>
+      </Instructions>
+    </If>
+    <ElseIf id="428" style="else">
+      <Comparison op="g" style="op-gt">
+        <Variable list="false" local="false" variableName="targetinc_deg" />
+        <Constant text="180" />
+      </Comparison>
+      <Instructions>
+        <SetVariable id="429" style="set-variable">
+          <Variable list="false" local="false" variableName="targetinc_deg" />
+          <Constant text="180" />
+        </SetVariable>
+        <LogFlight id="430" style="flightlog">
+          <Constant text="Target inclination above range; clamped to 180 deg." />
+          <Constant style="false" bool="false" />
+        </LogFlight>
+      </Instructions>
+    </ElseIf>
+    <If id="431" style="if">
+      <BoolOp op="and" style="op-and">
+        <Comparison op="!=" style="op-neq">
+          <Variable list="false" local="false" variableName="init" />
+          <Constant text="0" />
+        </Comparison>
+        <Comparison op="!=" style="op-neq">
+          <Variable list="false" local="false" variableName="init" />
+          <Constant text="1" />
+        </Comparison>
+      </BoolOp>
+      <Instructions>
+        <LogFlight id="432" style="flightlog">
+          <Constant text="Autostage input invalid; normalizing to 0 or 1." />
+          <Constant style="false" bool="false" />
+        </LogFlight>
+      </Instructions>
+    </If>
+    <If id="433" style="if">
+      <Comparison op="=" style="op-eq">
+        <Variable list="false" local="false" variableName="init" />
+        <Constant text="1" />
+      </Comparison>
+      <Instructions>
+        <SetVariable id="434" style="set-variable">
+          <Variable list="false" local="false" variableName="init" />
+          <Constant text="1" />
+        </SetVariable>
+      </Instructions>
+    </If>
+    <ElseIf id="435" style="else">
+      <Constant bool="true" />
+      <Instructions>
+        <SetVariable id="436" style="set-variable">
+          <Variable list="false" local="false" variableName="init" />
+          <Constant text="0" />
+        </SetVariable>
+      </Instructions>
+    </ElseIf>
     <While id="59" style="while">
       <Constant style="true" bool="true" />
       <Instructions>
