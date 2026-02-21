@@ -1,48 +1,59 @@
 # XML Program Issue Backlog (Project Stubs)
 Based on a static pass over `Flight Computer R V1.5.xml`, these project stubs target likely cleanup/quality issues.
+
 ## Stub 1 — Guidance variable namespace consolidation
-- **Issue:** Legacy guidance variables are still declared but appear unreferenced, while `gt_*` variables are actively referenced.
-- **Evidence (declared legacy):** `tsv`, `tev`, `targetAlt`, `MaxAoA`, `targetpitch`, `pitchCmd`, `targetinc`, `headingtarget`, `headingCmd`.
-- **Evidence (active replacements):** `gt_tsv`, `gt_tev`, `gt_maxaoa`, `gt_pitchcmd`, `targetinc_deg`.
-- **Stub tasks:**
-  - [ ] Map each legacy variable to current equivalent (`gt_*` or renamed variable).
-  - [ ] Delete legacy declarations that are confirmed dead.
-  - [ ] Add migration notes in comments/doc for future edits.
+- **Status:** Completed (static XML reference audit + declaration cleanup).
+- **Issue:** Legacy guidance variables were declared but unreferenced, while `gt_*` variables are actively referenced.
+- **Migration mapping (legacy → active equivalent):**
+  - `tsv` → `gt_tsv`
+  - `tev` → `gt_tev`
+  - `MaxAoA` → `gt_maxaoa`
+  - `pitchCmd` / `targetpitch` / `pitchmin` → `gt_pitchcmd` / `gt_pitchmin`
+  - `headingCmd` / `headingtarget` / `targetinc` → `gt_headingcmd` / `targetinc_deg`
+- **Actions taken:**
+  - [x] Mapped each legacy variable to current equivalent (`gt_*` or renamed variable).
+  - [x] Deleted legacy declarations confirmed dead by zero `variableName="..."` references.
+  - [x] Added migration notes in this backlog doc for future edits.
 
 ## Stub 2 — Throttle command path completion
-- **Issue:** `thrcmd` and `thrcmdvalid` are declared but currently appear unreferenced, suggesting an incomplete throttle authority handoff path.
-- **Stub tasks:**
+- **Status:** Deferred (external interface ownership unresolved from in-repo evidence).
+- **Issue:** `thrcmd` and `thrcmdvalid` are declared but currently unreferenced in the instruction body.
+- **Decision for now:** Keep both variables as an **externally consumed/API allowlist** pair until throttle authority ownership is explicitly specified.
+- **Remaining tasks:**
   - [ ] Confirm whether throttle should be computed by this flight computer or external logic.
   - [ ] Either wire reads/writes into active instruction flow or remove declarations.
   - [ ] Add a single source-of-truth variable for throttle authority ownership.
 
 ## Stub 3 — General dead-variable debt sweep
-- **Issue:** 22 declared globals currently have no `variableName="..."` usage in the program body.
-- **Stub tasks:**
-  - [ ] Run per-variable classification: **remove**, **keep for external API**, or **wire into flow**.
-  - [ ] Remove confirmed-dead variables in small batches with regression checks.
-  - [ ] Keep an “externally consumed variables” allowlist to avoid accidental deletion.
+- **Status:** Partially completed.
+- **Actions taken:**
+  - [x] Ran per-variable classification against static `variableName="..."` usage.
+  - [x] Removed confirmed-dead variables in one audited batch (all dead candidates except throttle allowlist).
+  - [x] Established allowlist policy entry for externally consumed variables: `thrcmd`, `thrcmdvalid`.
 
-## Candidate unused variables (static detection)
-- `tsv` (declared line 27)
-- `tev` (declared line 28)
-- `targetAlt` (declared line 29)
-- `MaxAoA` (declared line 30)
-- `targetpitch` (declared line 32)
-- `a` (declared line 34)
-- `pitchCmd` (declared line 35)
-- `cirv` (declared line 36)
-- `burntime` (declared line 39)
-- `rp` (declared line 41)
-- `circ` (declared line 42)
-- `targetinc` (declared line 46)
-- `incerror` (declared line 47)
-- `headingtarget` (declared line 48)
-- `headingCmd` (declared line 49)
-- `pitchmin` (declared line 51)
-- `scale` (declared line 52)
-- `vhagl` (declared line 54)
-- `pitchbiasapo` (declared line 56)
-- `turn` (declared line 57)
-- `thrcmd` (declared line 115)
-- `thrcmdvalid` (declared line 116)
+## Static classification results (current)
+### Removed as dead declarations (no body references)
+- `tsv`
+- `tev`
+- `targetAlt`
+- `MaxAoA`
+- `targetpitch`
+- `a`
+- `pitchCmd`
+- `cirv`
+- `burntime`
+- `rp`
+- `circ`
+- `targetinc`
+- `incerror`
+- `headingtarget`
+- `headingCmd`
+- `pitchmin`
+- `scale`
+- `vhagl`
+- `pitchbiasapo`
+- `turn`
+
+### Kept as external API allowlist (unreferenced internally)
+- `thrcmd`
+- `thrcmdvalid`
