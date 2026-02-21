@@ -570,11 +570,11 @@
     </ElseIf>
     <If id="431" style="if">
       <BoolOp op="and" style="op-and">
-        <Comparison op="!=" style="op-neq">
+        <Comparison op="ne" style="op-ne">
           <Variable list="false" local="false" variableName="init" />
           <Constant text="0" />
         </Comparison>
-        <Comparison op="!=" style="op-neq">
+        <Comparison op="ne" style="op-ne">
           <Variable list="false" local="false" variableName="init" />
           <Constant text="1" />
         </Comparison>
