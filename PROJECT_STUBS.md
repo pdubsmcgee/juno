@@ -1,39 +1,49 @@
 # Codex Task Stubs — `The Rocket Whisperer`
 
-This backlog is a repository-grounded static review of `Flight Computer R V1.5.xml` and is intended to be directly actionable in Codex.
+This backlog tracks the static review and implementation work performed against `Flight Computer R V1.5.xml`.
 
-## Task Stub 1 — Resolve unowned throttle command outputs
-- **Problem:** `thrcmd` and `thrcmdvalid` are declared in `<Variables>` but have no `variableName="..."` references in `<Instructions>`.
-- **Suggested improvement:** Either wire these variables into the active throttle control flow, or remove them and document that throttle output is internal-only.
-- **Codex starter stub:**
-  - [ ] Confirm throttle ownership contract (`throwner`/`thrcut` vs external consumer).
-  - [ ] If external API is intended, add a dedicated comment block marking `thrcmd`/`thrcmdvalid` as interface outputs.
-  - [ ] If not intended, remove both declarations and rerun static usage check.
-  - [ ] Validate no new unreferenced declarations remain.
+## Resolution Summary (2026-02-21)
+- [x] Task 1 — Refresh stale backlog items
+- [x] Task 2 — Add startup synchronization gate
+- [x] Task 3 — Add countdown timeout and abort path
+- [x] Task 4 — Complete zero-delay loop audit
+- [x] Task 5 — Normalize manual input typing
+- [x] Task 6 — Add preflight operator summary
+- [x] Task 7 — Add centralized status/fault telemetry
+- [x] Task 8 — Build verified command and telemetry KB index
 
-## Task Stub 2 — Replace mode/owner magic numbers with named constants
-- **Problem:** Mode and ownership values are hard-coded as numeric literals across the controller logic (`fc_mode` values like `1..4`, and owner fields like `0..3`).
-- **Suggested improvement:** Introduce explicit constants (or documented variable aliases) for each mode and owner state to reduce ambiguity and editing mistakes.
-- **Codex starter stub:**
-  - [ ] Inventory all literals used for `fc_mode`, `attowner`, and `throwner` comparisons/assignments.
-  - [ ] Define a naming scheme (e.g., `MODE_ASCENT`, `OWNER_GT`) and apply consistently.
-  - [ ] Update assignments/comparisons to use named constants/aliases.
-  - [ ] Run XML sanity pass to ensure no node/link breakage.
+## Task 1 — Refresh stale backlog items (RESOLVED)
+- Replaced outdated stubs with current, actionable tasks.
+- Converted this file into a resolution tracker after implementation.
 
-## Task Stub 3 — Audit busy-loop cadence (`WaitSeconds 0`)
-- **Problem:** The file contains many `WaitSeconds` blocks with `Constant text="0"` inside `While true` loops, which can create aggressive update loops.
-- **Suggested improvement:** Standardize a minimal scheduler tick (where safe) and reserve zero-wait loops only for latency-critical sections.
-- **Codex starter stub:**
-  - [ ] Enumerate all `WaitSeconds 0` locations and map each to its loop purpose.
-  - [ ] Classify each as latency-critical or safe-to-throttle.
-  - [ ] Replace safe cases with a small non-zero cadence.
-  - [ ] Flight-test behavior equivalence after cadence changes.
+## Task 2 — Add startup synchronization gate (RESOLVED)
+- Added global `fc_init_done` variable.
+- Added `WaitUntil fc_init_done == 1` gates for non-controller `FlightStart` workers.
+- Set `fc_init_done = 1` in controller after startup input normalization.
 
-## Task Stub 4 — Normalize operator prompts and inline docs
-- **Problem:** User prompts and labels are inconsistent (`"Target Alt?"`, `"Target inc?"`, `"Autostage??  1 or 0"`), and some control intent is encoded only in numeric values.
-- **Suggested improvement:** Standardize operator-facing text and add concise comments near control handoff logic.
-- **Codex starter stub:**
-  - [ ] Rewrite `UserInput` prompt strings for consistent style/units.
-  - [ ] Add comments describing mode transitions and owner handoffs.
-  - [ ] Add one comment block documenting accepted input ranges.
-  - [ ] Re-export and diff-check XML for minimal structural changes.
+## Task 3 — Add countdown timeout and abort path (RESOLVED)
+- Added countdown control variables: `countdown_timeout_s`, `countdown_elapsed_s`, `countdown_abort`.
+- Replaced unbounded throttle `WaitUntil` with a guarded polling loop.
+- Added AG1 abort and timeout exits with fault-code updates and logging.
+
+## Task 4 — Complete zero-delay loop audit (RESOLVED)
+- Replaced remaining `WaitSeconds` blocks using `Constant text="0"` with `0.05` loop cadence.
+- Preserved the existing non-zero cadence conventions used in most control loops.
+
+## Task 5 — Normalize manual input typing (RESOLVED)
+- Updated manual mode equality check to explicit numeric compare (`manual == 1`).
+- Preserved existing ownership handoff behavior for manual mode.
+
+## Task 6 — Add preflight operator summary (RESOLVED)
+- Added preflight normalization log line after input normalization.
+- Summary confirms normalized launch input configuration before workers proceed.
+
+## Task 7 — Add centralized status/fault telemetry (RESOLVED)
+- Added global telemetry variables: `fc_status_code`, `fc_fault_code`.
+- Initialized status/fault values at startup.
+- Added mode-phase status updates in controller loop.
+- Added countdown timeout/abort fault-code writes.
+
+## Task 8 — Build verified command and telemetry KB index (RESOLVED)
+- Added `vizzy_kb/verified_index.md` with in-repo extracted command/telemetry inventory.
+- Included generation method and evidence references tied to repository sources.
