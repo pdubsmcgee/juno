@@ -12,7 +12,7 @@ This repo is focused on:
 
 ## Repository layout
 
-- `Flight Program R V3.0.xml` — Main Vizzy program export (`<Program name="The Rocket Whisperer">`).
+- `Flight Program R V3.0.xml` — Main Vizzy program export (`<Program name="Flight Program R V3.0">`). The project title remains “The Rocket Whisperer”.
 - `USER_MANUAL.md` — Full operator manual for using the flight computer.
 - `PROJECT_STUBS.md` — Resolution tracker describing recent implemented tasks.
 - `vizzy_kb/verified_index.md` — Repo-extracted tag/property inventory.
@@ -47,4 +47,3 @@ For full operation details, see [USER_MANUAL.md](USER_MANUAL.md).
 ## Verification posture
 
 This repository follows a strict repo-grounded verification policy. If an instruction/field is not evidenced in the repository, it should be treated as **UNVERIFIED** and excluded from flight-program modifications.
-
