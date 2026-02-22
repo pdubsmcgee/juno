@@ -12,6 +12,11 @@
     <Variable name="target_north_m" number="0" />
     <Variable name="target_east_m" number="0" />
     <Variable name="target_tolerance_m" number="0" />
+    <Variable name="target_enter_tol_m" number="0" />
+    <Variable name="target_exit_tol_m" number="0" />
+    <Variable name="target_in_range_time_s" number="0" />
+    <Variable name="target_capture_dwell_s" number="0" />
+    <Variable name="target_captured" number="0" />
     <Variable name="home_pos" number="0" />
     <Variable name="north_hat" number="0" />
     <Variable name="east_hat" number="0" />
@@ -146,6 +151,29 @@
     <SetVariable id="8" style="set-variable" pos="0,2340">
       <Variable list="false" local="false" variableName="target_tolerance_m" />
       <Constant text="100" />
+    </SetVariable>
+    <SetVariable id="9301" style="set-variable" pos="0,2400">
+      <Variable list="false" local="false" variableName="target_enter_tol_m" />
+      <Variable list="false" local="false" variableName="target_tolerance_m" />
+    </SetVariable>
+    <SetVariable id="9302" style="set-variable" pos="0,2460">
+      <Variable list="false" local="false" variableName="target_exit_tol_m" />
+      <BinaryOp op="*" style="op-mul">
+        <Variable list="false" local="false" variableName="target_enter_tol_m" />
+        <Constant text="1.2" />
+      </BinaryOp>
+    </SetVariable>
+    <SetVariable id="9303" style="set-variable" pos="0,2520">
+      <Variable list="false" local="false" variableName="target_in_range_time_s" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="9304" style="set-variable" pos="0,2580">
+      <Variable list="false" local="false" variableName="target_capture_dwell_s" />
+      <Constant text="1.5" />
+    </SetVariable>
+    <SetVariable id="9305" style="set-variable" pos="0,2640">
+      <Variable list="false" local="false" variableName="target_captured" />
+      <Constant text="0" />
     </SetVariable>
     <SetVariable id="9069" style="set-variable" pos="0,2470">
       <Variable list="false" local="false" variableName="target_alt_agl" />
@@ -385,6 +413,55 @@
                         <Variable list="false" local="false" variableName="to_target" />
                       </VectorOp>
                     </SetVariable>
+                    <If id="9306" style="if">
+                      <Comparison op="l" style="op-lt">
+                        <Variable list="false" local="false" variableName="distance_to_target" />
+                        <Variable list="false" local="false" variableName="target_enter_tol_m" />
+                      </Comparison>
+                      <Instructions>
+                        <SetVariable id="9307" style="set-variable">
+                          <Variable list="false" local="false" variableName="target_in_range_time_s" />
+                          <BinaryOp op="+" style="op-add">
+                            <Variable list="false" local="false" variableName="target_in_range_time_s" />
+                            <Constant text="0.05" />
+                          </BinaryOp>
+                        </SetVariable>
+                        <If id="9308" style="if">
+                          <BoolOp op="and" style="op-and">
+                            <Comparison op="=" style="op-eq">
+                              <Variable list="false" local="false" variableName="target_captured" />
+                              <Constant text="0" />
+                            </Comparison>
+                            <Comparison op="g" style="op-gt">
+                              <Variable list="false" local="false" variableName="target_in_range_time_s" />
+                              <Variable list="false" local="false" variableName="target_capture_dwell_s" />
+                            </Comparison>
+                          </BoolOp>
+                          <Instructions>
+                            <SetVariable id="9309" style="set-variable">
+                              <Variable list="false" local="false" variableName="target_captured" />
+                              <Constant text="1" />
+                            </SetVariable>
+                          </Instructions>
+                        </If>
+                      </Instructions>
+                    </If>
+                    <ElseIf id="9310" style="else">
+                      <Comparison op="g" style="op-gt">
+                        <Variable list="false" local="false" variableName="distance_to_target" />
+                        <Variable list="false" local="false" variableName="target_exit_tol_m" />
+                      </Comparison>
+                      <Instructions>
+                        <SetVariable id="9311" style="set-variable">
+                          <Variable list="false" local="false" variableName="target_in_range_time_s" />
+                          <Constant text="0" />
+                        </SetVariable>
+                        <SetVariable id="9312" style="set-variable">
+                          <Variable list="false" local="false" variableName="target_captured" />
+                          <Constant text="0" />
+                        </SetVariable>
+                      </Instructions>
+                    </ElseIf>
                     <If id="53" style="if">
                       <Comparison op="g" style="op-gt">
                         <Variable list="false" local="false" variableName="distance_to_target" />
@@ -571,9 +648,9 @@
                       </Instructions>
                     </If>
                     <If id="156" style="if">
-                      <Comparison op="g" style="op-gt">
-                        <Variable list="false" local="false" variableName="distance_to_target" />
-                        <Variable list="false" local="false" variableName="target_tolerance_m" />
+                      <Comparison op="=" style="op-eq">
+                        <Variable list="false" local="false" variableName="target_captured" />
+                        <Constant text="0" />
                       </Comparison>
                       <Instructions>
                         <SetVariable id="68" style="set-variable">
@@ -650,11 +727,11 @@
                           <Constant text="0" />
                         </SetVariable>
                         <DisplayMessage id="161" style="display">
-                          <Constant text="Target reached. Holding position." />
+                          <Constant text="Target captured. Holding position." />
                           <Constant number="3" />
                         </DisplayMessage>
                         <LogFlight id="361" style="flightlog">
-                          <Constant text="Navigation target reached. Nav disabled and altitude hold captured." />
+                          <Constant text="Navigation target captured after stable dwell. Nav disabled and altitude hold captured." />
                           <Constant style="false" bool="false" />
                         </LogFlight>
                       </Instructions>
@@ -1116,6 +1193,14 @@
             <SetVariable id="326" style="set-variable">
               <Variable list="false" local="false" variableName="nav_enabled" />
               <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="9313" style="set-variable">
+              <Variable list="false" local="false" variableName="target_in_range_time_s" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="9314" style="set-variable">
+              <Variable list="false" local="false" variableName="target_captured" />
+              <Constant text="0" />
             </SetVariable>
           </Instructions>
         </If>
