@@ -118,3 +118,9 @@
   - Added `docs/VIZZY_STATE_MACHINE_PATTERN.md` documenting required architecture and per-program state maps/triggers.
   - Extended `logic-table.md` with state-standardization notes and quadcopter compatibility mapping to legacy mode flags.
   - Bumped `VERSION` to `3.22` for the repo-wide state-machine standardization pass.
+
+- 2026-02-22
+  - Fixed `Quadcopter Flight Program V3.xml` activation-command handling by wiring AG1/AG2/AG3/AG4 transitions to broadcast `STATE_*` messages and update `RequestedState`/`StateChangePending`, so program state modules now change with activation inputs.
+  - Updated state receive behavior for `STATE_STANDBY` and `STATE_ORBIT` to keep mode flags (`manual_override`, `auto_enabled`, `nav_enabled`, `landing_armed`) synchronized with active program mode.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.23` during version bump.
+  - Bumped `VERSION` to `3.23` for activation-state-to-mode synchronization repair.
