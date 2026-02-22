@@ -49,6 +49,10 @@
     <Variable name="nav_heading_error_deg" number="0" />
     <Variable name="heading_hold_enabled" number="0" />
     <Variable name="thread_safe_mode" number="0" />
+    <Variable name="desired_alt_agl" number="0" />
+    <Variable name="desired_heading" number="0" />
+    <Variable name="desired_pitch" number="0" />
+    <Variable name="desired_heading_hold" number="0" />
 
     <Variable name="ProgramState" number="0" />
     <Variable name="RequestedState" number="0" />
@@ -136,6 +140,22 @@
       <Variable list="false" local="false" variableName="heading_hold_enabled" />
       <Constant text="0" />
     </SetVariable>
+    <SetVariable id="9401" style="set-variable" pos="0,1880">
+      <Variable list="false" local="false" variableName="desired_alt_agl" />
+      <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+    </SetVariable>
+    <SetVariable id="9402" style="set-variable" pos="0,1910">
+      <Variable list="false" local="false" variableName="desired_heading" />
+      <CraftProperty property="Heading" style="prop-heading" />
+    </SetVariable>
+    <SetVariable id="9403" style="set-variable" pos="0,1940">
+      <Variable list="false" local="false" variableName="desired_pitch" />
+      <Constant text="90" />
+    </SetVariable>
+    <SetVariable id="9404" style="set-variable" pos="0,1970">
+      <Variable list="false" local="false" variableName="desired_heading_hold" />
+      <Constant text="0" />
+    </SetVariable>
     <SetVariable id="362" style="set-variable" pos="0,1950">
       <Variable list="false" local="false" variableName="thread_safe_mode" />
       <Constant text="1" />
@@ -215,689 +235,102 @@
       <Constant text="Quadcopter controller initialized: AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
       <Constant style="false" bool="false" />
     </LogFlight>
+    <Comment id="9405" style="comment" pos="0,3640">
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: targets (mode-aware setpoint generation only)." />
+    </Comment>
     <While id="12" style="while" pos="0,3770">
       <Constant style="true" bool="true" />
       <Instructions>
-        <If id="27" style="if">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="auto_enabled" />
-            <Constant text="1" />
-          </Comparison>
-          <Instructions>
-            <If id="37" style="if">
-              <Comparison op="=" style="op-eq">
-                <Variable list="false" local="false" variableName="landing_armed" />
-                <Constant text="1" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="335" style="set-variable">
-                  <Variable list="false" local="false" variableName="pitch_cmd" />
-                  <Constant text="90" />
-                </SetVariable>
-                <SetVariable id="336" style="set-variable">
-                  <Variable list="false" local="false" variableName="heading_hold_enabled" />
-                  <Constant text="0" />
-                </SetVariable>
-                <If id="38" style="if">
-                  <Comparison op="g" style="op-gt">
-                    <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                    <Constant text="20" />
-                  </Comparison>
-                  <Instructions>
-                    <SetVariable id="40" style="set-variable">
-                      <Variable list="false" local="false" variableName="throttle_cmd" />
-                      <Constant text="0.35" />
-                    </SetVariable>
-                  </Instructions>
-                </If>
-                <ElseIf id="41" style="else">
-                  <Comparison op="g" style="op-gt">
-                    <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                    <Constant text="5" />
-                  </Comparison>
-                  <Instructions>
-                    <If id="142" style="if">
-                      <Comparison op="g" style="op-gt">
-                        <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                        <Constant text="12" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="143" style="set-variable">
-                          <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <Constant text="0.30" />
-                        </SetVariable>
-                      </Instructions>
-                    </If>
-                    <ElseIf id="144" style="else">
-                      <Constant style="true" bool="true" />
-                      <Instructions>
-                        <SetVariable id="145" style="set-variable">
-                          <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <Constant text="0.25" />
-                        </SetVariable>
-                      </Instructions>
-                    </ElseIf>
-                  </Instructions>
-                </ElseIf>
-                <ElseIf id="146" style="else">
-                  <Comparison op="g" style="op-gt">
-                    <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                    <Constant text="1" />
-                  </Comparison>
-                  <Instructions>
-                    <SetVariable id="147" style="set-variable">
-                      <Variable list="false" local="false" variableName="throttle_cmd" />
-                      <Constant text="0.18" />
-                    </SetVariable>
-                  </Instructions>
-                </ElseIf>
-                <ElseIf id="148" style="else">
-                  <Constant style="true" bool="true" />
-                  <Instructions>
-                    <If id="9101" style="if">
-                      <BoolOp op="and" style="op-and">
-                        <Comparison op="l" style="op-lt">
-                          <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                          <Constant text="1" />
-                        </Comparison>
-                        <BoolOp op="and" style="op-and">
-                          <Comparison op="g" style="op-gt">
-                            <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
-                            <Constant text="-0.6" />
-                          </Comparison>
-                          <Comparison op="l" style="op-lt">
-                            <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
-                            <Constant text="0.6" />
-                          </Comparison>
-                        </BoolOp>
-                      </BoolOp>
-                      <Instructions>
-                        <SetVariable id="42" style="set-variable">
-                          <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <Constant text="0" />
-                        </SetVariable>
-                        <SetVariable id="149" style="set-variable">
-                          <Variable list="false" local="false" variableName="landing_armed" />
-                          <Constant text="0" />
-                        </SetVariable>
-                        <SetVariable id="43" style="set-variable">
-                          <Variable list="false" local="false" variableName="auto_enabled" />
-                          <Constant text="0" />
-                        </SetVariable>
-                        <SetVariable id="44" style="set-variable">
-                          <Variable list="false" local="false" variableName="nav_enabled" />
-                          <Constant text="0" />
-                        </SetVariable>
-                        <SetVariable id="9220" style="set-variable">
-                          <Variable list="false" local="false" variableName="alt_error_int" />
-                          <Constant text="0" />
-                        </SetVariable>
-                        <DisplayMessage id="9102" style="display">
-                          <Constant text="Landing: touchdown confirmed." />
-                          <Constant number="2" />
-                        </DisplayMessage>
-                        <LogFlight id="9103" style="flightlog">
-                          <Constant text="Landing: touchdown confirmed, throttle shutdown and auto/nav disabled." />
-                          <Constant style="false" bool="false" />
-                        </LogFlight>
-                      </Instructions>
-                    </If>
-                    <ElseIf id="9104" style="else">
-                      <Constant style="true" bool="true" />
-                      <Instructions>
-                        <SetVariable id="9105" style="set-variable">
-                          <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <Constant text="0.12" />
-                        </SetVariable>
-                      </Instructions>
-                    </ElseIf>
-                  </Instructions>
-                </ElseIf>
-              </Instructions>
-            </If>
-            <ElseIf id="45" style="else">
-              <Constant style="true" bool="true" />
-              <Instructions>
-                <SetVariable id="337" style="set-variable">
-                  <Variable list="false" local="false" variableName="pitch_cmd" />
-                  <Constant text="90" />
-                </SetVariable>
-                <If id="46" style="if">
-                  <Comparison op="=" style="op-eq">
-                    <Variable list="false" local="false" variableName="nav_enabled" />
-                    <Constant text="1" />
-                  </Comparison>
-                  <Instructions>
-                    <SetVariable id="47" style="set-variable">
-                      <Variable list="false" local="false" variableName="north_hat" />
-                      <VectorOp op="norm" style="vec-op-1">
-                        <CraftProperty property="Nav.North" style="prop-nav" />
-                      </VectorOp>
-                    </SetVariable>
-                    <SetVariable id="48" style="set-variable">
-                      <Variable list="false" local="false" variableName="east_hat" />
-                      <VectorOp op="norm" style="vec-op-1">
-                        <CraftProperty property="Nav.East" style="prop-nav" />
-                      </VectorOp>
-                    </SetVariable>
-                    <SetVariable id="49" style="set-variable">
-                      <Variable list="false" local="false" variableName="target_pos" />
-                      <BinaryOp op="+" style="op-add">
-                        <BinaryOp op="+" style="op-add">
-                          <Variable list="false" local="false" variableName="home_pos" />
-                          <BinaryOp op="*" style="op-mul">
-                            <Variable list="false" local="false" variableName="north_hat" />
-                            <Variable list="false" local="false" variableName="target_north_m" />
-                          </BinaryOp>
-                        </BinaryOp>
-                        <BinaryOp op="*" style="op-mul">
-                          <Variable list="false" local="false" variableName="east_hat" />
-                          <Variable list="false" local="false" variableName="target_east_m" />
-                        </BinaryOp>
-                      </BinaryOp>
-                    </SetVariable>
-                    <SetVariable id="50" style="set-variable">
-                      <Variable list="false" local="false" variableName="current_pos" />
-                      <CraftProperty property="Nav.Position" style="prop-nav" />
-                    </SetVariable>
-                    <SetVariable id="51" style="set-variable">
-                      <Variable list="false" local="false" variableName="to_target" />
-                      <BinaryOp op="-" style="op-sub">
-                        <Variable list="false" local="false" variableName="target_pos" />
-                        <Variable list="false" local="false" variableName="current_pos" />
-                      </BinaryOp>
-                    </SetVariable>
-                    <SetVariable id="52" style="set-variable">
-                      <Variable list="false" local="false" variableName="distance_to_target" />
-                      <VectorOp op="length" style="vec-op-1">
-                        <Variable list="false" local="false" variableName="to_target" />
-                      </VectorOp>
-                    </SetVariable>
-                    <If id="9306" style="if">
-                      <Comparison op="l" style="op-lt">
-                        <Variable list="false" local="false" variableName="distance_to_target" />
-                        <Variable list="false" local="false" variableName="target_enter_tol_m" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="9307" style="set-variable">
-                          <Variable list="false" local="false" variableName="target_in_range_time_s" />
-                          <BinaryOp op="+" style="op-add">
-                            <Variable list="false" local="false" variableName="target_in_range_time_s" />
-                            <Constant text="0.05" />
-                          </BinaryOp>
-                        </SetVariable>
-                        <If id="9308" style="if">
-                          <BoolOp op="and" style="op-and">
-                            <Comparison op="=" style="op-eq">
-                              <Variable list="false" local="false" variableName="target_captured" />
-                              <Constant text="0" />
-                            </Comparison>
-                            <Comparison op="g" style="op-gt">
-                              <Variable list="false" local="false" variableName="target_in_range_time_s" />
-                              <Variable list="false" local="false" variableName="target_capture_dwell_s" />
-                            </Comparison>
-                          </BoolOp>
-                          <Instructions>
-                            <SetVariable id="9309" style="set-variable">
-                              <Variable list="false" local="false" variableName="target_captured" />
-                              <Constant text="1" />
-                            </SetVariable>
-                          </Instructions>
-                        </If>
-                      </Instructions>
-                    </If>
-                    <ElseIf id="9310" style="else">
-                      <Comparison op="g" style="op-gt">
-                        <Variable list="false" local="false" variableName="distance_to_target" />
-                        <Variable list="false" local="false" variableName="target_exit_tol_m" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="9311" style="set-variable">
-                          <Variable list="false" local="false" variableName="target_in_range_time_s" />
-                          <Constant text="0" />
-                        </SetVariable>
-                        <SetVariable id="9312" style="set-variable">
-                          <Variable list="false" local="false" variableName="target_captured" />
-                          <Constant text="0" />
-                        </SetVariable>
-                      </Instructions>
-                    </ElseIf>
-                    <If id="53" style="if">
-                      <Comparison op="g" style="op-gt">
-                        <Variable list="false" local="false" variableName="distance_to_target" />
-                        <Variable list="false" local="false" variableName="target_tolerance_m" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="54" style="set-variable">
-                          <Variable list="false" local="false" variableName="to_target_hat" />
-                          <VectorOp op="norm" style="vec-op-1">
-                            <Variable list="false" local="false" variableName="to_target" />
-                          </VectorOp>
-                        </SetVariable>
-                        <SetVariable id="55" style="set-variable">
-                          <Variable list="false" local="false" variableName="ncomp" />
-                          <VectorOp op="dot" style="vec-op-2">
-                            <Variable list="false" local="false" variableName="to_target_hat" />
-                            <Variable list="false" local="false" variableName="north_hat" />
-                          </VectorOp>
-                        </SetVariable>
-                        <SetVariable id="56" style="set-variable">
-                          <Variable list="false" local="false" variableName="ecomp" />
-                          <VectorOp op="dot" style="vec-op-2">
-                            <Variable list="false" local="false" variableName="to_target_hat" />
-                            <Variable list="false" local="false" variableName="east_hat" />
-                          </VectorOp>
-                        </SetVariable>
-                        <SetVariable id="57" style="set-variable">
-                          <Variable list="false" local="false" variableName="headingrad" />
-                          <BinaryOp op="atan2" style="op-atan-2">
-                            <Variable list="false" local="false" variableName="ecomp" />
-                            <Variable list="false" local="false" variableName="ncomp" />
-                          </BinaryOp>
-                        </SetVariable>
-                        <SetVariable id="58" style="set-variable">
-                          <Variable list="false" local="false" variableName="headingdeg" />
-                          <MathFunction function="rad2deg" style="op-math">
-                            <Variable list="false" local="false" variableName="headingrad" />
-                          </MathFunction>
-                        </SetVariable>
-                        <If id="60" style="if">
-                          <Comparison op="l" style="op-lt">
-                            <Variable list="false" local="false" variableName="headingdeg" />
-                            <Constant text="0" />
-                          </Comparison>
-                          <Instructions>
-                            <SetVariable id="61" style="set-variable">
-                              <Variable list="false" local="false" variableName="headingdeg" />
-                              <BinaryOp op="+" style="op-add">
-                                <Variable list="false" local="false" variableName="headingdeg" />
-                                <Constant text="360" />
-                              </BinaryOp>
-                            </SetVariable>
-                          </Instructions>
-                        </If>
-                        <SetVariable id="338" style="set-variable">
-                          <Variable list="false" local="false" variableName="nav_heading_cmd" />
-                          <Variable list="false" local="false" variableName="headingdeg" />
-                        </SetVariable>
-                        <SetVariable id="339" style="set-variable">
-                          <Variable list="false" local="false" variableName="heading_hold_enabled" />
-                          <Constant text="1" />
-                        </SetVariable>
-                        <SetVariable id="392" style="set-variable">
-                          <Variable list="false" local="false" variableName="nav_heading_error_deg" />
-                          <MathFunction function="abs" style="op-math">
-                            <BinaryOp op="-" style="op-sub">
-                              <Variable list="false" local="false" variableName="nav_heading_cmd" />
-                              <CraftProperty property="Nav.CraftHeading" style="prop-nav" />
-                            </BinaryOp>
-                          </MathFunction>
-                        </SetVariable>
-                        <If id="393" style="if">
-                          <Comparison op="g" style="op-gt">
-                            <Variable list="false" local="false" variableName="nav_heading_error_deg" />
-                            <Constant text="180" />
-                          </Comparison>
-                          <Instructions>
-                            <SetVariable id="394" style="set-variable">
-                              <Variable list="false" local="false" variableName="nav_heading_error_deg" />
-                              <BinaryOp op="-" style="op-sub">
-                                <Constant text="360" />
-                                <Variable list="false" local="false" variableName="nav_heading_error_deg" />
-                              </BinaryOp>
-                            </SetVariable>
-                          </Instructions>
-                        </If>
-                        <If id="395" style="if">
-                          <Comparison op="l" style="op-lt">
-                            <Variable list="false" local="false" variableName="nav_heading_error_deg" />
-                            <Constant text="15" />
-                          </Comparison>
-                          <Instructions>
-                            <If id="396" style="if">
-                              <Comparison op="g" style="op-gt">
-                                <Variable list="false" local="false" variableName="distance_to_target" />
-                                <BinaryOp op="*" style="op-mul">
-                                  <Variable list="false" local="false" variableName="target_tolerance_m" />
-                                  <Constant text="4" />
-                                </BinaryOp>
-                              </Comparison>
-                              <Instructions>
-                                <SetVariable id="397" style="set-variable">
-                                  <Variable list="false" local="false" variableName="pitch_cmd" />
-                                  <Constant text="78" />
-                                </SetVariable>
-                              </Instructions>
-                            </If>
-                            <ElseIf id="398" style="else">
-                              <Comparison op="g" style="op-gt">
-                                <Variable list="false" local="false" variableName="distance_to_target" />
-                                <BinaryOp op="*" style="op-mul">
-                                  <Variable list="false" local="false" variableName="target_tolerance_m" />
-                                  <Constant text="1.5" />
-                                </BinaryOp>
-                              </Comparison>
-                              <Instructions>
-                                <SetVariable id="399" style="set-variable">
-                                  <Variable list="false" local="false" variableName="pitch_cmd" />
-                                  <Constant text="102" />
-                                </SetVariable>
-                              </Instructions>
-                            </ElseIf>
-                            <ElseIf id="400" style="else">
-                              <Constant style="true" bool="true" />
-                              <Instructions>
-                                <SetVariable id="401" style="set-variable">
-                                  <Variable list="false" local="false" variableName="pitch_cmd" />
-                                  <Constant text="90" />
-                                </SetVariable>
-                              </Instructions>
-                            </ElseIf>
-                          </Instructions>
-                        </If>
-                        <ElseIf id="402" style="else">
-                          <Constant style="true" bool="true" />
-                          <Instructions>
-                            <SetVariable id="403" style="set-variable">
-                              <Variable list="false" local="false" variableName="pitch_cmd" />
-                              <Constant text="90" />
-                            </SetVariable>
-                          </Instructions>
-                        </ElseIf>
-                      </Instructions>
-                    </If>
-                    <SetVariable id="9206" style="set-variable">
-                      <Variable list="false" local="false" variableName="alt_error" />
-                      <BinaryOp op="-" style="op-sub">
-                        <Variable list="false" local="false" variableName="auto_alt_agl" />
-                        <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                      </BinaryOp>
-                    </SetVariable>
-                    <SetVariable id="9207" style="set-variable">
-                      <Variable list="false" local="false" variableName="alt_error_int" />
-                      <BinaryOp op="+" style="op-add">
-                        <Variable list="false" local="false" variableName="alt_error_int" />
-                        <BinaryOp op="*" style="op-mul">
-                          <Variable list="false" local="false" variableName="alt_error" />
-                          <Constant text="0.05" />
-                        </BinaryOp>
-                      </BinaryOp>
-                    </SetVariable>
-                    <If id="9208" style="if">
-                      <Comparison op="l" style="op-lt">
-                        <Variable list="false" local="false" variableName="alt_error_int" />
-                        <Variable list="false" local="false" variableName="int_min" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="9209" style="set-variable">
-                          <Variable list="false" local="false" variableName="alt_error_int" />
-                          <Variable list="false" local="false" variableName="int_min" />
-                        </SetVariable>
-                      </Instructions>
-                    </If>
-                    <If id="9210" style="if">
-                      <Comparison op="g" style="op-gt">
-                        <Variable list="false" local="false" variableName="alt_error_int" />
-                        <Variable list="false" local="false" variableName="int_max" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="9211" style="set-variable">
-                          <Variable list="false" local="false" variableName="alt_error_int" />
-                          <Variable list="false" local="false" variableName="int_max" />
-                        </SetVariable>
-                      </Instructions>
-                    </If>
-                    <If id="156" style="if">
-                      <Comparison op="=" style="op-eq">
-                        <Variable list="false" local="false" variableName="target_captured" />
-                        <Constant text="0" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="68" style="set-variable">
-                          <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <BinaryOp op="-" style="op-sub">
-                            <BinaryOp op="+" style="op-add">
-                              <Constant text="0.5" />
-                              <BinaryOp op="+" style="op-add">
-                                <BinaryOp op="*" style="op-mul">
-                                  <Constant text="0.004" />
-                                  <Variable list="false" local="false" variableName="alt_error" />
-                                </BinaryOp>
-                                <BinaryOp op="*" style="op-mul">
-                                  <Variable list="false" local="false" variableName="ki_alt" />
-                                  <Variable list="false" local="false" variableName="alt_error_int" />
-                                </BinaryOp>
-                              </BinaryOp>
-                            </BinaryOp>
-                            <BinaryOp op="*" style="op-mul">
-                              <Constant text="0.02" />
-                              <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
-                            </BinaryOp>
-                          </BinaryOp>
-                        </SetVariable>
-                      </Instructions>
-                    </If>
-                    <ElseIf id="157" style="else">
-                      <Constant style="true" bool="true" />
-                      <Instructions>
-                        <SetVariable id="158" style="set-variable">
-                          <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <BinaryOp op="-" style="op-sub">
-                            <BinaryOp op="+" style="op-add">
-                              <Constant text="0.5" />
-                              <BinaryOp op="+" style="op-add">
-                                <BinaryOp op="*" style="op-mul">
-                                  <Constant text="0.004" />
-                                  <Variable list="false" local="false" variableName="alt_error" />
-                                </BinaryOp>
-                                <BinaryOp op="*" style="op-mul">
-                                  <Variable list="false" local="false" variableName="ki_alt" />
-                                  <Variable list="false" local="false" variableName="alt_error_int" />
-                                </BinaryOp>
-                              </BinaryOp>
-                            </BinaryOp>
-                            <BinaryOp op="*" style="op-mul">
-                              <Constant text="0.02" />
-                              <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
-                            </BinaryOp>
-                          </BinaryOp>
-                        </SetVariable>
-                        <SetVariable id="159" style="set-variable">
-                          <Variable list="false" local="false" variableName="nav_enabled" />
-                          <Constant text="0" />
-                        </SetVariable>
-                        <SetVariable id="340" style="set-variable">
-                          <Variable list="false" local="false" variableName="heading_hold_enabled" />
-                          <Constant text="0" />
-                        </SetVariable>
-                        <SetVariable id="404" style="set-variable">
-                          <Variable list="false" local="false" variableName="pitch_cmd" />
-                          <Constant text="90" />
-                        </SetVariable>
-                        <SetVariable id="160" style="set-variable">
-                          <Variable list="false" local="false" variableName="hover_alt_agl" />
-                          <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                        </SetVariable>
-                        <SetVariable id="9095" style="set-variable">
-                          <Variable list="false" local="false" variableName="hover_alt_target" />
-                          <Variable list="false" local="false" variableName="hover_alt_agl" />
-                        </SetVariable>
-                        <SetVariable id="9218" style="set-variable">
-                          <Variable list="false" local="false" variableName="alt_error_int" />
-                          <Constant text="0" />
-                        </SetVariable>
-                        <DisplayMessage id="161" style="display">
-                          <Constant text="Target captured. Holding position." />
-                          <Constant number="3" />
-                        </DisplayMessage>
-                        <LogFlight id="361" style="flightlog">
-                          <Constant text="Navigation target captured after stable dwell. Nav disabled and altitude hold captured." />
-                          <Constant style="false" bool="false" />
-                        </LogFlight>
-                      </Instructions>
-                    </ElseIf>
-                  </Instructions>
-                </If>
-                <ElseIf id="69" style="else">
-                  <Constant style="true" bool="true" />
-                  <Instructions>
-                    <SetVariable id="341" style="set-variable">
-                      <Variable list="false" local="false" variableName="heading_hold_enabled" />
-                      <Constant text="0" />
-                    </SetVariable>
-                    <SetVariable id="9212" style="set-variable">
-                      <Variable list="false" local="false" variableName="alt_error" />
-                      <BinaryOp op="-" style="op-sub">
-                        <Variable list="false" local="false" variableName="hover_alt_target" />
-                        <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                      </BinaryOp>
-                    </SetVariable>
-                    <SetVariable id="9213" style="set-variable">
-                      <Variable list="false" local="false" variableName="alt_error_int" />
-                      <BinaryOp op="+" style="op-add">
-                        <Variable list="false" local="false" variableName="alt_error_int" />
-                        <BinaryOp op="*" style="op-mul">
-                          <Variable list="false" local="false" variableName="alt_error" />
-                          <Constant text="0.05" />
-                        </BinaryOp>
-                      </BinaryOp>
-                    </SetVariable>
-                    <If id="9214" style="if">
-                      <Comparison op="l" style="op-lt">
-                        <Variable list="false" local="false" variableName="alt_error_int" />
-                        <Variable list="false" local="false" variableName="int_min" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="9215" style="set-variable">
-                          <Variable list="false" local="false" variableName="alt_error_int" />
-                          <Variable list="false" local="false" variableName="int_min" />
-                        </SetVariable>
-                      </Instructions>
-                    </If>
-                    <If id="9216" style="if">
-                      <Comparison op="g" style="op-gt">
-                        <Variable list="false" local="false" variableName="alt_error_int" />
-                        <Variable list="false" local="false" variableName="int_max" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="9217" style="set-variable">
-                          <Variable list="false" local="false" variableName="alt_error_int" />
-                          <Variable list="false" local="false" variableName="int_max" />
-                        </SetVariable>
-                      </Instructions>
-                    </If>
-                    <If id="70" style="if">
-                      <Comparison op="l" style="op-lt">
-                        <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                        <Variable list="false" local="false" variableName="hover_alt_target" />
-                      </Comparison>
-                      <Instructions>
-                        <SetVariable id="72" style="set-variable">
-                          <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <BinaryOp op="-" style="op-sub">
-                            <BinaryOp op="+" style="op-add">
-                              <Constant text="0.5" />
-                              <BinaryOp op="+" style="op-add">
-                                <BinaryOp op="*" style="op-mul">
-                                  <Constant text="0.005" />
-                                  <Variable list="false" local="false" variableName="alt_error" />
-                                </BinaryOp>
-                                <BinaryOp op="*" style="op-mul">
-                                  <Variable list="false" local="false" variableName="ki_alt" />
-                                  <Variable list="false" local="false" variableName="alt_error_int" />
-                                </BinaryOp>
-                              </BinaryOp>
-                            </BinaryOp>
-                            <BinaryOp op="*" style="op-mul">
-                              <Constant text="0.02" />
-                              <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
-                            </BinaryOp>
-                          </BinaryOp>
-                        </SetVariable>
-                      </Instructions>
-                    </If>
-                    <ElseIf id="73" style="else">
-                      <Constant style="true" bool="true" />
-                      <Instructions>
-                        <SetVariable id="75" style="set-variable">
-                          <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <BinaryOp op="-" style="op-sub">
-                            <BinaryOp op="+" style="op-add">
-                              <Constant text="0.5" />
-                              <BinaryOp op="+" style="op-add">
-                                <BinaryOp op="*" style="op-mul">
-                                  <Constant text="0.005" />
-                                  <Variable list="false" local="false" variableName="alt_error" />
-                                </BinaryOp>
-                                <BinaryOp op="*" style="op-mul">
-                                  <Variable list="false" local="false" variableName="ki_alt" />
-                                  <Variable list="false" local="false" variableName="alt_error_int" />
-                                </BinaryOp>
-                              </BinaryOp>
-                            </BinaryOp>
-                            <BinaryOp op="*" style="op-mul">
-                              <Constant text="0.02" />
-                              <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
-                            </BinaryOp>
-                          </BinaryOp>
-                        </SetVariable>
-                      </Instructions>
-                    </ElseIf>
-                  </Instructions>
-                </ElseIf>
-              </Instructions>
-            </ElseIf>
-          </Instructions>
-        </If>
-        <If id="76" style="if">
+        <If id="9406" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="manual_override" />
             <Constant text="1" />
           </Comparison>
           <Instructions>
-            <SetVariable id="77" style="set-variable">
-              <Variable list="false" local="false" variableName="hover_alt_agl" />
-              <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-            </SetVariable>
-            <SetVariable id="9096" style="set-variable">
-              <Variable list="false" local="false" variableName="hover_alt_target" />
-              <Variable list="false" local="false" variableName="hover_alt_agl" />
-            </SetVariable>
-            <SetVariable id="342" style="set-variable">
-              <Variable list="false" local="false" variableName="heading_hold_enabled" />
-              <Constant text="0" />
-            </SetVariable>
-            <SetVariable id="9219" style="set-variable">
-              <Variable list="false" local="false" variableName="alt_error_int" />
-              <Constant text="0" />
-            </SetVariable>
+            <SetVariable id="9407" style="set-variable"><Variable list="false" local="false" variableName="desired_alt_agl" /><CraftProperty property="Altitude.AGL" style="prop-altitude" /></SetVariable>
+            <SetVariable id="9408" style="set-variable"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
+            <SetVariable id="9409" style="set-variable"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
+            <SetVariable id="9410" style="set-variable"><Variable list="false" local="false" variableName="desired_heading" /><CraftProperty property="Heading" style="prop-heading" /></SetVariable>
           </Instructions>
         </If>
-        <ElseIf id="163" style="else">
+        <ElseIf id="9411" style="else">
           <Constant style="true" bool="true" />
           <Instructions>
-            <SetVariable id="164" style="set-variable">
-              <Variable list="false" local="false" variableName="auto_alt_agl" />
-              <BinaryOp op="+" style="op-add">
-                <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                <Variable list="false" local="false" variableName="target_alt_agl" />
-              </BinaryOp>
-            </SetVariable>
+            <If id="9412" style="if">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="landing_armed" />
+                <Constant text="1" />
+              </Comparison>
+              <Instructions>
+                <SetVariable id="9413" style="set-variable"><Variable list="false" local="false" variableName="desired_alt_agl" /><Constant text="0" /></SetVariable>
+                <SetVariable id="9414" style="set-variable"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
+                <SetVariable id="9415" style="set-variable"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
+              </Instructions>
+            </If>
+            <ElseIf id="9416" style="else">
+              <Constant style="true" bool="true" />
+              <Instructions>
+                <SetVariable id="9417" style="set-variable"><Variable list="false" local="false" variableName="desired_alt_agl" /><Variable list="false" local="false" variableName="hover_alt_target" /></SetVariable>
+                <If id="9418" style="if">
+                  <Comparison op="=" style="op-eq">
+                    <Variable list="false" local="false" variableName="nav_enabled" />
+                    <Constant text="1" />
+                  </Comparison>
+                  <Instructions>
+                    <SetVariable id="9419" style="set-variable"><Variable list="false" local="false" variableName="target_pos" /><Vector3 style="vector3"><Variable list="false" local="false" variableName="target_north_m" /><Variable list="false" local="false" variableName="target_east_m" /><Constant text="0" /></Vector3></SetVariable>
+                    <SetVariable id="9420" style="set-variable"><Variable list="false" local="false" variableName="current_pos" /><BinaryOp op="-" style="op-sub"><CraftProperty property="Nav.Position" style="prop-nav" /><Variable list="false" local="false" variableName="home_pos" /></BinaryOp></SetVariable>
+                    <SetVariable id="9421" style="set-variable"><Variable list="false" local="false" variableName="to_target" /><BinaryOp op="-" style="op-sub"><Variable list="false" local="false" variableName="target_pos" /><Variable list="false" local="false" variableName="current_pos" /></BinaryOp></SetVariable>
+                    <SetVariable id="9422" style="set-variable"><Variable list="false" local="false" variableName="distance_to_target" /><Function functionName="Magnitude" style="function"><Variable list="false" local="false" variableName="to_target" /></Function></SetVariable>
+                    <SetVariable id="9423" style="set-variable"><Variable list="false" local="false" variableName="desired_heading" /><BinaryOp op="+" style="op-add"><Constant text="90" /><BinaryOp op="*" style="op-mul"><Function functionName="atan2" style="function"><GetVector id="94231" style="get-vector"><Variable list="false" local="false" variableName="to_target" /><Constant text="1" /></GetVector><GetVector id="94232" style="get-vector"><Variable list="false" local="false" variableName="to_target" /><Constant text="0" /></GetVector></Function><Constant text="57.2958" /></BinaryOp></BinaryOp></SetVariable>
+                    <SetVariable id="9424" style="set-variable"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="1" /></SetVariable>
+                    <If id="9425" style="if"><Comparison op="g" style="op-gt"><Variable list="false" local="false" variableName="distance_to_target" /><Constant text="250" /></Comparison><Instructions><SetVariable id="9426" style="set-variable"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="75" /></SetVariable></Instructions></If>
+                    <ElseIf id="9427" style="else"><Comparison op="g" style="op-gt"><Variable list="false" local="false" variableName="distance_to_target" /><Constant text="120" /></Comparison><Instructions><SetVariable id="9428" style="set-variable"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="82" /></SetVariable></Instructions></ElseIf>
+                    <ElseIf id="9429" style="else"><Constant style="true" bool="true" /><Instructions><SetVariable id="9430" style="set-variable"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable></Instructions></ElseIf>
+                  </Instructions>
+                </If>
+                <ElseIf id="9431" style="else">
+                  <Constant style="true" bool="true" />
+                  <Instructions>
+                    <SetVariable id="9432" style="set-variable"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
+                    <SetVariable id="9433" style="set-variable"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
+                    <SetVariable id="9434" style="set-variable"><Variable list="false" local="false" variableName="desired_heading" /><CraftProperty property="Heading" style="prop-heading" /></SetVariable>
+                  </Instructions>
+                </ElseIf>
+              </Instructions>
+            </ElseIf>
           </Instructions>
         </ElseIf>
-        <DisplayMessage id="9222" style="display">
-          <Variable list="false" local="false" variableName="alt_error" />
-          <Variable list="false" local="false" variableName="alt_error_int" />
-          <Variable list="false" local="false" variableName="throttle_cmd" />
-          <Constant number="0.1" />
-        </DisplayMessage>
-        <WaitSeconds id="78" style="wait-seconds">
-          <Constant text="0.05" />
-        </WaitSeconds>
+        <WaitSeconds id="9435" style="wait-seconds"><Constant text="0.05" /></WaitSeconds>
+      </Instructions>
+    </While>
+    <Comment id="9436" style="comment" pos="0,3900">
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: controller (setpoints + telemetry -> throttle_cmd/attitude commands)." />
+    </Comment>
+    <Event event="FlightStart" id="9437" style="flight-start" pos="0,4030" />
+    <While id="9438" style="while" pos="0,4160">
+      <Constant style="true" bool="true" />
+      <Instructions>
+        <If id="9439" style="if">
+          <Comparison op="=" style="op-eq"><Variable list="false" local="false" variableName="manual_override" /><Constant text="0" /></Comparison>
+          <Instructions>
+            <SetVariable id="9440" style="set-variable"><Variable list="false" local="false" variableName="alt_error" /><BinaryOp op="-" style="op-sub"><Variable list="false" local="false" variableName="desired_alt_agl" /><CraftProperty property="Altitude.AGL" style="prop-altitude" /></BinaryOp></SetVariable>
+            <SetVariable id="9441" style="set-variable"><Variable list="false" local="false" variableName="alt_error_int" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="alt_error_int" /><BinaryOp op="*" style="op-mul"><Variable list="false" local="false" variableName="alt_error" /><Constant text="0.05" /></BinaryOp></BinaryOp></SetVariable>
+            <If id="9442" style="if"><Comparison op="l" style="op-lt"><Variable list="false" local="false" variableName="alt_error_int" /><Variable list="false" local="false" variableName="int_min" /></Comparison><Instructions><SetVariable id="9443" style="set-variable"><Variable list="false" local="false" variableName="alt_error_int" /><Variable list="false" local="false" variableName="int_min" /></SetVariable></Instructions></If>
+            <If id="9444" style="if"><Comparison op="g" style="op-gt"><Variable list="false" local="false" variableName="alt_error_int" /><Variable list="false" local="false" variableName="int_max" /></Comparison><Instructions><SetVariable id="9445" style="set-variable"><Variable list="false" local="false" variableName="alt_error_int" /><Variable list="false" local="false" variableName="int_max" /></SetVariable></Instructions></If>
+            <SetVariable id="9446" style="set-variable"><Variable list="false" local="false" variableName="throttle_cmd" /><BinaryOp op="-" style="op-sub"><BinaryOp op="+" style="op-add"><Constant text="0.5" /><BinaryOp op="+" style="op-add"><BinaryOp op="*" style="op-mul"><Constant text="0.005" /><Variable list="false" local="false" variableName="alt_error" /></BinaryOp><BinaryOp op="*" style="op-mul"><Variable list="false" local="false" variableName="ki_alt" /><Variable list="false" local="false" variableName="alt_error_int" /></BinaryOp></BinaryOp></BinaryOp><BinaryOp op="*" style="op-mul"><Constant text="0.02" /><CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" /></BinaryOp></BinaryOp></SetVariable>
+            <If id="9447" style="if"><Comparison op="l" style="op-lt"><Variable list="false" local="false" variableName="throttle_cmd" /><Constant text="0" /></Comparison><Instructions><SetVariable id="9448" style="set-variable"><Variable list="false" local="false" variableName="throttle_cmd" /><Constant text="0" /></SetVariable></Instructions></If>
+            <If id="9449" style="if"><Comparison op="g" style="op-gt"><Variable list="false" local="false" variableName="throttle_cmd" /><Constant text="1" /></Comparison><Instructions><SetVariable id="9450" style="set-variable"><Variable list="false" local="false" variableName="throttle_cmd" /><Constant text="1" /></SetVariable></Instructions></If>
+            <SetVariable id="9451" style="set-variable"><Variable list="false" local="false" variableName="pitch_cmd" /><Variable list="false" local="false" variableName="desired_pitch" /></SetVariable>
+            <SetVariable id="9452" style="set-variable"><Variable list="false" local="false" variableName="heading_hold_enabled" /><Variable list="false" local="false" variableName="desired_heading_hold" /></SetVariable>
+            <SetVariable id="9453" style="set-variable"><Variable list="false" local="false" variableName="nav_heading_cmd" /><Variable list="false" local="false" variableName="desired_heading" /></SetVariable>
+          </Instructions>
+        </If>
+        <ElseIf id="9454" style="else"><Constant style="true" bool="true" /><Instructions><SetVariable id="9455" style="set-variable"><Variable list="false" local="false" variableName="alt_error_int" /><Constant text="0" /></SetVariable></Instructions></ElseIf>
+        <WaitSeconds id="9456" style="wait-seconds"><Constant text="0.05" /></WaitSeconds>
       </Instructions>
     </While>
     <Comment id="356" style="comment" pos="0,3900">
-      <Constant style="comment-text" canReplace="false" text="Thread: applies computed throttle_cmd to slider1 when not in manual override." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: actuators (writes slider1 from throttle_cmd only)." />
     </Comment>
     <Event event="FlightStart" id="344" style="flight-start" pos="0,4030" />
     <While id="345" style="while" pos="0,4160">
@@ -909,30 +342,6 @@
             <Constant text="0" />
           </Comparison>
           <Instructions>
-            <If id="363" style="if">
-              <Comparison op="l" style="op-lt">
-                <Variable list="false" local="false" variableName="throttle_cmd" />
-                <Constant text="0" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="364" style="set-variable">
-                  <Variable list="false" local="false" variableName="throttle_cmd" />
-                  <Constant text="0" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <If id="365" style="if">
-              <Comparison op="g" style="op-gt">
-                <Variable list="false" local="false" variableName="throttle_cmd" />
-                <Constant text="1" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="366" style="set-variable">
-                  <Variable list="false" local="false" variableName="throttle_cmd" />
-                  <Constant text="1" />
-                </SetVariable>
-              </Instructions>
-            </If>
             <SetInput input="slider1" id="347" style="set-input">
               <Variable list="false" local="false" variableName="throttle_cmd" />
             </SetInput>
@@ -944,7 +353,7 @@
       </Instructions>
     </While>
     <Comment id="357" style="comment" pos="0,4290">
-      <Constant style="comment-text" canReplace="false" text="Thread: applies pitch_cmd and optional heading hold for navigation." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: actuators (applies pitch/heading attitude commands)." />
     </Comment>
     <Event event="FlightStart" id="349" style="flight-start" pos="0,4420" />
     <While id="350" style="while" pos="0,4550">
@@ -956,30 +365,6 @@
             <Constant text="0" />
           </Comparison>
           <Instructions>
-            <If id="367" style="if">
-              <Comparison op="l" style="op-lt">
-                <Variable list="false" local="false" variableName="pitch_cmd" />
-                <Constant text="0" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="368" style="set-variable">
-                  <Variable list="false" local="false" variableName="pitch_cmd" />
-                  <Constant text="0" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <If id="369" style="if">
-              <Comparison op="g" style="op-gt">
-                <Variable list="false" local="false" variableName="pitch_cmd" />
-                <Constant text="180" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="370" style="set-variable">
-                  <Variable list="false" local="false" variableName="pitch_cmd" />
-                  <Constant text="180" />
-                </SetVariable>
-              </Instructions>
-            </If>
             <SetTargetHeading property="pitch" id="352" style="set-heading">
               <Variable list="false" local="false" variableName="pitch_cmd" />
             </SetTargetHeading>
@@ -1032,7 +417,7 @@
       </Instructions>
     </While>
     <Comment id="358" style="comment" pos="0,4680">
-      <Constant style="comment-text" canReplace="false" text="Thread: activation-group state manager for AG1/AG2/AG3/AG4 mode commands." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: state (AG1/AG2/AG3/AG4 command ingestion)." />
     </Comment>
     <Event event="FlightStart" id="300" style="flight-start" pos="0,4810" />
     <While id="301" style="while" pos="0,4940">
@@ -1120,7 +505,7 @@
                   <Constant text="0" />
                 </SetVariable>
                 <SetVariable id="379" style="set-variable">
-                  <Variable list="false" local="false" variableName="heading_hold_enabled" />
+                  <Variable list="false" local="false" variableName="desired_heading_hold" />
                   <Constant text="0" />
                 </SetVariable>
               </Instructions>
@@ -1244,7 +629,7 @@
       </Instructions>
     </While>
     <Comment id="9080" style="comment" pos="0,5070">
-      <Constant style="comment-text" canReplace="false" text="Thread: state transition dispatcher; broadcasts STATE_* only when StateChangePending is set." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: state (broadcasts STATE_* transitions)." />
     </Comment>
     <Event event="FlightStart" id="9081" style="flight-start" pos="0,5200" />
     <While id="9082" style="while" pos="0,5330">
@@ -1529,6 +914,9 @@
     <SetVariable id="9018" style="set-variable" pos="950,1040"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="0" /></SetVariable>
     <SetVariable id="9019" style="set-variable" pos="950,1170"><Variable list="false" local="false" variableName="nav_enabled" /><Constant text="0" /></SetVariable>
     <SetVariable id="9073" style="set-variable" pos="950,1300"><Variable list="false" local="false" variableName="manual_override" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9460" style="set-variable" pos="950,1430"><Variable list="false" local="false" variableName="desired_alt_agl" /><CraftProperty property="Altitude.AGL" style="prop-altitude" /></SetVariable>
+    <SetVariable id="9461" style="set-variable" pos="950,1560"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
+    <SetVariable id="9462" style="set-variable" pos="950,1690"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
   </Instructions>
   <Instructions>
     <Event event="ReceiveMessage" id="9020" style="receive-msg" pos="1900,0"><Constant canReplace="false" text="STATE_ASCENT" /></Event>
@@ -1542,6 +930,9 @@
     <SetVariable id="9028" style="set-variable" pos="1900,1040"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="1" /></SetVariable>
     <SetVariable id="9029" style="set-variable" pos="1900,1170"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="0" /></SetVariable>
     <SetVariable id="9038" style="set-variable" pos="1900,1300"><Variable list="false" local="false" variableName="manual_override" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9463" style="set-variable" pos="1900,1430"><Variable list="false" local="false" variableName="desired_alt_agl" /><Variable list="false" local="false" variableName="hover_alt_target" /></SetVariable>
+    <SetVariable id="9464" style="set-variable" pos="1900,1560"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
+    <SetVariable id="9465" style="set-variable" pos="1900,1690"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
   </Instructions>
   <Instructions>
     <Event event="ReceiveMessage" id="9030" style="receive-msg" pos="2850,0"><Constant canReplace="false" text="STATE_ORBIT" /></Event>
@@ -1556,6 +947,8 @@
     <SetVariable id="9075" style="set-variable" pos="2850,1170"><Variable list="false" local="false" variableName="nav_enabled" /><Constant text="1" /></SetVariable>
     <SetVariable id="9076" style="set-variable" pos="2850,1300"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="0" /></SetVariable>
     <SetVariable id="9077" style="set-variable" pos="2850,1430"><Variable list="false" local="false" variableName="manual_override" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9466" style="set-variable" pos="2850,1560"><Variable list="false" local="false" variableName="desired_alt_agl" /><Variable list="false" local="false" variableName="hover_alt_target" /></SetVariable>
+    <SetVariable id="9467" style="set-variable" pos="2850,1690"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="1" /></SetVariable>
   </Instructions>
   <Instructions>
     <Event event="ReceiveMessage" id="9040" style="receive-msg" pos="3800,0"><Constant canReplace="false" text="STATE_LANDING" /></Event>
@@ -1569,6 +962,9 @@
     <SetVariable id="9048" style="set-variable" pos="3800,1040"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="1" /></SetVariable>
     <SetVariable id="9049" style="set-variable" pos="3800,1170"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="0" /></SetVariable>
     <SetVariable id="9058" style="set-variable" pos="3800,1300"><Variable list="false" local="false" variableName="nav_enabled" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9468" style="set-variable" pos="3800,1430"><Variable list="false" local="false" variableName="desired_alt_agl" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9469" style="set-variable" pos="3800,1560"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
+    <SetVariable id="9470" style="set-variable" pos="3800,1690"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
   </Instructions>
   <Instructions>
     <Event event="ReceiveMessage" id="9050" style="receive-msg" pos="4750,0"><Constant canReplace="false" text="STATE_HOVER" /></Event>
@@ -1581,5 +977,8 @@
     <SetVariable id="9057" style="set-variable" pos="4750,910"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
     <SetVariable id="9059" style="set-variable" pos="4750,1040"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="1" /></SetVariable>
     <SetVariable id="9060" style="set-variable" pos="4750,1170"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9471" style="set-variable" pos="4750,1300"><Variable list="false" local="false" variableName="desired_alt_agl" /><Variable list="false" local="false" variableName="hover_alt_target" /></SetVariable>
+    <SetVariable id="9472" style="set-variable" pos="4750,1430"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
+    <SetVariable id="9473" style="set-variable" pos="4750,1560"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
   </Instructions>
 </Program>
