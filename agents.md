@@ -35,6 +35,7 @@
 - Preserve existing variable names unless explicitly asked to rename.
 - Preserve node/link integrity and avoid unrelated refactors.
 - If a command/field cannot be verified in-repo, do not add it.
+- For layout-only cleanup, use the XML “layout tidy” step: detect top-level event-entry threads (`<Instructions>` blocks beginning with `<Event ...>`), then reassign block `pos` coordinates into separated lanes with consistent spacing while preserving IDs, ordering, and all logic/link structure.
 
 ### 5) Knowledge base policy
 - Maintain `vizzy_kb/` when command/telemetry verification work is requested.
@@ -137,3 +138,9 @@
   - Kept Slider2 fully program-driven for prop-pitch optimization and retained existing state-message filtering/broadcast architecture.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.25` during version bump.
   - Bumped `VERSION` to `3.25` for quadcopter altitude-control and startup-target refactor.
+
+- 2026-02-22
+  - Added `scripts/vizzy_layout_tidy.py` to perform XML layout-only tidying by detecting event-entry threads and assigning lane-based block coordinates with consistent spacing and reduced overlap while preserving logic/IDs/connections.
+  - Ran layout tidy across `Flight Program R V3.0.xml`, `Quadcopter Flight Program V3.xml`, `gpttest.xml`, and `Reference.xml` to produce cleaner Vizzy canvas organization.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.26` during version bump.
+  - Bumped `VERSION` to `3.26` for XML layout tidying automation and repo-wide layout cleanup pass.
