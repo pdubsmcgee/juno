@@ -1442,10 +1442,18 @@
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="252" style="if">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="circ_active" />
-            <Constant number="0" />
-          </Comparison>
+          <BoolOp op="or" style="op-or">
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="circ_active" />
+              <Constant number="0" />
+            </Comparison>
+            <Not style="op-not">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="attowner" />
+                <Variable list="false" local="false" variableName="attowner_circularization" />
+              </Comparison>
+            </Not>
+          </BoolOp>
           <Instructions>
             <If id="253" style="if">
               <Comparison op="=" style="op-eq">
@@ -1461,32 +1469,6 @@
               </Instructions>
             </If>
             <WaitSeconds id="256" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
-          </Instructions>
-        </If>
-        <If id="257" style="if">
-          <Not style="op-not">
-            <Comparison op="=" style="op-eq">
-              <Variable list="false" local="false" variableName="attowner" />
-              <Variable list="false" local="false" variableName="attowner_circularization" />
-            </Comparison>
-          </Not>
-          <Instructions>
-            <If id="258" style="if">
-              <Comparison op="=" style="op-eq">
-                <Variable list="false" local="false" variableName="circlocked" />
-                <Constant text="1" />
-              </Comparison>
-              <Instructions>
-                <LockNavSphere indicatorType="None" id="259" style="lock-nav-sphere" />
-                <SetVariable id="260" style="set-variable">
-                  <Variable list="false" local="false" variableName="circlocked" />
-                  <Constant text="0" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <WaitSeconds id="261" style="wait-seconds">
               <Constant text="0.05" />
             </WaitSeconds>
           </Instructions>
