@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Program name="Quadcopter Flight Program V3.18">
+<Program name="Quadcopter Flight Program V3.19">
   <Variables>
     <Variable name="auto_enabled" number="0" />
     <Variable name="manual_override" number="0" />
@@ -129,6 +129,10 @@
       <Constant text="Ready. AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
       <Constant number="7" />
     </DisplayMessage>
+    <LogFlight id="360" style="flightlog">
+      <Constant text="Quadcopter controller initialized: AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
+      <Constant style="false" bool="false" />
+    </LogFlight>
     <While id="12" style="while">
       <Constant style="true" bool="true" />
       <Instructions>
@@ -385,6 +389,10 @@
                           <Constant text="Target reached. Holding position." />
                           <Constant number="3" />
                         </DisplayMessage>
+                        <LogFlight id="361" style="flightlog">
+                          <Constant text="Navigation target reached. Nav disabled and altitude hold captured." />
+                          <Constant style="false" bool="false" />
+                        </LogFlight>
                       </Instructions>
                     </ElseIf>
                   </Instructions>
@@ -456,6 +464,9 @@
         </WaitSeconds>
       </Instructions>
     </While>
+    <Comment id="356" style="comment">
+      <Constant style="comment-text" canReplace="false" text="Thread: applies computed throttle_cmd to slider1 when not in manual override." />
+    </Comment>
     <Event event="FlightStart" id="344" style="flight-start" pos="52,0" />
     <While id="345" style="while">
       <Constant style="true" bool="true" />
@@ -476,6 +487,9 @@
         </WaitSeconds>
       </Instructions>
     </While>
+    <Comment id="357" style="comment">
+      <Constant style="comment-text" canReplace="false" text="Thread: applies pitch_cmd and optional heading hold for navigation." />
+    </Comment>
     <Event event="FlightStart" id="349" style="flight-start" pos="78,0" />
     <While id="350" style="while">
       <Constant style="true" bool="true" />
@@ -507,6 +521,9 @@
         </WaitSeconds>
       </Instructions>
     </While>
+    <Comment id="358" style="comment">
+      <Constant style="comment-text" canReplace="false" text="Thread: activation-group state manager for AG1/AG2/AG3/AG4 mode commands." />
+    </Comment>
     <Event event="FlightStart" id="300" style="flight-start" pos="105,0" />
     <While id="301" style="while">
       <Constant style="true" bool="true" />
@@ -641,6 +658,9 @@
         </WaitSeconds>
       </Instructions>
     </While>
+    <Comment id="359" style="comment">
+      <Constant style="comment-text" canReplace="false" text="Thread: variable-pitch prop optimization with zero-throttle and landing safeguards." />
+    </Comment>
     <Event event="FlightStart" id="173" style="flight-start" pos="210,0" />
     <While id="174" style="while">
       <Constant style="true" bool="true" />

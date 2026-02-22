@@ -95,3 +95,8 @@
   - Updated `scripts/bump_version.sh` to automatically sync version-tagged XML `<Program name="...">` labels to the newly bumped `VERSION` value.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.18` during the version bump.
   - Bumped `VERSION` to `3.18` for XML program-version tracking automation.
+
+- 2026-02-22
+  - Added targeted thread comments to `Quadcopter Flight Program V3.xml` to document throttle-output, heading-output, activation-state, and prop-pitch loops.
+  - Added operator-facing startup and target-reached flight log entries in `Quadcopter Flight Program V3.xml` while preserving existing display messages.
+  - Bumped `VERSION` to `3.19` for quadcopter comments + telemetry visibility updates.
