@@ -15,7 +15,7 @@ Use it as the first stop before opening other docs.
 3. `PROJECT_STUBS.md` — implementation/resolution ledger for completed work items.
 
 ### Vizzy implementation references
-1. `Reference.xml` — syntax atlas for block/tag/selector shapes (non-operational).
+1. `Reference.xml` — syntax atlas for block/tag/selector shapes (reference-only, non-operational, do-not-fly).
 2. `vizzy_kb/verified_index.md` — repository-observed command/property inventory.
 3. `docs/VIZZY_STATE_MACHINE_PATTERN.md` — standardized Broadcast/Receive state-machine pattern.
 
@@ -59,7 +59,7 @@ When onboarding a new maintainer, follow this order:
 3. `agents.md`
 4. `USER_MANUAL.md`
 5. `vizzy_kb/verified_index.md`
-6. `Reference.xml`
+6. `Reference.xml` (reference-only, non-operational, do-not-fly)
 
 Then consume specialized analysis/research docs as needed.
 
