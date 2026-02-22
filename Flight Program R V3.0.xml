@@ -733,7 +733,10 @@
             <If id="122" style="if">
               <Comparison op="ge" style="op-gte">
                 <CraftProperty property="Orbit.Apoapsis" style="prop-orbit" />
-                <Variable list="false" local="false" variableName="targetalt_m" />
+                <BinaryOp op="+" style="op-add">
+                  <Variable list="false" local="false" variableName="targetalt_m" />
+                  <Constant text="1000" />
+                </BinaryOp>
               </Comparison>
               <Instructions>
                 <SetVariable id="123" style="set-variable">
@@ -1749,7 +1752,7 @@
               </VectorOp>
             </SetVariable>
             <SetVariable id="309" style="set-variable">
-              <Variable list="false" local="false" variableName="rmag" />
+              <Variable list="false" local="false" variableName="gmag" />
               <VectorOp op="length" style="vec-op-1">
                 <Variable list="false" local="false" variableName="gvec" />
               </VectorOp>
