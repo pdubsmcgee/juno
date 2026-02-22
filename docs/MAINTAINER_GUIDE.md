@@ -5,10 +5,11 @@ This guide describes how to safely maintain this repository's Vizzy XML program 
 ## 1) Source of truth
 
 - Primary executable artifact: `Flight Program R V3.0.xml`.
-- Repository version marker: `VERSION` (semantic version).
+- Repository version marker: `VERSION` (`MAJOR.REVISION` version).
 - Version bump helper: `scripts/bump_version.sh`.
 - Verification policy and guardrails: `agents.md`.
 - Repo-extracted command/property inventory: `vizzy_kb/verified_index.md`.
+- Syntax reference catalog: `Reference.xml`.
 
 ## 2) Editing policy
 
@@ -19,10 +20,19 @@ When changing flight logic:
 - Preserve behavior outside the target change.
 - Keep repo evidence for any new command/property usage.
 
+Before introducing a new XML pattern, check `Reference.xml` for an existing block form and attribute shape.
+
+## 2.1) Using `Reference.xml` correctly
+
+- Treat `Reference.xml` as a syntax atlas, not a runnable flight profile.
+- Reuse verified tag/attribute/value patterns from the reference when composing new program XML.
+- For dropdown-style blocks, copy the exact selector attribute names/values shown in the reference (for example `input="..."`, `mode="..."`, `indicatorType="..."`, `property="..."`).
+- Keep executable program behavior changes isolated to the intended flight program file; do not convert `Reference.xml` into mission logic.
+
 ## 3) Version bump workflow
 
-- Choose bump type: `patch` (small safe changes), `minor` (new behavior/features), `major` (breaking behavior/contract shift).
-- Run `scripts/bump_version.sh <patch|minor|major>`.
+- Choose bump type: `change` (all non-major updates, minimum `+0.01` equivalent) or `major` (breaking behavior/contract shift).
+- Run `scripts/bump_version.sh <change|major>`.
 - If doing a formal release, align XML program naming/file naming to the new version.
 - Add/update the corresponding entry in `agents.md` change log.
 
@@ -34,6 +44,7 @@ After changing behavior, update at least:
 - `USER_MANUAL.md` (operator-facing behavior changes).
 - `README.md` (high-level summary if scope changed).
 - `vizzy_kb/verified_index.md` if command/property surface changed.
+- `Reference.xml` if new block families or selector variants are discovered and manually cataloged.
 
 ## 5) Suggested validation passes
 

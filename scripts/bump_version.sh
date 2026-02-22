@@ -2,7 +2,7 @@
 set -euo pipefail
 
 if [[ $# -ne 1 ]]; then
-  echo "Usage: $0 {major|minor|patch}" >&2
+  echo "Usage: $0 {change|major}" >&2
   exit 1
 fi
 
@@ -15,35 +15,38 @@ if [[ ! -f "$version_file" ]]; then
 fi
 
 current_raw="$(tr -d '[:space:]' < "$version_file")"
-if [[ ! "$current_raw" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
-  echo "ERROR: VERSION must be in MAJOR.MINOR.PATCH format." >&2
+
+major=""
+revision=""
+
+if [[ "$current_raw" =~ ^([0-9]+)\.([0-9]+)$ ]]; then
+  major="${BASH_REMATCH[1]}"
+  revision="${BASH_REMATCH[2]}"
+elif [[ "$current_raw" =~ ^([0-9]+)\.([0-9]+)\.([0-9]+)$ ]]; then
+  # Migration path from legacy MAJOR.MINOR.PATCH to MAJOR.REVISION.
+  # 3.0.1 normalizes to 3.1 and then the selected bump is applied.
+  major="${BASH_REMATCH[1]}"
+  revision="${BASH_REMATCH[2]}${BASH_REMATCH[3]}"
+else
+  echo "ERROR: VERSION must be MAJOR.REVISION (or legacy MAJOR.MINOR.PATCH for migration)." >&2
   exit 1
 fi
-
-major="${BASH_REMATCH[1]}"
-minor="${BASH_REMATCH[2]}"
-patch="${BASH_REMATCH[3]}"
 
 case "$kind" in
   major)
     major=$((major + 1))
-    minor=0
-    patch=0
+    revision=0
     ;;
-  minor)
-    minor=$((minor + 1))
-    patch=0
-    ;;
-  patch)
-    patch=$((patch + 1))
+  change)
+    revision=$((revision + 1))
     ;;
   *)
-    echo "ERROR: Unsupported bump type '$kind'. Use major|minor|patch." >&2
+    echo "ERROR: Unsupported bump type '$kind'. Use change|major." >&2
     exit 1
     ;;
 esac
 
-next="${major}.${minor}.${patch}"
+next="${major}.${revision}"
 printf '%s\n' "$next" > "$version_file"
 
 echo "Version bumped: ${current_raw} -> ${next}"

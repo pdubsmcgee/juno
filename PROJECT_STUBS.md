@@ -54,26 +54,11 @@ This backlog tracks the static review and implementation work performed against 
 - Preserved final autostage output as explicit binary `0/1` state for downstream logic.
 
 ## Task 10 — Add repository versioning workflow (RESOLVED)
-- Added semantic version source-of-truth file: `VERSION` (`3.0.1`).
-- Added `scripts/bump_version.sh` to automate `major|minor|patch` version increments.
+- Added `MAJOR.REVISION` version source-of-truth file: `VERSION` (`3.12`).
+- Added `scripts/bump_version.sh` to automate `change|major` version increments.
 - Documented versioning procedure in `README.md`, `docs/MAINTAINER_GUIDE.md`, and `agents.md`.
 
-## Task 11 — Latch manual ownership against same-tick mode reclaim (RESOLVED)
-- Implemented flight-mode dispatch gating so AG1 manual takeover cannot be overwritten by same-tick mode branch execution.
-- While AG1 is active, controller sets owner handoff to `*_none`, forces `fc_mode_none`, and writes a manual status marker.
-- Added manual takeover flight-log message to make authority handoff visible in telemetry.
-
-## Task 12 — Latch countdown faults and prevent re-entry loops (RESOLVED)
-- Added countdown re-entry guard in mode dispatch: countdown custom instruction executes only when `fc_fault_code == 0`.
-- On latched countdown fault, controller transitions to safe idle ownership (`fc_mode_none`, `attowner_none`, `throwner_none`).
-- Countdown failure path now emits an explicit fault log and status reset to avoid silent looped retries.
-
-## Task 13 — Add autostager mode envelope (RESOLVED)
-- Wrapped stage-fire trigger condition with an ascent-mode envelope (`fc_mode == fc_mode_ascent`).
-- Preserved existing debounce and lock logic (`lowfuelcount`, `lowthrustcount`, `stagelock`).
-- Result: autostager can no longer trigger outside ascent mode.
-
-## Task 14 — Add circularization disengage short-circuit path (RESOLVED)
-- Added an explicit compute-gate around circularization math so expensive updates run only when circularization is active, owner is circularization, and AG1 manual override is not active.
-- Preserved existing disengage cleanup (`LockNavSphere None`, `circlocked` reset) and manual `thrcut` behavior.
-- Result: circularization compute path is skipped on disengage/cut conditions, reducing stale same-frame math updates.
+## Task 11 — Incorporate reference syntax XML into docs/rules (RESOLVED)
+- Reviewed `Reference.xml` as a manually assembled block/selector syntax catalog.
+- Updated `README.md`, `docs/MAINTAINER_GUIDE.md`, and `vizzy_kb/verified_index.md` to treat `Reference.xml` as a first-class verification source.
+- Updated `agents.md` repository contract and change log to reflect partially verified schema coverage from the reference catalog.

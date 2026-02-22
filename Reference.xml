@@ -1,0 +1,948 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Program name="Reference">
+  <Variables>
+    <Variable name="variable" number="0" />
+  </Variables>
+  <Instructions>
+    <WaitSeconds id="0" style="wait-seconds" pos="-358.4751,-731.9611">
+      <Constant number="1" />
+    </WaitSeconds>
+  </Instructions>
+  <Instructions>
+    <WaitUntil id="1" style="wait-until" pos="-167.2849,-731.6183">
+      <Constant bool="false" />
+    </WaitUntil>
+  </Instructions>
+  <Instructions>
+    <Repeat id="2" style="repeat" pos="-11.1752,-730.7918">
+      <Constant number="10" />
+    </Repeat>
+  </Instructions>
+  <Instructions>
+    <While id="3" style="while" pos="136.164,-731.3763">
+      <Constant style="true" bool="true" />
+    </While>
+  </Instructions>
+  <Instructions>
+    <For var="i" id="4" style="for" pos="281.7488,-725.5297">
+      <Constant number="1" />
+      <Constant number="10" />
+      <Constant number="1" />
+    </For>
+  </Instructions>
+  <Instructions>
+    <If id="5" style="if" pos="634.3102,-727.8685">
+      <Constant bool="false" />
+    </If>
+  </Instructions>
+  <Instructions>
+    <ElseIf id="6" style="else-if" pos="772.8798,-730.2069">
+      <Constant bool="false" />
+    </ElseIf>
+  </Instructions>
+  <Instructions>
+    <ElseIf id="7" style="else" pos="950.0377,-725.5298">
+      <Constant bool="true" />
+    </ElseIf>
+  </Instructions>
+  <Instructions>
+    <DisplayMessage id="8" style="display" pos="1067.558,-715.5902">
+      <Constant text="text" />
+      <Constant number="7" />
+    </DisplayMessage>
+  </Instructions>
+  <Instructions>
+    <LogMessage id="9" style="log" pos="1242.962,-713.2516">
+      <Constant text="text" />
+    </LogMessage>
+  </Instructions>
+  <Instructions>
+    <LogFlight id="10" style="flightlog" pos="1439.415,-705.6505">
+      <Constant text="text" />
+      <Constant style="true" bool="true" />
+    </LogFlight>
+  </Instructions>
+  <Instructions>
+    <Break id="11" style="break" pos="-467.2258,-736.7292" />
+  </Instructions>
+  <Instructions>
+    <ActivateStage id="12" style="activate-stage" pos="-1040.797,-147.8662" />
+  </Instructions>
+  <Instructions>
+    <SetInput input="roll" id="13" style="set-input" pos="-796.9848,21.10613">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="pitch" id="14" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="yaw" id="15" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="throttle" id="16" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="brake" id="17" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="slider1" id="18" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="slider2" id="19" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="slider3" id="20" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="slider4" id="21" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="translateForward" id="22" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="translateRight" id="23" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="translateUp" id="24" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+    <SetInput input="translationMode" id="25" style="set-input">
+      <Constant number="0" />
+    </SetInput>
+  </Instructions>
+  <Instructions>
+    <Comment id="26" style="comment" pos="-1168.841,-804.9714">
+      <Constant style="comment-text" canReplace="false" text="Comment Text" />
+    </Comment>
+  </Instructions>
+  <Instructions>
+    <SetTargetHeading property="heading" id="27" style="set-heading" pos="-798.7389,-599.2386">
+      <Constant number="0" />
+    </SetTargetHeading>
+    <SetTargetHeading property="pitch" id="28" style="set-heading">
+      <Constant number="0" />
+    </SetTargetHeading>
+    <SetTargetHeading property="pid-pitch" id="29" style="set-heading">
+      <Constant number="0" />
+    </SetTargetHeading>
+    <SetTargetHeading property="pid-roll" id="30" style="set-heading">
+      <Constant number="0" />
+    </SetTargetHeading>
+  </Instructions>
+  <Instructions>
+    <SetTarget id="31" style="set-target" pos="-411.0967,-7.542919">
+      <Constant text="name" />
+    </SetTarget>
+  </Instructions>
+  <Instructions>
+    <SetActivationGroup id="32" style="set-ag" pos="-1530.173,-147.2818">
+      <Constant number="1" />
+      <Constant bool="true" />
+    </SetActivationGroup>
+  </Instructions>
+  <Instructions>
+    <LockNavSphere indicatorType="None" id="33" style="lock-nav-sphere" pos="-395.31,-148.451" />
+    <LockNavSphere indicatorType="Prograde" id="34" style="lock-nav-sphere" />
+    <LockNavSphere indicatorType="Retrograde" id="35" style="lock-nav-sphere" />
+    <LockNavSphere indicatorType="Target" id="36" style="lock-nav-sphere" />
+    <LockNavSphere indicatorType="BurnNode" id="37" style="lock-nav-sphere" />
+    <LockNavSphere indicatorType="Current" id="38" style="lock-nav-sphere" />
+  </Instructions>
+  <Instructions>
+    <LockNavSphere indicatorType="Vector" id="39" style="lock-nav-sphere-vector" pos="-397.0639,-495.166">
+      <Constant vector="(0, 0, 1)" />
+    </LockNavSphere>
+  </Instructions>
+  <Instructions>
+    <SetTimeMode mode="Paused" id="40" style="set-time-mode" pos="-13.50808,-51.2298" />
+    <SetTimeMode mode="SlowMotion" id="41" style="set-time-mode" />
+    <SetTimeMode mode="Normal" id="42" style="set-time-mode" />
+    <SetTimeMode mode="FastForward" id="43" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp1" id="44" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp2" id="45" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp3" id="46" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp4" id="47" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp5" id="48" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp6" id="49" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp7" id="50" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp8" id="51" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp9" id="52" style="set-time-mode" />
+    <SetTimeMode mode="TimeWarp10" id="53" style="set-time-mode" />
+  </Instructions>
+  <Instructions>
+    <Event event="FlightStart" id="54" style="flight-start" pos="-2107.83,-181.3713" />
+  </Instructions>
+  <Instructions>
+    <SetCameraProperty property="rotationX" id="55" style="set-camera" pos="-2405.438,-297.5442">
+      <Constant number="100" />
+    </SetCameraProperty>
+    <SetCameraProperty property="rotationY" id="56" style="set-camera">
+      <Constant number="100" />
+    </SetCameraProperty>
+    <SetCameraProperty property="tilt" id="57" style="set-camera">
+      <Constant number="100" />
+    </SetCameraProperty>
+    <SetCameraProperty property="zoom" id="58" style="set-camera">
+      <Constant number="100" />
+    </SetCameraProperty>
+    <SetCameraProperty property="mode" id="59" style="set-camera">
+      <Constant number="100" />
+    </SetCameraProperty>
+    <SetCameraProperty property="modeIndex" id="60" style="set-camera">
+      <Constant number="100" />
+    </SetCameraProperty>
+    <SetCameraProperty property="targetOffset" id="61" style="set-camera">
+      <Constant number="100" />
+    </SetCameraProperty>
+  </Instructions>
+  <Instructions>
+    <SetCraftProperty property="Part.SetActivated" id="62" style="set-part" pos="-2401.93,-696.8803">
+      <Constant number="0" />
+      <Constant number="0" />
+    </SetCraftProperty>
+    <SetCraftProperty property="Part.SetFocused" id="63" style="set-part">
+      <Constant number="0" />
+      <Constant number="0" />
+    </SetCraftProperty>
+    <SetCraftProperty property="Part.SetName" id="64" style="set-part">
+      <Constant number="0" />
+      <Constant number="0" />
+    </SetCraftProperty>
+    <SetCraftProperty property="Part.SetExplode" id="65" style="set-part">
+      <Constant number="0" />
+      <Constant number="0" />
+    </SetCraftProperty>
+    <SetCraftProperty property="Part.FuelTransfer" id="66" style="set-part">
+      <Constant number="0" />
+      <Constant number="0" />
+    </SetCraftProperty>
+  </Instructions>
+  <Instructions>
+    <SwitchCraft id="67" style="switch-craft" pos="-2661.514,-294.3062">
+      <Constant number="0" />
+    </SwitchCraft>
+  </Instructions>
+  <Instructions>
+    <SetCraftProperty property="Sound.Beep" id="68" style="play-beep" pos="-2900.686,-371.976">
+      <Constant number="1000" />
+      <Constant number="1" />
+      <Constant number="2" />
+    </SetCraftProperty>
+  </Instructions>
+  <Instructions>
+    <Event event="FlightStart" id="69" style="flight-start" pos="-4629.006,54.17099" />
+  </Instructions>
+  <Instructions>
+    <Event event="PartCollision" id="70" style="part-collision" pos="-4487.269,44.52211" />
+  </Instructions>
+  <Instructions>
+    <Event event="PartExplode" id="71" style="part-explode" pos="-4780.725,-79.91403" />
+  </Instructions>
+  <Instructions>
+    <Event event="Docked" id="72" style="craft-docked" pos="-4465.31,-78.58312" />
+  </Instructions>
+  <Instructions>
+    <Event event="ChangeSoi" id="73" style="change-soi" pos="-3963.24,-58.28748" />
+  </Instructions>
+  <Instructions>
+    <Event event="ReceiveMessage" id="74" style="receive-msg" pos="-5047.231,14.91039">
+      <Constant canReplace="false" text="message" />
+    </Event>
+  </Instructions>
+  <Instructions>
+    <BroadcastMessage global="false" local="true" id="75" style="broadcast-msg" pos="-3841.465,56.16729">
+      <Constant text="message" />
+      <Constant number="0" />
+    </BroadcastMessage>
+  </Instructions>
+  <Instructions>
+    <BroadcastMessage global="false" local="false" id="76" style="broadcast-msg-craft" pos="-3673.775,-28.34274">
+      <Constant text="message" />
+      <Constant number="0" />
+    </BroadcastMessage>
+  </Instructions>
+  <Instructions>
+    <BroadcastMessage global="true" local="true" id="77" style="broadcast-msg-all-crafts" pos="-3722.685,-120.8382">
+      <Constant text="message" />
+      <Constant number="0" />
+    </BroadcastMessage>
+  </Instructions>
+  <Instructions>
+    <SetVariable id="78" style="set-variable" pos="-2686.839,9.187805">
+      <Constant text="" />
+      <Constant number="0" />
+    </SetVariable>
+  </Instructions>
+  <Instructions>
+    <ChangeVariable id="79" style="change-variable" pos="-3101.648,12.06843">
+      <Constant text="" />
+      <Constant number="0" />
+    </ChangeVariable>
+  </Instructions>
+  <Instructions>
+    <UserInput id="80" style="user-input" pos="-2323.881,19.27036">
+      <Constant text="" />
+      <Constant text="Message Text..." />
+    </UserInput>
+  </Instructions>
+  <Instructions>
+    <SetList op="add" id="81" style="list-add" pos="-5009.339,-275.9935">
+      <Constant text="" />
+      <Constant text="item" />
+    </SetList>
+  </Instructions>
+  <Instructions>
+    <SetList op="insert" id="82" style="list-insert" pos="-5100.078,-389.7781">
+      <Constant text="" />
+      <Constant text="item" />
+      <Constant number="1" />
+    </SetList>
+  </Instructions>
+  <Instructions>
+    <SetList op="remove" id="83" style="list-remove" pos="-5072.162,-502.3608">
+      <Constant text="" />
+      <Constant number="1" />
+    </SetList>
+  </Instructions>
+  <Instructions>
+    <SetList op="set" id="84" style="list-set" pos="-5108.375,-636.1848">
+      <Constant text="" />
+      <Constant text="item" />
+      <Constant number="1" />
+    </SetList>
+  </Instructions>
+  <Instructions>
+    <SetList op="clear" id="85" style="list-clear" pos="-5118.145,-754.3642">
+      <Constant text="" />
+    </SetList>
+  </Instructions>
+  <Instructions>
+    <SetList op="sort" id="86" style="list-sort" pos="-4926.917,-844.6273">
+      <Constant text="" />
+    </SetList>
+  </Instructions>
+  <Instructions>
+    <SetList op="reverse" id="87" style="list-reverse" pos="-5126.519,-877.6618">
+      <Constant text="" />
+    </SetList>
+  </Instructions>
+  <Instructions>
+    <SetVariable id="88" style="list-init" pos="-5169.789,-991.6537">
+      <Constant text="" />
+      <ListOp op="create" style="list-create">
+        <Constant text="a,b,c" />
+      </ListOp>
+    </SetVariable>
+  </Instructions>
+  <Instructions>
+    <CustomInstruction callFormat="Custom InstructionAdd Text (0) " format="Custom InstructionAdd Text |AddParameter| " name="Custom Instruction" id="89" style="custom-instruction" pos="633.1252,107.9748" />
+  </Instructions>
+  <Instructions>
+    <CallCustomInstruction call="Custom Instruction" id="90" style="call-custom-instruction" pos="739.6413,-43.96069">
+      <Constant number="0" />
+    </CallCustomInstruction>
+  </Instructions>
+  <Expressions>
+    <BinaryOp op="+" style="op-add" pos="-1638.923,-944.1968">
+      <Constant number="0" />
+      <Constant number="0" />
+    </BinaryOp>
+    <BinaryOp op="-" style="op-sub" pos="-1465.274,-952.3824">
+      <Constant number="0" />
+      <Constant number="0" />
+    </BinaryOp>
+    <BinaryOp op="/" style="op-div" pos="-1295.131,-953.5516">
+      <Constant number="0" />
+      <Constant number="0" />
+    </BinaryOp>
+    <BinaryOp op="*" style="op-mul" pos="-1128.498,-960.0588">
+      <Constant number="0" />
+      <Constant number="0" />
+    </BinaryOp>
+    <BinaryOp op="^" style="op-exp" pos="-949.5865,-955.8956">
+      <Constant number="0" />
+      <Constant number="0" />
+    </BinaryOp>
+    <BinaryOp op="%" style="op-mod" pos="-770.6743,-957.0651">
+      <Constant number="0" />
+      <Constant number="0" />
+    </BinaryOp>
+    <BinaryOp op="rand" style="op-rand" pos="-590.0085,-956.4805">
+      <Constant number="0" />
+      <Constant number="0" />
+    </BinaryOp>
+    <BinaryOp op="min" style="op-min" pos="-337.4271,-955.8958">
+      <Constant number="0" />
+      <Constant number="0" />
+    </BinaryOp>
+    <BinaryOp op="max" style="op-max" pos="-86.59912,-957.0653">
+      <Constant number="0" />
+      <Constant number="0" />
+    </BinaryOp>
+    <BoolOp op="and" style="op-and" pos="190.5392,-951.2183">
+      <Constant bool="false" />
+      <Constant bool="false" />
+    </BoolOp>
+    <BoolOp op="or" style="op-or" pos="367.6968,-952.3877">
+      <Constant bool="false" />
+      <Constant bool="false" />
+    </BoolOp>
+    <Not style="op-not" pos="539.5922,-946.5413">
+      <Constant bool="false" />
+    </Not>
+    <Comparison op="=" style="op-eq" pos="683.4238,-940.6942">
+      <Constant number="0" />
+      <Constant number="0" />
+    </Comparison>
+    <Comparison op="l" style="op-lt" pos="874.6139,-943.6176">
+      <Constant number="0" />
+      <Constant number="0" />
+    </Comparison>
+    <Comparison op="le" style="op-lte" pos="1039.494,-944.787">
+      <Constant number="0" />
+      <Constant number="0" />
+    </Comparison>
+    <Comparison op="g" style="op-gt" pos="1216.651,-942.4483">
+      <Constant number="0" />
+      <Constant number="0" />
+    </Comparison>
+    <Comparison op="ge" style="op-gte" pos="1381.531,-941.8636">
+      <Constant number="0" />
+      <Constant number="0" />
+    </Comparison>
+    <MathFunction function="abs" style="op-math" pos="1798.992,-118.6346">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="floor" style="op-math" pos="1804.254,-173.0113">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="ceiling" style="op-math" pos="1802.5,-241.4188">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="round" style="op-math" pos="1807.763,-295.7938">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="sqrt" style="op-math" pos="1809.516,-346.6609">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="sin" style="op-math" pos="1811.271,-413.3143">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="cos" style="op-math" pos="1807.763,-490.4921">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="tan" style="op-math" pos="1814.779,-560.6537">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="asin" style="op-math" pos="1813.025,-618.5367">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="acos" style="op-math" pos="1813.025,-722.025">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="atan" style="op-math" pos="1809.517,-799.2028">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="ln" style="op-math" pos="1807.763,-865.8561">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="log" style="op-math" pos="1806.009,-944.7881">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="deg2rad" style="op-math" pos="1802.501,-1002.671">
+      <Constant number="0" />
+    </MathFunction>
+    <MathFunction function="rad2deg" style="op-math" pos="1806.01,-1079.849">
+      <Constant number="0" />
+    </MathFunction>
+    <BinaryOp op="atan2" style="op-atan-2" pos="-1638.923,-1047.676">
+      <Constant text="y" />
+      <Constant text="x" />
+    </BinaryOp>
+    <Conditional style="conditional" pos="-1363.539,-1054.108">
+      <Constant bool="false" />
+      <Constant number="0" />
+      <Constant number="0" />
+    </Conditional>
+    <StringOp op="join" style="join" pos="-1056.582,-1060.539">
+      <Constant text="alpha" />
+      <Constant text="bravo" />
+      <Constant text="" />
+    </StringOp>
+    <StringOp op="length" style="length" pos="-704.0474,-1062.293">
+      <Constant text="alpha" />
+    </StringOp>
+    <StringOp op="letter" style="letter" pos="-454.9472,-1057.62">
+      <Constant number="1" />
+      <Constant text="alpha" />
+    </StringOp>
+    <StringOp op="substring" style="substring" pos="-183.0716,-1062.302">
+      <Constant number="2" />
+      <Constant number="4" />
+      <Constant text="alpha" />
+    </StringOp>
+    <StringOp op="contains" style="contains" pos="169.4906,-1058.21">
+      <Constant text="alpha" />
+      <Constant text="a" />
+    </StringOp>
+    <StringOp op="format" style="format" pos="443.1206,-1055.871">
+      <Constant text="{0:n1}" />
+      <Constant text="10000.99" />
+      <Constant text="" />
+    </StringOp>
+    <StringOp op="friendly" subOp="date" style="friendly" pos="-1954.65,-1048.27">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="time" style="friendly" pos="-1952.895,-971.0928">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="temperature" style="friendly" pos="-1949.387,-895.6693">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="power" style="friendly" pos="-1949.387,-827.2617">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="mass" style="friendly" pos="-1951.141,-769.3785">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="isp" style="friendly" pos="-1945.879,-709.7412">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="force" style="friendly" pos="-1945.879,-643.0876">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="energy" style="friendly" pos="-1944.125,-579.9423">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="distance" style="friendly" pos="-1942.371,-527.3212">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="density" style="friendly" pos="-1942.371,-471.1921">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="coordinate" style="friendly" pos="-1945.879,-404.5386">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="angularvelocity" style="friendly" pos="-1945.879,-351.9174">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="acceleration" style="friendly" pos="-1945.879,-295.7883">
+      <Constant number="0" />
+    </StringOp>
+    <StringOp op="friendly" subOp="velocity" style="friendly" pos="-1944.125,-187.0373">
+      <Constant number="0" />
+    </StringOp>
+    <Vector style="vec" pos="-1561.746,-851.2352">
+      <Constant number="0" />
+      <Constant number="0" />
+      <Constant number="0" />
+    </Vector>
+    <VectorOp op="norm" style="vec-op-1" pos="-1549.467,-785.7508">
+      <Constant text="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="length" style="vec-op-1" pos="-1549.991,-699.803">
+      <Constant text="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="z" style="vec-op-1" pos="-1561.04,-640.1656">
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="y" style="vec-op-1" pos="-1559.286,-573.5121">
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="x" style="vec-op-1" pos="-1561.04,-515.6287">
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="angle" style="vec-op-2" pos="-1210.938,-281.7572">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="clamp" style="vec-op-2" pos="-1212.692,-327.3622">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="cross" style="vec-op-2" pos="-1209.184,-372.9672">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="dot" style="vec-op-2" pos="-1209.184,-425.5883">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="dist" style="vec-op-2" pos="-1205.676,-476.4555">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="min" style="vec-op-2" pos="-1203.922,-532.5847">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="max" style="vec-op-2" pos="-1203.922,-590.468">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="project" style="vec-op-2" pos="-1203.922,-650.1053">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <VectorOp op="scale" style="vec-op-2" pos="-1203.922,-709.7426">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </VectorOp>
+    <EvaluateExpression style="evaluate-expression" pos="-1489.83,-393.4306">
+      <Constant text="" />
+    </EvaluateExpression>
+    <Constant style="true" pos="-1342.49,-301.6361" bool="true" />
+    <Constant style="false" pos="-1502.108,-304.4912" bool="false" />
+    <CraftProperty property="Sound.Frequency" style="note-frequency" pos="-2757.902,-494.8568">
+      <Constant text="C#" />
+      <Constant number="3" />
+    </CraftProperty>
+    <CraftProperty property="Altitude.AGL" style="prop-altitude" pos="-3231.545,-264.4587" />
+    <CraftProperty property="Altitude.ASL" style="prop-altitude" pos="-3229.78,-298.0092" />
+    <CraftProperty property="Altitude.ASF" style="prop-altitude" pos="-3229.78,-328.028" />
+    <CraftProperty property="Orbit.Apoapsis" style="prop-orbit" pos="-3219.186,-421.0277" />
+    <CraftProperty property="Orbit.Periapsis" style="prop-orbit" pos="-3212.302,-448.5592" />
+    <CraftProperty property="Orbit.TimeToApoapsis" style="prop-orbit" pos="-3215.253,-482.9737" />
+    <CraftProperty property="Orbit.TimeToPeriapsis" style="prop-orbit" pos="-3211.319,-512.4719" />
+    <CraftProperty property="Orbit.Eccentricity" style="prop-orbit" pos="-3212.303,-542.9532" />
+    <CraftProperty property="Orbit.Inclination" style="prop-orbit" pos="-3212.303,-577.3678" />
+    <CraftProperty property="Orbit.Period" style="prop-orbit" pos="-3209.353,-607.8492" />
+    <CraftProperty property="Atmosphere.AirDensity" style="prop-atmosphere" pos="-3528.248,-265.1911" />
+    <CraftProperty property="Atmosphere.AirPressure" style="prop-atmosphere" pos="-3527.265,-298.6225" />
+    <CraftProperty property="Atmosphere.SpeedOfSound" style="prop-atmosphere" pos="-3526.282,-328.1206" />
+    <CraftProperty property="Atmosphere.Temperature" style="prop-atmosphere" pos="-3527.265,-361.5519" />
+    <CraftProperty property="Performance.Mass" style="prop-performance" pos="-3548.897,-460.5344" />
+    <CraftProperty property="Performance.CurrentEngineThrust" style="prop-performance" pos="-3551.847,-420.2203" />
+    <CraftProperty property="Performance.DryMass" style="prop-performance" pos="-3551.847,-501.8318" />
+    <CraftProperty property="Performance.FuelMass" style="prop-performance" pos="-3551.847,-550.0122" />
+    <CraftProperty property="Performance.TWR" style="prop-performance" pos="-3552.83,-630.6404" />
+    <CraftProperty property="Performance.CurrentIsp" style="prop-performance" pos="-3547.915,-685.7036" />
+    <CraftProperty property="Performance.StageDeltaV" style="prop-performance" pos="-3549.881,-730.934" />
+    <CraftProperty property="Performance.BurnTime" style="prop-performance" pos="-3549.881,-779.1144" />
+    <CraftProperty property="Fuel.Battery" style="prop-fuel" pos="-2986.464,-146.543" />
+    <CraftProperty property="Fuel.FuelInStage" style="prop-fuel" pos="-2984.498,-178.0077" />
+    <CraftProperty property="Fuel.Mono" style="prop-fuel" pos="-2983.514,-212.4222" />
+    <CraftProperty property="Fuel.AllStages" style="prop-fuel" pos="-2982.531,-246.8368" />
+    <CraftProperty property="Nav.Position" style="prop-nav" pos="-2912.72,-541.4905" />
+    <CraftProperty property="Target.Position" style="prop-nav" pos="-2912.72,-577.8715" />
+    <CraftProperty property="Nav.CraftHeading" style="prop-nav" pos="-2912.72,-610.3194" />
+    <CraftProperty property="Nav.Pitch" style="prop-nav" pos="-2909.77,-641.7841" />
+    <CraftProperty property="Nav.AutopilotHeading" style="prop-nav" pos="-2911.736,-668.3325" />
+    <CraftProperty property="Nav.AutopilotPitch" style="prop-nav" pos="-2910.753,-698.8139" />
+    <CraftProperty property="Nav.BankAngle" style="prop-nav" pos="-2907.804,-731.2618" />
+    <CraftProperty property="Nav.AngleOfAttack" style="prop-nav" pos="-2907.803,-764.6931" />
+    <CraftProperty property="Nav.SideSlip" style="prop-nav" pos="-2907.803,-791.2415" />
+    <CraftProperty property="Nav.North" style="prop-nav" pos="-2908.786,-824.6724" />
+    <CraftProperty property="Nav.East" style="prop-nav" pos="-2908.786,-857.1204" />
+    <CraftProperty property="Nav.CraftDirection" style="prop-nav" pos="-2909.769,-884.652" />
+    <CraftProperty property="Nav.CraftRight" style="prop-nav" pos="-2911.736,-916.1166" />
+    <CraftProperty property="Nav.CraftUp" style="prop-nav" pos="-2909.769,-945.6146" />
+    <CraftProperty property="Performance.MaxActiveEngineThrust" style="prop-performance" pos="-3593.145,-591.3097" />
+    <CraftProperty property="Vel.SurfaceVelocity" style="prop-velocity" pos="-3155.588,-665.055" />
+    <CraftProperty property="Vel.OrbitVelocity" style="prop-velocity" pos="-3155.588,-696.5197" />
+    <CraftProperty property="Target.Velocity" style="prop-velocity" pos="-3154.605,-729.9512" />
+    <CraftProperty property="Vel.Gravity" style="prop-velocity" pos="-3152.638,-760.4327" />
+    <CraftProperty property="Vel.Drag" style="prop-velocity" pos="-3151.655,-792.8806" />
+    <CraftProperty property="Vel.AngularVelocity" style="prop-velocity" pos="-3146.739,-859.7431" />
+    <CraftProperty property="Vel.LateralSurfaceVelocity" style="prop-velocity" pos="-3147.722,-886.2914" />
+    <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" pos="-3144.772,-920.7059" />
+    <CraftProperty property="Vel.MachNumber" style="prop-velocity" pos="-3190.003,-958.0702" />
+    <CraftProperty property="Vel.Acceleration" style="prop-velocity" pos="-3180.17,-827.2952" />
+    <CraftProperty property="Input.Slider2" style="prop-input" pos="-3503.665,-882.0303" />
+    <CraftProperty property="Input.Slider3" style="prop-input" pos="-3501.699,-916.4449" />
+    <CraftProperty property="Input.Slider4" style="prop-input" pos="-3501.699,-945.9431" />
+    <CraftProperty property="Input.TranslateForward" style="prop-input" pos="-3502.682,-976.4244" />
+    <CraftProperty property="Input.TranslateRight" style="prop-input" pos="-3503.665,-1007.889" />
+    <CraftProperty property="Input.TranslateUp" style="prop-input" pos="-3502.682,-1041.32" />
+    <CraftProperty property="Input.Roll" style="prop-input" pos="-3705.236,-843.6828" />
+    <CraftProperty property="Input.Pitch" style="prop-input" pos="-3702.285,-878.0973" />
+    <CraftProperty property="Input.Yaw" style="prop-input" pos="-3703.269,-920.3781" />
+    <CraftProperty property="Input.Throttle" style="prop-input" pos="-3704.252,-957.7423" />
+    <CraftProperty property="Input.Brake" style="prop-input" pos="-3706.219,-999.0397" />
+    <CraftProperty property="Input.TranslationMode" style="prop-input" pos="-3501.698,-839.7498" />
+    <CraftProperty property="Input.Slider1" style="prop-input" pos="-3710.154,-1040.337" />
+    <CraftProperty property="Misc.CameraUp" style="prop-misc" pos="-2634.452,-937.749" />
+    <CraftProperty property="Misc.CameraPointing" style="prop-misc" pos="-2631.503,-980.0295" />
+    <CraftProperty property="Misc.CameraPosition" style="prop-misc" pos="-2630.52,-1022.31" />
+    <CraftProperty property="Misc.PidRoll" style="prop-misc" pos="-2628.553,-891.5352" />
+    <CraftProperty property="Misc.PidPitch" style="prop-misc" pos="-2634.452,-859.0872" />
+    <CraftProperty property="Misc.SolarRadiation" style="prop-misc" pos="-2672.801,-821.7227" />
+    <CraftProperty property="Misc.Grounded" style="prop-misc" pos="-2641.337,-777.4756" />
+    <CraftProperty property="Misc.NumStages" style="prop-misc" pos="-2644.286,-740.1113" />
+    <CraftProperty property="Misc.Stage" style="prop-misc" pos="-2613.805,-703.7303" />
+    <CraftProperty property="Time.FrameDeltaTime" style="prop-time" pos="-2969.749,-1025.916" />
+    <CraftProperty property="Time.TimeSinceLaunch" style="prop-time" pos="-2972.7,-1063.28" />
+    <CraftProperty property="Time.TotalTime" style="prop-time" pos="-2969.749,-1101.628" />
+    <CraftProperty property="Time.WarpAmount" style="prop-time" pos="-2970.733,-1140.959" />
+    <CraftProperty property="Time.RealTime" style="prop-time" pos="-2968.766,-1178.323" />
+    <CraftProperty property="Name.Craft" style="prop-name" pos="-3201.802,-1020.672" />
+    <CraftProperty property="Orbit.Planet" style="prop-name" pos="-3198.852,-1054.103" />
+    <CraftProperty property="Target.Name" style="prop-name" pos="-3243.099,-1089.501" />
+    <CraftProperty property="Target.Planet" style="prop-name" pos="-3253.915,-1125.882" />
+    <ActivationGroup style="activation-group" pos="-3495.8,-1093.106">
+      <Constant number="1" />
+    </ActivationGroup>
+    <Planet op="toLatLongAgl" style="planet-to-lat-long-agl" pos="-3701.303,-1150.791">
+      <Constant vector="(0, 0, 0)" />
+    </Planet>
+    <Planet op="toLatLongAsl" style="planet-to-lat-long-asl" pos="-3702.287,-1199.627">
+      <Constant vector="(0, 0, 0)" />
+    </Planet>
+    <Planet op="toPosition" style="planet-to-position" pos="-3698.354,-1244.53">
+      <Constant vector="(0, 0, 0)" />
+    </Planet>
+    <Planet op="toPositionOverSea" style="planet-to-position-asl" pos="-3700.32,-1291.399">
+      <Constant vector="(0, 0, 0)" />
+    </Planet>
+    <CraftProperty property="Terrain.Height" style="terrain-query" pos="-3291.28,-1229.125">
+      <Constant vector="(0, 0, 0)" />
+    </CraftProperty>
+    <CraftProperty property="Terrain.Color" style="terrain-query" pos="-3292.262,-1264.523">
+      <Constant vector="(0, 0, 0)" />
+    </CraftProperty>
+    <CraftProperty property="Raycast" style="raycast-query" pos="-3292.262,-1312.376">
+      <Constant vector="(0, 0, 0)" />
+      <Constant vector="(0, 0, 0)" />
+    </CraftProperty>
+    <Planet op="mass" style="planet" pos="-4034.633,-256.0142">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="radius" style="planet" pos="-4034.633,-288.4622">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="hasTerrain" style="planet" pos="-4036.6,-322.8766">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="atmosphereDensity" style="planet" pos="-4035.616,-356.3078">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="atmosphereHeight" style="planet" pos="-4035.616,-388.7558">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="atmosphereScale" style="planet" pos="-4038.566,-419.2372">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="soiradius" style="planet" pos="-4038.566,-444.8023">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="solarPosition" style="planet" pos="-4039.549,-479.2168">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="childPlanets" style="planet" pos="-4041.516,-512.6481">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="crafts" style="planet" pos="-4040.533,-547.0626">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="craftids" style="planet" pos="-4043.483,-583.4435">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="parent" style="planet" pos="-4043.482,-620.8077">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="structures" style="planet" pos="-4046.432,-658.1721">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="day" style="planet" pos="-4041.515,-696.5197">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="year" style="planet" pos="-4043.482,-727.9846">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="velocity" style="planet" pos="-4042.498,-760.4326">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="apoapsis" style="planet" pos="-4041.515,-791.8974">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="periapsis" style="planet" pos="-4042.498,-817.4623">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="period" style="planet" pos="-4044.465,-848.927">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="periapsisargument" style="planet" pos="-4043.483,-1082.946">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="rightascension" style="planet" pos="-4044.465,-1115.394">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="apoapsistime" style="planet" pos="-4105.428,-883.3417">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="periapsistime" style="planet" pos="-4100.511,-915.7898">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="inclination" style="planet" pos="-4057.248,-942.3382">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="eccentricity" style="planet" pos="-4057.249,-978.7192">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="meananomaly" style="planet" pos="-4104.445,-1015.101">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="meanmotion" style="planet" pos="-4093.629,-1046.565">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="trueanomaly" style="planet" pos="-4102.358,-1146.889">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="semiminoraxis" style="planet" pos="-4109.36,-1216.731">
+      <Constant text="Droo" />
+    </Planet>
+    <Planet op="semimajoraxis" style="planet" pos="-4112.369,-1181.319">
+      <Constant text="Droo" />
+    </Planet>
+    <CraftProperty property="Part.IDToName" style="part" pos="-4350.522,-254.9255">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.Mass" style="part" pos="-4348.526,-291.8571">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.DryMass" style="part" pos="-4348.526,-323.798">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.WetMass" style="part" pos="-4350.522,-350.7481">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.Activated" style="part" pos="-4352.519,-384.6853">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.PartType" style="part" pos="-4352.519,-412.6335">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.Position" style="part" pos="-4354.515,-441.58">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.Temperature" style="part" pos="-4356.512,-472.5227">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.Drag" style="part" pos="-4356.511,-503.4654">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.ThisID" style="part" pos="-4360.504,-533.41">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.MinID" style="part" pos="-4360.504,-558.3637">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.MaxID" style="part" pos="-4361.502,-587.3101">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.UnderWater" style="part" pos="-4361.502,-622.2453">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Part.NameToID" style="part-id" pos="-4366.493,-679.8044">
+      <Constant text="PartName" />
+    </CraftProperty>
+    <CraftProperty property="Part.LocalToPci" style="part-transform" pos="-4437.361,-724.3882">
+      <Constant number="0" />
+      <Constant vector="(0, 0, 0)" />
+    </CraftProperty>
+    <CraftProperty property="Part.PciToLocal" style="part-transform" pos="-4433.368,-765.3124">
+      <Constant number="0" />
+      <Constant vector="(0, 0, 0)" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Altitude" style="craft" pos="-4768.748,-261.9116">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Destroyed" style="craft" pos="-4769.746,-294.8506">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Grounded" style="craft" pos="-4768.748,-320.8025">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Mass" style="craft" pos="-4766.751,-348.7507">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.IDToName" style="craft" pos="-4767.75,-378.6953">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.PartCount" style="craft" pos="-4766.751,-405.6454">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Planet" style="craft" pos="-4768.748,-441.5788">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Position" style="craft" pos="-4767.749,-466.5327">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Velocity" style="craft" pos="-4765.752,-501.468">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.IsPlayer" style="craft" pos="-4765.753,-533.4088">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.BoundMin" style="craft" pos="-4766.75,-570.3405">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.BoundMax" style="craft" pos="-4766.75,-599.2868">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Apoapsis" style="craft" pos="-4765.752,-637.2164">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Periapsis" style="craft" pos="-4765.753,-673.15">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Period" style="craft" pos="-4765.753,-707.0872">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Inclination" style="craft" pos="-4764.755,-825.8675">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.Eccentricity" style="craft" pos="-4759.764,-861.8009">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.MeanAnomaly" style="craft" pos="-4761.76,-903.7234">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.MeanMotion" style="craft" pos="-4759.765,-947.6419">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.PeriapsisArgument" style="craft" pos="-4758.766,-980.5809">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.RightAscension" style="craft" pos="-4759.764,-1025.498">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.TrueAnomaly" style="craft" pos="-4758.766,-1062.429">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.SemiMajorAxis" style="craft" pos="-4757.767,-1094.37">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.SemiMinorAxis" style="craft" pos="-4753.774,-1128.307">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.ApoapsisTime" style="craft" pos="-4795.697,-744.019">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.PeriapsisTime" style="craft" pos="-4799.69,-783.9453">
+      <Constant number="0" />
+    </CraftProperty>
+    <CraftProperty property="Craft.NameToID" style="craft-id" pos="-4368.489,-821.5417">
+      <Constant text="CraftName" />
+    </CraftProperty>
+    <Constant style="true" pos="-4250.486,-917.3644" bool="true" />
+    <Constant style="false" pos="-4259.69,-992.5582" bool="false" />
+    <Variable list="false" local="false" variableName="variable" pos="-2634.988,-170.1306" />
+    <ListOp op="get" style="list-get" pos="-5261.913,-279.7854">
+      <Constant text="" />
+      <Constant number="1" />
+    </ListOp>
+    <ListOp op="length" style="list-length" pos="-5253.54,-364.4653">
+      <Constant text="" />
+    </ListOp>
+    <ListOp op="index" style="list-index" pos="-5402.892,-446.3532">
+      <Constant text="" />
+      <Constant text="item" />
+    </ListOp>
+    <CustomExpression callFormat="Custom ExpressionAdd Text (0) " format="Custom ExpressionAdd Text |AddParameter|  return (0)" name="Custom Expression" style="custom-expression" pos="0,0">
+      <Constant number="0" />
+    </CustomExpression>
+    <CallCustomExpression call="Custom Expression" style="call-custom-expression" pos="-13.94138,77.98233">
+      <Constant number="0" />
+    </CallCustomExpression>
+  </Expressions>
+</Program>
