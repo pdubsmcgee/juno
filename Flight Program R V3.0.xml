@@ -927,7 +927,7 @@
         <If id="158" style="if">
           <Comparison op="l" style="op-lt">
             <CraftProperty property="Fuel.FuelInStage" style="prop-fuel" />
-            <Constant number="1" />
+            <Constant text="0.1" />
           </Comparison>
           <Instructions>
             <SetVariable id="159" style="set-variable">
@@ -1009,6 +1009,10 @@
             <Comparison op="ge" style="op-gte">
               <Variable list="false" local="false" variableName="lowthrustcount" />
               <Constant text="3" />
+            </Comparison>
+            <Comparison op="ge" style="op-gte">
+              <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+              <Constant text="10000" />
             </Comparison>
           </BoolOp>
           <Instructions>
