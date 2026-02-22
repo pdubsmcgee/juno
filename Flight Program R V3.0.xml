@@ -843,7 +843,7 @@
       <Instructions>
         <If id="146" style="if">
           <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="autostage" />
+            <Variable list="false" local="false" variableName="init" />
             <Constant text="0" />
           </Comparison>
           <Instructions>
@@ -1110,9 +1110,9 @@
           </Instructions>
         </If>
         <ElseIf id="187" style="else">
-          <Comparison op="l" style="op-lt">
+          <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="fc_mode" />
-            <Variable list="false" local="false" variableName="fc_mode_ascent" />
+            <Variable list="false" local="false" variableName="fc_mode_none" />
           </Comparison>
           <Instructions>
             <SetInput input="throttle" id="199" style="set-input">
@@ -1324,10 +1324,18 @@
           </Instructions>
         </ElseIf>
         <ElseIf id="237" style="else">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="throwner" />
-            <Variable list="false" local="false" variableName="throwner_none" />
-          </Comparison>
+          <BoolOp op="and" style="op-and">
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="throwner" />
+              <Variable list="false" local="false" variableName="throwner_none" />
+            </Comparison>
+            <Not style="op-not">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="fc_mode" />
+                <Variable list="false" local="false" variableName="fc_mode_countdown" />
+              </Comparison>
+            </Not>
+          </BoolOp>
           <Instructions>
             <SetInput input="throttle" id="238" style="set-input">
               <Constant number="0" />
@@ -1335,7 +1343,12 @@
           </Instructions>
         </ElseIf>
         <ElseIf id="240" style="else">
-          <Constant bool="true" />
+          <Not style="op-not">
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="fc_mode" />
+              <Variable list="false" local="false" variableName="fc_mode_countdown" />
+            </Comparison>
+          </Not>
           <Instructions>
             <SetInput input="throttle" id="241" style="set-input">
               <Constant number="0" />
