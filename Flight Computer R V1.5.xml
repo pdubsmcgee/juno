@@ -1210,10 +1210,22 @@
           </Instructions>
         </If>
         <If id="167" style="if">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="throwner" />
-            <Variable list="false" local="false" variableName="throwner_circularization" />
-          </Comparison>
+          <BoolOp op="and" style="op-and">
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="throwner" />
+              <Variable list="false" local="false" variableName="throwner_circularization" />
+            </Comparison>
+            <BoolOp op="and" style="op-and">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="attowner" />
+                <Variable list="false" local="false" variableName="attowner_circularization" />
+              </Comparison>
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="circ_active" />
+                <Constant text="1" />
+              </Comparison>
+            </BoolOp>
+          </BoolOp>
           <Instructions>
             <If id="168" style="if">
               <BoolOp op="or" style="op-or">
@@ -1355,12 +1367,12 @@
             <If id="188" style="if">
               <Comparison op="l" style="op-lt">
                 <Variable list="false" local="false" variableName="thr" />
-                <Constant text=".1" />
+                <Constant text="0" />
               </Comparison>
               <Instructions>
                 <SetVariable id="189" style="set-variable">
                   <Variable list="false" local="false" variableName="thr" />
-                  <Constant text=".1" />
+                  <Constant text="0" />
                 </SetVariable>
               </Instructions>
             </If>
