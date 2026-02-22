@@ -12,7 +12,7 @@
   - `Flight Program R V3.0.xml`
   - `Reference.xml` (non-operational syntax reference catalog)
 - Repository version marker:
-  - `VERSION` (semantic version, currently `3.0.2`)
+  - `VERSION` (`MAJOR.REVISION`, currently `3.12`)
 - Version utility:
   - `scripts/bump_version.sh`
 - Agent/reference docs:
@@ -47,9 +47,10 @@
 - Exhaustive validated telemetry/toolkit field list for this specific repo is not yet extracted (**UNVERIFIED**).
 
 ### 7) Versioning protocol
-- Semantic version source of truth is the repo-root `VERSION` file.
-- Use `scripts/bump_version.sh {patch|minor|major}` when behavior/docs change.
-- For release artifacts, align XML program naming/file labels with the updated semantic version where practical.
+- `VERSION` is the source of truth and uses `MAJOR.REVISION` (example progression: `1.1` -> `1.11` -> `1.12`).
+- Every non-major change must bump by at least `+0.01` equivalent using `scripts/bump_version.sh change`.
+- Use `scripts/bump_version.sh major` only for major/breaking changes.
+- For release artifacts, align XML program naming/file labels with the updated version where practical.
 - Every version bump should be accompanied by a `agents.md` change-log entry summarizing impact.
 
 ### 8) Change log
@@ -59,7 +60,7 @@
 - 2026-02-22
   - Added repository versioning protocol using root `VERSION` + `scripts/bump_version.sh`.
   - Documented required version-bump linkage to change-log maintenance.
-
 - 2026-02-22
-  - Added `Reference.xml` as an explicit repository syntax source for block/tag/selector verification.
-  - Updated verification posture to treat broad block schema coverage as partially verified in-repo.
+  - Updated versioning policy to `MAJOR.REVISION` with minimum `+0.01` equivalent bump for every non-major change.
+  - Updated bump helper usage to `change|major`.
+  - Bumped `VERSION` to `3.12` for this repository policy update.

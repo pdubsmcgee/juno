@@ -54,8 +54,8 @@ This backlog tracks the static review and implementation work performed against 
 - Preserved final autostage output as explicit binary `0/1` state for downstream logic.
 
 ## Task 10 — Add repository versioning workflow (RESOLVED)
-- Added semantic version source-of-truth file: `VERSION` (`3.0.1`).
-- Added `scripts/bump_version.sh` to automate `major|minor|patch` version increments.
+- Added `MAJOR.REVISION` version source-of-truth file: `VERSION` (`3.12`).
+- Added `scripts/bump_version.sh` to automate `change|major` version increments.
 - Documented versioning procedure in `README.md`, `docs/MAINTAINER_GUIDE.md`, and `agents.md`.
 
 ## Task 11 — Incorporate reference syntax XML into docs/rules (RESOLVED)
