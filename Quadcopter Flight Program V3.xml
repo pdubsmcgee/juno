@@ -22,6 +22,11 @@
     <Variable name="ecomp" number="0" />
     <Variable name="headingrad" number="0" />
     <Variable name="headingdeg" number="0" />
+    <Variable name="prop_pitch_deg" number="0" />
+    <Variable name="prop_pitch_step" number="0" />
+    <Variable name="prop_pitch_thrust_prev" number="0" />
+    <Variable name="prop_pitch_thrust_now" number="0" />
+    <Variable name="prop_pitch_throttle_zero_s" number="0" />
   </Variables>
   <Instructions>
     <Event event="FlightStart" id="0" style="flight-start" pos="0,0" />
@@ -63,6 +68,22 @@
     <SetVariable id="10" style="set-variable">
       <Variable list="false" local="false" variableName="home_pos" />
       <CraftProperty property="Nav.Position" style="prop-nav" />
+    </SetVariable>
+    <SetVariable id="170" style="set-variable">
+      <Variable list="false" local="false" variableName="prop_pitch_deg" />
+      <Constant text="50" />
+    </SetVariable>
+    <SetVariable id="171" style="set-variable">
+      <Variable list="false" local="false" variableName="prop_pitch_step" />
+      <Constant text="1" />
+    </SetVariable>
+    <SetVariable id="172" style="set-variable">
+      <Variable list="false" local="false" variableName="prop_pitch_thrust_prev" />
+      <CraftProperty property="Performance.CurrentEngineThrust" style="prop-performance" />
+    </SetVariable>
+    <SetVariable id="190" style="set-variable">
+      <Variable list="false" local="false" variableName="prop_pitch_throttle_zero_s" />
+      <Constant text="0" />
     </SetVariable>
     <DisplayMessage id="11" style="display">
       <Constant text="Ready. AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
@@ -475,6 +496,171 @@
         </If>
         <WaitSeconds id="78" style="wait-seconds">
           <Constant text="0.05" />
+        </WaitSeconds>
+      </Instructions>
+    </While>
+    <Event event="FlightStart" id="173" style="flight-start" pos="210,0" />
+    <While id="174" style="while">
+      <Constant style="true" bool="true" />
+      <Instructions>
+        <SetVariable id="175" style="set-variable">
+          <Variable list="false" local="false" variableName="prop_pitch_thrust_now" />
+          <CraftProperty property="Performance.CurrentEngineThrust" style="prop-performance" />
+        </SetVariable>
+        <If id="176" style="if">
+          <BoolOp op="or" style="op-or">
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="landing_armed" />
+              <Constant text="1" />
+            </Comparison>
+            <Comparison op="l" style="op-lt">
+              <Variable list="false" local="false" variableName="prop_pitch_thrust_now" />
+              <Constant text="0.01" />
+            </Comparison>
+          </BoolOp>
+          <Instructions>
+            <SetVariable id="177" style="set-variable">
+              <Variable list="false" local="false" variableName="prop_pitch_deg" />
+              <Constant text="50" />
+            </SetVariable>
+            <SetVariable id="178" style="set-variable">
+              <Variable list="false" local="false" variableName="prop_pitch_step" />
+              <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="179" style="set-variable">
+              <Variable list="false" local="false" variableName="prop_pitch_throttle_zero_s" />
+              <Constant text="0" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <ElseIf id="180" style="else">
+          <Constant style="true" bool="true" />
+          <Instructions>
+            <If id="181" style="if">
+              <Comparison op="l" style="op-lt">
+                <CraftProperty property="Input.Throttle" style="prop-input" />
+                <Constant text="0.01" />
+              </Comparison>
+              <Instructions>
+                <SetVariable id="182" style="set-variable">
+                  <Variable list="false" local="false" variableName="prop_pitch_throttle_zero_s" />
+                  <BinaryOp op="+" style="op-add">
+                    <Variable list="false" local="false" variableName="prop_pitch_throttle_zero_s" />
+                    <CraftProperty property="Time.FrameDeltaTime" style="prop-time" />
+                  </BinaryOp>
+                </SetVariable>
+              </Instructions>
+            </If>
+            <ElseIf id="183" style="else">
+              <Constant style="true" bool="true" />
+              <Instructions>
+                <SetVariable id="184" style="set-variable">
+                  <Variable list="false" local="false" variableName="prop_pitch_throttle_zero_s" />
+                  <Constant text="0" />
+                </SetVariable>
+              </Instructions>
+            </ElseIf>
+            <If id="185" style="if">
+              <Comparison op="g" style="op-gt">
+                <Variable list="false" local="false" variableName="prop_pitch_throttle_zero_s" />
+                <Constant text="2" />
+              </Comparison>
+              <Instructions>
+                <SetVariable id="186" style="set-variable">
+                  <Variable list="false" local="false" variableName="prop_pitch_deg" />
+                  <Constant text="50" />
+                </SetVariable>
+                <SetVariable id="187" style="set-variable">
+                  <Variable list="false" local="false" variableName="prop_pitch_step" />
+                  <Constant text="1" />
+                </SetVariable>
+              </Instructions>
+            </If>
+            <ElseIf id="188" style="else">
+              <Constant style="true" bool="true" />
+              <Instructions>
+                <If id="189" style="if">
+                  <Comparison op="g" style="op-gt">
+                    <Variable list="false" local="false" variableName="prop_pitch_thrust_now" />
+                    <Variable list="false" local="false" variableName="prop_pitch_thrust_prev" />
+                  </Comparison>
+                  <Instructions>
+                    <SetVariable id="191" style="set-variable">
+                      <Variable list="false" local="false" variableName="prop_pitch_deg" />
+                      <BinaryOp op="+" style="op-add">
+                        <Variable list="false" local="false" variableName="prop_pitch_deg" />
+                        <Variable list="false" local="false" variableName="prop_pitch_step" />
+                      </BinaryOp>
+                    </SetVariable>
+                  </Instructions>
+                </If>
+                <ElseIf id="192" style="else">
+                  <Constant style="true" bool="true" />
+                  <Instructions>
+                    <SetVariable id="193" style="set-variable">
+                      <Variable list="false" local="false" variableName="prop_pitch_step" />
+                      <BinaryOp op="*" style="op-mul">
+                        <Constant text="-1" />
+                        <Variable list="false" local="false" variableName="prop_pitch_step" />
+                      </BinaryOp>
+                    </SetVariable>
+                    <SetVariable id="194" style="set-variable">
+                      <Variable list="false" local="false" variableName="prop_pitch_deg" />
+                      <BinaryOp op="+" style="op-add">
+                        <Variable list="false" local="false" variableName="prop_pitch_deg" />
+                        <Variable list="false" local="false" variableName="prop_pitch_step" />
+                      </BinaryOp>
+                    </SetVariable>
+                  </Instructions>
+                </ElseIf>
+              </Instructions>
+            </ElseIf>
+          </Instructions>
+        </ElseIf>
+        <If id="195" style="if">
+          <Comparison op="g" style="op-gt">
+            <Variable list="false" local="false" variableName="prop_pitch_deg" />
+            <Constant text="90" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="196" style="set-variable">
+              <Variable list="false" local="false" variableName="prop_pitch_deg" />
+              <Constant text="90" />
+            </SetVariable>
+            <SetVariable id="197" style="set-variable">
+              <Variable list="false" local="false" variableName="prop_pitch_step" />
+              <Constant text="-1" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <If id="198" style="if">
+          <Comparison op="l" style="op-lt">
+            <Variable list="false" local="false" variableName="prop_pitch_deg" />
+            <Constant text="0" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="199" style="set-variable">
+              <Variable list="false" local="false" variableName="prop_pitch_deg" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="200" style="set-variable">
+              <Variable list="false" local="false" variableName="prop_pitch_step" />
+              <Constant text="1" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <SetInput input="slider2" id="201" style="set-input">
+          <BinaryOp op="/" style="op-div">
+            <Variable list="false" local="false" variableName="prop_pitch_deg" />
+            <Constant text="90" />
+          </BinaryOp>
+        </SetInput>
+        <SetVariable id="202" style="set-variable">
+          <Variable list="false" local="false" variableName="prop_pitch_thrust_prev" />
+          <Variable list="false" local="false" variableName="prop_pitch_thrust_now" />
+        </SetVariable>
+        <WaitSeconds id="203" style="wait-seconds">
+          <Constant text="0.1" />
         </WaitSeconds>
       </Instructions>
     </While>
