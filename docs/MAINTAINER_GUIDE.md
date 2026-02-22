@@ -4,7 +4,7 @@ This guide describes how to safely maintain this repository's Vizzy XML program 
 
 ## 1) Source of truth
 
-- Primary executable artifact: `Flight Computer R V1.5.xml`.
+- Primary executable artifact: `Flight Program R V3.0.xml`.
 - Verification policy and guardrails: `agents.md`.
 - Repo-extracted command/property inventory: `vizzy_kb/verified_index.md`.
 

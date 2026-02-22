@@ -1,6 +1,6 @@
 # Verified Vizzy Index (Repo-Extracted)
 
-Generated from `Flight Computer R V1.5.xml` using local regex extraction.
+Generated from `Flight Program R V3.0.xml` using local regex extraction.
 Only repository-observed commands/properties are listed (no external assumptions).
 
 ## Command/Node tags observed (top 25 by frequency)
@@ -50,5 +50,5 @@ Only repository-observed commands/properties are listed (no external assumptions
 - `Vel.SurfaceVelocity`: 3
 
 ## Source
-- `Flight Computer R V1.5.xml`
+- `Flight Program R V3.0.xml`
 - `agents.md` (verification policy context)
