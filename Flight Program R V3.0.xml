@@ -920,21 +920,17 @@
         </If>
         <If id="158" style="if">
           <Comparison op="l" style="op-lt">
-            <CraftProperty property="Performance.CurrentEngineThrust" style="prop-performance" />
-            <Constant text="1" />
+            <CraftProperty property="Fuel.FuelInStage" style="prop-fuel" />
+            <Constant number="1" />
           </Comparison>
           <Instructions>
             <SetVariable id="159" style="set-variable">
-              <Variable list="false" local="false" variableName="lowthrustcount" />
+              <Variable list="false" local="false" variableName="lowfuelcount" />
               <BinaryOp op="+" style="op-add">
-                <Variable list="false" local="false" variableName="lowthrustcount" />
+                <Variable list="false" local="false" variableName="lowfuelcount" />
                 <Constant text="1" />
               </BinaryOp>
             </SetVariable>
-            <LogFlight id="160" style="flightlog">
-              <Constant text="low thrust" />
-              <Constant style="false" bool="false" />
-            </LogFlight>
             <WaitSeconds id="161" style="wait-seconds">
               <Constant text=".2" />
             </WaitSeconds>
@@ -943,12 +939,8 @@
         <ElseIf id="162" style="else">
           <Constant bool="true" />
           <Instructions>
-            <LogFlight id="163" style="flightlog">
-              <Constant text="reset thrust" />
-              <Constant style="false" bool="false" />
-            </LogFlight>
             <SetVariable id="164" style="set-variable">
-              <Variable list="false" local="false" variableName="lowthrustcount" />
+              <Variable list="false" local="false" variableName="lowfuelcount" />
               <Constant number="0" />
             </SetVariable>
             <WaitSeconds id="165" style="wait-seconds">
@@ -956,11 +948,57 @@
             </WaitSeconds>
           </Instructions>
         </ElseIf>
+        <If id="160" style="if">
+          <Comparison op="l" style="op-lt">
+            <CraftProperty property="Performance.CurrentEngineThrust" style="prop-performance" />
+            <Constant text="1" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="163" style="set-variable">
+              <Variable list="false" local="false" variableName="lowthrustcount" />
+              <BinaryOp op="+" style="op-add">
+                <Variable list="false" local="false" variableName="lowthrustcount" />
+                <Constant text="1" />
+              </BinaryOp>
+            </SetVariable>
+            <LogFlight id="473" style="flightlog">
+              <Constant text="low thrust" />
+              <Constant style="false" bool="false" />
+            </LogFlight>
+            <WaitSeconds id="474" style="wait-seconds">
+              <Constant text=".2" />
+            </WaitSeconds>
+          </Instructions>
+        </If>
+        <ElseIf id="475" style="else">
+          <Constant bool="true" />
+          <Instructions>
+            <LogFlight id="476" style="flightlog">
+              <Constant text="reset thrust" />
+              <Constant style="false" bool="false" />
+            </LogFlight>
+            <SetVariable id="477" style="set-variable">
+              <Variable list="false" local="false" variableName="lowthrustcount" />
+              <Constant number="0" />
+            </SetVariable>
+            <WaitSeconds id="478" style="wait-seconds">
+              <Constant text=".2" />
+            </WaitSeconds>
+          </Instructions>
+        </ElseIf>
         <If id="166" style="if">
           <BoolOp op="and" style="op-and">
             <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="init" />
+              <Constant text="1" />
+            </Comparison>
+            <Comparison op="=" style="op-eq">
               <Variable list="false" local="false" variableName="stagelock" />
               <Constant number="0" />
+            </Comparison>
+            <Comparison op="ge" style="op-gte">
+              <Variable list="false" local="false" variableName="lowfuelcount" />
+              <Constant text="3" />
             </Comparison>
             <Comparison op="ge" style="op-gte">
               <Variable list="false" local="false" variableName="lowthrustcount" />
