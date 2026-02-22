@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Program name="Quadcopter Flight Program V3.31">
+<Program name="Quadcopter Flight Program V3.32">
   <Variables>
     <Variable name="auto_enabled" number="0" />
     <Variable name="manual_override" number="0" />
@@ -40,6 +40,10 @@
     <Variable name="ag4_nav_cmd" number="0" />
     <Variable name="debug_enabled" number="0" />
     <Variable name="debug_period_s" number="0" />
+    <Variable name="dt_control" number="0" />
+    <Variable name="dt_nav" number="0" />
+    <Variable name="dt_actuator" number="0" />
+    <Variable name="dt_debug" number="0" />
     <Variable name="debug_msg" number="0" />
     <Variable name="throttle_cmd" number="0" />
     <Variable name="alt_error" number="0" />
@@ -109,6 +113,22 @@
     </SetVariable>
     <SetVariable id="9601" style="set-variable" pos="0,1265">
       <Variable list="false" local="false" variableName="debug_period_s" />
+      <Constant text="0.5" />
+    </SetVariable>
+    <SetVariable id="9630" style="set-variable" pos="0,1285">
+      <Variable list="false" local="false" variableName="dt_control" />
+      <Constant text="0.05" />
+    </SetVariable>
+    <SetVariable id="9631" style="set-variable" pos="0,1295">
+      <Variable list="false" local="false" variableName="dt_nav" />
+      <Constant text="0.1" />
+    </SetVariable>
+    <SetVariable id="9632" style="set-variable" pos="0,1305">
+      <Variable list="false" local="false" variableName="dt_actuator" />
+      <Constant text="0.05" />
+    </SetVariable>
+    <SetVariable id="9633" style="set-variable" pos="0,1315">
+      <Variable list="false" local="false" variableName="dt_debug" />
       <Constant text="0.5" />
     </SetVariable>
     <SetVariable id="331" style="set-variable" pos="0,1300">
@@ -247,7 +267,7 @@
       <Constant style="false" bool="false" />
     </LogFlight>
     <Comment id="9602" style="comment" pos="0,3710">
-      <Constant style="comment-text" canReplace="false" text="Thread ownership: diagnostics (low-rate compact tuple; set debug_enabled=1 to enable)." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: diagnostics (low-rate compact tuple; set debug_enabled=1 to enable, ~2 Hz via dt_debug)." />
     </Comment>
     <Event event="FlightStart" id="9603" style="flight-start" pos="0,3840" />
     <While id="9604" style="while" pos="0,3970">
@@ -285,7 +305,7 @@
             <LogFlight id="9607" style="flightlog"><Variable list="false" local="false" variableName="debug_msg" /><Constant style="false" bool="false" /></LogFlight>
           </Instructions>
         </If>
-        <WaitSeconds id="9608" style="wait-seconds"><Variable list="false" local="false" variableName="debug_period_s" /></WaitSeconds>
+        <WaitSeconds id="9608" style="wait-seconds"><Variable list="false" local="false" variableName="dt_debug" /></WaitSeconds>
       </Instructions>
     </While>
     <Comment id="9405" style="comment" pos="0,3640">
@@ -353,11 +373,11 @@
             </ElseIf>
           </Instructions>
         </ElseIf>
-        <WaitSeconds id="9435" style="wait-seconds"><Constant text="0.05" /></WaitSeconds>
+        <WaitSeconds id="9435" style="wait-seconds"><Variable list="false" local="false" variableName="dt_control" /></WaitSeconds>
       </Instructions>
     </While>
     <Comment id="9436" style="comment" pos="0,3900">
-      <Constant style="comment-text" canReplace="false" text="Thread ownership: controller (setpoints + telemetry -> throttle_cmd/attitude commands)." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: controller (setpoints + telemetry -> throttle_cmd/attitude commands, 20 Hz via dt_control)." />
     </Comment>
     <Event event="FlightStart" id="9437" style="flight-start" pos="0,4030" />
     <While id="9438" style="while" pos="0,4160">
@@ -367,7 +387,7 @@
           <Comparison op="=" style="op-eq"><Variable list="false" local="false" variableName="manual_override" /><Constant text="0" /></Comparison>
           <Instructions>
             <SetVariable id="9440" style="set-variable"><Variable list="false" local="false" variableName="alt_error" /><BinaryOp op="-" style="op-sub"><Variable list="false" local="false" variableName="desired_alt_agl" /><CraftProperty property="Altitude.AGL" style="prop-altitude" /></BinaryOp></SetVariable>
-            <SetVariable id="9441" style="set-variable"><Variable list="false" local="false" variableName="alt_error_int" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="alt_error_int" /><BinaryOp op="*" style="op-mul"><Variable list="false" local="false" variableName="alt_error" /><Constant text="0.05" /></BinaryOp></BinaryOp></SetVariable>
+            <SetVariable id="9441" style="set-variable"><Variable list="false" local="false" variableName="alt_error_int" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="alt_error_int" /><BinaryOp op="*" style="op-mul"><Variable list="false" local="false" variableName="alt_error" /><Variable list="false" local="false" variableName="dt_control" /></BinaryOp></BinaryOp></SetVariable>
             <If id="9442" style="if"><Comparison op="l" style="op-lt"><Variable list="false" local="false" variableName="alt_error_int" /><Variable list="false" local="false" variableName="int_min" /></Comparison><Instructions><SetVariable id="9443" style="set-variable"><Variable list="false" local="false" variableName="alt_error_int" /><Variable list="false" local="false" variableName="int_min" /></SetVariable></Instructions></If>
             <If id="9444" style="if"><Comparison op="g" style="op-gt"><Variable list="false" local="false" variableName="alt_error_int" /><Variable list="false" local="false" variableName="int_max" /></Comparison><Instructions><SetVariable id="9445" style="set-variable"><Variable list="false" local="false" variableName="alt_error_int" /><Variable list="false" local="false" variableName="int_max" /></SetVariable></Instructions></If>
             <SetVariable id="9446" style="set-variable"><Variable list="false" local="false" variableName="throttle_cmd" /><BinaryOp op="-" style="op-sub"><BinaryOp op="+" style="op-add"><Constant text="0.5" /><BinaryOp op="+" style="op-add"><BinaryOp op="*" style="op-mul"><Constant text="0.005" /><Variable list="false" local="false" variableName="alt_error" /></BinaryOp><BinaryOp op="*" style="op-mul"><Variable list="false" local="false" variableName="ki_alt" /><Variable list="false" local="false" variableName="alt_error_int" /></BinaryOp></BinaryOp></BinaryOp><BinaryOp op="*" style="op-mul"><Constant text="0.02" /><CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" /></BinaryOp></BinaryOp></SetVariable>
@@ -379,11 +399,11 @@
           </Instructions>
         </If>
         <ElseIf id="9454" style="else"><Constant style="true" bool="true" /><Instructions><SetVariable id="9455" style="set-variable"><Variable list="false" local="false" variableName="alt_error_int" /><Constant text="0" /></SetVariable></Instructions></ElseIf>
-        <WaitSeconds id="9456" style="wait-seconds"><Constant text="0.05" /></WaitSeconds>
+        <WaitSeconds id="9456" style="wait-seconds"><Variable list="false" local="false" variableName="dt_control" /></WaitSeconds>
       </Instructions>
     </While>
     <Comment id="356" style="comment" pos="0,3900">
-      <Constant style="comment-text" canReplace="false" text="Thread ownership: actuators (writes slider1 from throttle_cmd only)." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: actuators (writes slider1 from throttle_cmd only, 20 Hz via dt_actuator)." />
     </Comment>
     <Event event="FlightStart" id="344" style="flight-start" pos="0,4030" />
     <While id="345" style="while" pos="0,4160">
@@ -401,12 +421,12 @@
           </Instructions>
         </If>
         <WaitSeconds id="348" style="wait-seconds">
-          <Constant text="0.05" />
+          <Variable list="false" local="false" variableName="dt_actuator" />
         </WaitSeconds>
       </Instructions>
     </While>
     <Comment id="357" style="comment" pos="0,4290">
-      <Constant style="comment-text" canReplace="false" text="Thread ownership: actuators (applies pitch/heading attitude commands)." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: actuators (applies pitch/heading attitude commands, 20 Hz via dt_actuator)." />
     </Comment>
     <Event event="FlightStart" id="349" style="flight-start" pos="0,4420" />
     <While id="350" style="while" pos="0,4550">
@@ -465,12 +485,12 @@
           </Instructions>
         </If>
         <WaitSeconds id="355" style="wait-seconds">
-          <Constant text="0.05" />
+          <Variable list="false" local="false" variableName="dt_actuator" />
         </WaitSeconds>
       </Instructions>
     </While>
     <Comment id="358" style="comment" pos="0,4680">
-      <Constant style="comment-text" canReplace="false" text="Thread ownership: state (AG1/AG2/AG3/AG4 command ingestion)." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: state/nav command ingestion (AG1/AG2/AG3/AG4), 10 Hz via dt_nav." />
     </Comment>
     <Event event="FlightStart" id="300" style="flight-start" pos="0,4810" />
     <While id="301" style="while" pos="0,4940">
@@ -677,12 +697,12 @@
           </Instructions>
         </If>
         <WaitSeconds id="330" style="wait-seconds">
-          <Constant text="0.05" />
+          <Variable list="false" local="false" variableName="dt_nav" />
         </WaitSeconds>
       </Instructions>
     </While>
     <Comment id="9080" style="comment" pos="0,5070">
-      <Constant style="comment-text" canReplace="false" text="Thread ownership: state (broadcasts STATE_* transitions)." />
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: state broadcast dispatcher (STATE_* transitions), 10 Hz via dt_nav." />
     </Comment>
     <Event event="FlightStart" id="9081" style="flight-start" pos="0,5200" />
     <While id="9082" style="while" pos="0,5330">
@@ -757,12 +777,12 @@
           </Instructions>
         </If>
         <WaitSeconds id="9094" style="wait-seconds">
-          <Constant text="0.05" />
+          <Variable list="false" local="false" variableName="dt_nav" />
         </WaitSeconds>
       </Instructions>
     </While>
     <Comment id="359" style="comment" pos="0,5460">
-      <Constant style="comment-text" canReplace="false" text="Thread: variable-pitch prop optimization with zero-throttle and landing safeguards." />
+      <Constant style="comment-text" canReplace="false" text="Thread: variable-pitch prop optimization with zero-throttle and landing safeguards, 20 Hz via dt_actuator." />
     </Comment>
     <Event event="FlightStart" id="173" style="flight-start" pos="0,5590" />
     <While id="174" style="while" pos="0,5720">
@@ -925,7 +945,7 @@
           <Variable list="false" local="false" variableName="prop_pitch_thrust_now" />
         </SetVariable>
         <WaitSeconds id="203" style="wait-seconds">
-          <Constant text="0.1" />
+          <Variable list="false" local="false" variableName="dt_actuator" />
         </WaitSeconds>
       </Instructions>
     </While>
