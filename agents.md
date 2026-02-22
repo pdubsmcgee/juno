@@ -100,3 +100,10 @@
   - Added targeted thread comments to `Quadcopter Flight Program V3.xml` to document throttle-output, heading-output, activation-state, and prop-pitch loops.
   - Added operator-facing startup and target-reached flight log entries in `Quadcopter Flight Program V3.xml` while preserving existing display messages.
   - Bumped `VERSION` to `3.19` for quadcopter comments + telemetry visibility updates.
+
+- 2026-02-22
+  - Hardened all `Quadcopter Flight Program V3.xml` runtime threads by adding defensive command bounds and state-guard logic.
+  - Added throttle-thread clamp protection to constrain `throttle_cmd` into [0,1] before applying `slider1` output.
+  - Added pitch/heading-thread clamp and normalization protection to keep `pitch_cmd` in [0,90] and `nav_heading_cmd` in [0,360] before heading outputs.
+  - Added activation-state thread safety enforcement (`thread_safe_mode`) so manual override always clears auto/nav/heading-hold states.
+  - Bumped `VERSION` to `3.20` for this quadcopter thread-hardening update.
