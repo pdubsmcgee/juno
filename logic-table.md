@@ -94,3 +94,47 @@ The following XML fixes were applied to align implementation with the desired lo
    - Throttle Manager circularization branch now holds throttle at zero until the craft is within 1 km of apoapsis altitude (`Altitude.AGL >= Orbit.Apoapsis - 1000`), reducing premature/negative-Δv throttle behavior.
 
 These changes preserve AG1 abort behavior while allowing pilot throttle authority during countdown arming.
+
+---
+
+## H) Quadcopter activation-group logic table (comprehensive)
+
+### Initialization policy at FlightStart
+
+| Variable / command | Init value | Reason |
+|---|---:|---|
+| `auto_enabled` | `0` | Start in non-auto state. |
+| `manual_override` | `0` | Manual should not be latched at boot. |
+| `landing_armed` | `1` | Craft starts landed; landing mode is initially armed/safe. |
+| `nav_enabled` | `0` | Navigation guidance should be off until takeoff/hold is engaged. |
+| `ag1_takeoff_hold_cmd` / `ag2_land_cmd` / `ag3_manual_cmd` / `ag4_nav_cmd` | `0` | Command mirrors initialize false and are refreshed every control tick from AG1..AG4. |
+
+### Command-priority and transition table
+
+| Priority | Input condition | State updates | Notes |
+|---:|---|---|---|
+| 1 | `AG3` active (`ag3_manual_cmd = 1`) | `manual_override=1`, `auto_enabled=0`, `nav_enabled=0` | Manual is dominant when active. |
+| 2 | `AG1` active (`ag1_takeoff_hold_cmd = 1`) | `manual_override=0`, `auto_enabled=1`, `landing_armed=0`, `nav_enabled=0`, capture `home_pos`, set `hold_alt_agl=target_alt_agl` | Explicitly clears manual when switching to takeoff/hover. |
+| 3 | `AG4` active and `auto_enabled=1` | `nav_enabled=1` | Enables horizontal nav only when auto is already enabled. |
+| 4 | `AG2` active and `auto_enabled=1` | `landing_armed=1`, `nav_enabled=0` | Landing request cancels nav and arms descent. |
+
+### Mode-behavior table
+
+| Mode flags | Vertical command | Attitude command | Horizontal command |
+|---|---|---|---|
+| `auto_enabled=0` (manual) | No auto throttle writes expected from mode logic branch | Pilot/manual | Pilot/manual |
+| `auto_enabled=1`, `landing_armed=1` | Descent throttle schedule by altitude bands | `pitch=90` | none |
+| `auto_enabled=1`, `landing_armed=0`, `nav_enabled=1` | Cruise/hold throttle | `pitch=90`, heading-to-target | drive toward target |
+| `auto_enabled=1`, `landing_armed=0`, `nav_enabled=0` | Altitude hold throttle (`0.60` up / `0.45` maintain) | `pitch=90` | hold |
+
+### Threading/refactor table
+
+| Thread | Loop rate | Responsibility |
+|---|---|---|
+| Main flight-control loop (`Event id=0`, `While id=12`) | `0.05 s` | Pure control execution from state vars (`auto_enabled`, `landing_armed`, `nav_enabled`, `manual_override`). |
+| Activation/state manager (`Event id=300`, `While id=301`) | `0.05 s` | Read AG1..AG4, update command mirrors, apply transition priority/state updates. |
+| Prop-pitch optimizer (`Event id=173`, `While id=174`) | `0.1 s` | Independent variable-pitch optimization and fail-safe reset behavior. |
+
+### Input-handling answer (manual -> takeoff/hover)
+
+Yes — with the refactor, switching from manual (`AG3`) to takeoff+hover (`AG1`) explicitly writes `manual_override=0` in the activation/state-manager thread before enabling auto flight state. This makes the handoff deterministic and avoids stale manual-mode ownership.
