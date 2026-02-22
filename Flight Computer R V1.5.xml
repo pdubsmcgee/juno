@@ -2402,7 +2402,7 @@
             <SetVariable id="359" style="set-variable">
               <Variable list="false" local="false" variableName="pitchdeg" />
               <MathFunction function="rad2deg" style="op-math">
-                <Variable list="false" local="false" variableName="pitchdeg" />
+                <Variable list="false" local="false" variableName="pitchrad" />
               </MathFunction>
             </SetVariable>
             <SetVariable id="360" style="set-variable">
