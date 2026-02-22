@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Program name="Quadcopter Flight Program V3.20">
+<Program name="Quadcopter Flight Program V3.21">
   <Variables>
     <Variable name="auto_enabled" number="0" />
     <Variable name="manual_override" number="0" />
@@ -34,6 +34,7 @@
     <Variable name="throttle_cmd" number="0" />
     <Variable name="pitch_cmd" number="0" />
     <Variable name="nav_heading_cmd" number="0" />
+    <Variable name="nav_heading_error_deg" number="0" />
     <Variable name="heading_hold_enabled" number="0" />
     <Variable name="thread_safe_mode" number="0" />
   </Variables>
@@ -84,6 +85,10 @@
     </SetVariable>
     <SetVariable id="333" style="set-variable">
       <Variable list="false" local="false" variableName="nav_heading_cmd" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="391" style="set-variable">
+      <Variable list="false" local="false" variableName="nav_heading_error_deg" />
       <Constant text="0" />
     </SetVariable>
     <SetVariable id="334" style="set-variable">
@@ -357,6 +362,86 @@
                           <Variable list="false" local="false" variableName="heading_hold_enabled" />
                           <Constant text="1" />
                         </SetVariable>
+                        <SetVariable id="392" style="set-variable">
+                          <Variable list="false" local="false" variableName="nav_heading_error_deg" />
+                          <MathFunction function="abs" style="op-math">
+                            <BinaryOp op="-" style="op-sub">
+                              <Variable list="false" local="false" variableName="nav_heading_cmd" />
+                              <CraftProperty property="Nav.CraftHeading" style="prop-nav" />
+                            </BinaryOp>
+                          </MathFunction>
+                        </SetVariable>
+                        <If id="393" style="if">
+                          <Comparison op="g" style="op-gt">
+                            <Variable list="false" local="false" variableName="nav_heading_error_deg" />
+                            <Constant text="180" />
+                          </Comparison>
+                          <Instructions>
+                            <SetVariable id="394" style="set-variable">
+                              <Variable list="false" local="false" variableName="nav_heading_error_deg" />
+                              <BinaryOp op="-" style="op-sub">
+                                <Constant text="360" />
+                                <Variable list="false" local="false" variableName="nav_heading_error_deg" />
+                              </BinaryOp>
+                            </SetVariable>
+                          </Instructions>
+                        </If>
+                        <If id="395" style="if">
+                          <Comparison op="l" style="op-lt">
+                            <Variable list="false" local="false" variableName="nav_heading_error_deg" />
+                            <Constant text="15" />
+                          </Comparison>
+                          <Instructions>
+                            <If id="396" style="if">
+                              <Comparison op="g" style="op-gt">
+                                <Variable list="false" local="false" variableName="distance_to_target" />
+                                <BinaryOp op="*" style="op-mul">
+                                  <Variable list="false" local="false" variableName="target_tolerance_m" />
+                                  <Constant text="4" />
+                                </BinaryOp>
+                              </Comparison>
+                              <Instructions>
+                                <SetVariable id="397" style="set-variable">
+                                  <Variable list="false" local="false" variableName="pitch_cmd" />
+                                  <Constant text="78" />
+                                </SetVariable>
+                              </Instructions>
+                            </If>
+                            <ElseIf id="398" style="else">
+                              <Comparison op="g" style="op-gt">
+                                <Variable list="false" local="false" variableName="distance_to_target" />
+                                <BinaryOp op="*" style="op-mul">
+                                  <Variable list="false" local="false" variableName="target_tolerance_m" />
+                                  <Constant text="1.5" />
+                                </BinaryOp>
+                              </Comparison>
+                              <Instructions>
+                                <SetVariable id="399" style="set-variable">
+                                  <Variable list="false" local="false" variableName="pitch_cmd" />
+                                  <Constant text="102" />
+                                </SetVariable>
+                              </Instructions>
+                            </ElseIf>
+                            <ElseIf id="400" style="else">
+                              <Constant style="true" bool="true" />
+                              <Instructions>
+                                <SetVariable id="401" style="set-variable">
+                                  <Variable list="false" local="false" variableName="pitch_cmd" />
+                                  <Constant text="90" />
+                                </SetVariable>
+                              </Instructions>
+                            </ElseIf>
+                          </Instructions>
+                        </If>
+                        <ElseIf id="402" style="else">
+                          <Constant style="true" bool="true" />
+                          <Instructions>
+                            <SetVariable id="403" style="set-variable">
+                              <Variable list="false" local="false" variableName="pitch_cmd" />
+                              <Constant text="90" />
+                            </SetVariable>
+                          </Instructions>
+                        </ElseIf>
                       </Instructions>
                     </If>
                     <If id="156" style="if">
@@ -385,6 +470,10 @@
                         <SetVariable id="340" style="set-variable">
                           <Variable list="false" local="false" variableName="heading_hold_enabled" />
                           <Constant text="0" />
+                        </SetVariable>
+                        <SetVariable id="404" style="set-variable">
+                          <Variable list="false" local="false" variableName="pitch_cmd" />
+                          <Constant text="90" />
                         </SetVariable>
                         <SetVariable id="160" style="set-variable">
                           <Variable list="false" local="false" variableName="hold_alt_agl" />
@@ -544,12 +633,12 @@
             <If id="369" style="if">
               <Comparison op="g" style="op-gt">
                 <Variable list="false" local="false" variableName="pitch_cmd" />
-                <Constant text="90" />
+                <Constant text="180" />
               </Comparison>
               <Instructions>
                 <SetVariable id="370" style="set-variable">
                   <Variable list="false" local="false" variableName="pitch_cmd" />
-                  <Constant text="90" />
+                  <Constant text="180" />
                 </SetVariable>
               </Instructions>
             </If>
