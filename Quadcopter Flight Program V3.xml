@@ -21,6 +21,8 @@
     <Variable name="to_target_hat" number="0" />
     <Variable name="ncomp" number="0" />
     <Variable name="ecomp" number="0" />
+    <Variable name="headingrad" number="0" />
+    <Variable name="headingdeg" number="0" />
   </Variables>
   <Instructions>
     <Event event="FlightStart" id="0" style="flight-start" pos="0,0" />
@@ -344,57 +346,37 @@
                                 <Variable list="false" local="false" variableName="east_hat" />
                               </VectorOp>
                             </SetVariable>
-                            <If id="57" style="if">
-                              <Comparison op="ge" style="op-gte">
+                            <SetVariable id="57" style="set-variable">
+                              <Variable list="false" local="false" variableName="headingrad" />
+                              <BinaryOp op="atan2" style="op-atan-2">
+                                <Variable list="false" local="false" variableName="ecomp" />
                                 <Variable list="false" local="false" variableName="ncomp" />
+                              </BinaryOp>
+                            </SetVariable>
+                            <SetVariable id="58" style="set-variable">
+                              <Variable list="false" local="false" variableName="headingdeg" />
+                              <MathFunction function="rad2deg" style="op-math">
+                                <Variable list="false" local="false" variableName="headingrad" />
+                              </MathFunction>
+                            </SetVariable>
+                            <If id="60" style="if">
+                              <Comparison op="l" style="op-lt">
+                                <Variable list="false" local="false" variableName="headingdeg" />
                                 <Constant text="0" />
                               </Comparison>
                               <Instructions>
-                                <If id="58" style="if">
-                                  <Comparison op="ge" style="op-gte">
-                                    <Variable list="false" local="false" variableName="ecomp" />
-                                    <Constant text="0" />
-                                  </Comparison>
-                                  <Instructions>
-                                    <SetTargetHeading property="heading" id="59" style="set-heading">
-                                      <Constant text="45" />
-                                    </SetTargetHeading>
-                                  </Instructions>
-                                </If>
-                                <ElseIf id="60" style="else">
-                                  <Constant bool="true" />
-                                  <Instructions>
-                                    <SetTargetHeading property="heading" id="61" style="set-heading">
-                                      <Constant text="315" />
-                                    </SetTargetHeading>
-                                  </Instructions>
-                                </ElseIf>
+                                <SetVariable id="61" style="set-variable">
+                                  <Variable list="false" local="false" variableName="headingdeg" />
+                                  <BinaryOp op="+" style="op-add">
+                                    <Variable list="false" local="false" variableName="headingdeg" />
+                                    <Constant text="360" />
+                                  </BinaryOp>
+                                </SetVariable>
                               </Instructions>
                             </If>
-                            <ElseIf id="62" style="else">
-                              <Constant bool="true" />
-                              <Instructions>
-                                <If id="63" style="if">
-                                  <Comparison op="ge" style="op-gte">
-                                    <Variable list="false" local="false" variableName="ecomp" />
-                                    <Constant text="0" />
-                                  </Comparison>
-                                  <Instructions>
-                                    <SetTargetHeading property="heading" id="64" style="set-heading">
-                                      <Constant text="135" />
-                                    </SetTargetHeading>
-                                  </Instructions>
-                                </If>
-                                <ElseIf id="65" style="else">
-                                  <Constant bool="true" />
-                                  <Instructions>
-                                    <SetTargetHeading property="heading" id="66" style="set-heading">
-                                      <Constant text="225" />
-                                    </SetTargetHeading>
-                                  </Instructions>
-                                </ElseIf>
-                              </Instructions>
-                            </ElseIf>
+                            <SetTargetHeading property="heading" id="66" style="set-heading">
+                              <Variable list="false" local="false" variableName="headingdeg" />
+                            </SetTargetHeading>
                           </Instructions>
                         </If>
                         <SetTargetHeading property="pitch" id="67" style="set-heading">
