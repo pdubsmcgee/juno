@@ -140,3 +140,12 @@ These changes preserve AG1 abort behavior while allowing pilot throttle authorit
 ### Input-handling answer (manual -> takeoff/hover)
 
 Yes — with the refactor, switching from manual (`AG3`) to takeoff+hover (`AG1`) explicitly writes `manual_override=0` in the activation/state-manager thread before enabling auto flight state. This makes the handoff deterministic and avoids stale manual-mode ownership.
+
+## I) Repository-wide state-machine standardization (STATE_* Broadcast/Receive)
+
+The repo now includes a shared Vizzy state-module scaffold across the major programs:
+- Shared variables: `ProgramState`, `RequestedState`, `StateChangePending`, `StandbyActive`, `AscentActive`, `OrbitActive`, `LandingActive`, `HoverActive`.
+- Shared messages: `STATE_STANDBY`, `STATE_ASCENT`, `STATE_ORBIT`, `STATE_LANDING`, `STATE_HOVER`.
+- Shared receive entrypoints: one `ReceiveMessage` event per state that atomically disables other state booleans before enabling the selected one.
+
+For quadcopter logic, state messages additionally map into legacy mode flags (`auto_enabled`, `manual_override`, `landing_armed`, `nav_enabled`) so existing control threads continue to behave as before while transitioning to the standardized pattern.

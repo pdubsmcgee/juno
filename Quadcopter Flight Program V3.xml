@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Program name="Quadcopter Flight Program V3.21">
+<Program name="Quadcopter Flight Program V3.22">
   <Variables>
     <Variable name="auto_enabled" number="0" />
     <Variable name="manual_override" number="0" />
@@ -37,6 +37,15 @@
     <Variable name="nav_heading_error_deg" number="0" />
     <Variable name="heading_hold_enabled" number="0" />
     <Variable name="thread_safe_mode" number="0" />
+
+    <Variable name="ProgramState" number="0" />
+    <Variable name="RequestedState" number="0" />
+    <Variable name="StateChangePending" number="0" />
+    <Variable name="StandbyActive" number="0" />
+    <Variable name="AscentActive" number="0" />
+    <Variable name="OrbitActive" number="0" />
+    <Variable name="LandingActive" number="0" />
+    <Variable name="HoverActive" number="0" />
   </Variables>
   <Instructions>
     <Event event="FlightStart" id="0" style="flight-start" pos="0,0" />
@@ -1028,4 +1037,88 @@
     </While>
   </Instructions>
   <Expressions />
+  <Instructions>
+    <Comment id="9000" style="comment">
+      <Constant style="comment-text" canReplace="false" text="State manager receive modules: requests via broadcast to craft STATE_* messages" />
+    </Comment>
+    <Event event="FlightStart" id="9001" style="flight-start" pos="0,0" />
+    <SetVariable id="9002" style="set-variable">
+      <Variable list="false" local="false" variableName="ProgramState" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="9003" style="set-variable">
+      <Variable list="false" local="false" variableName="RequestedState" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="9004" style="set-variable">
+      <Variable list="false" local="false" variableName="StateChangePending" />
+      <Constant text="1" />
+    </SetVariable>
+    <BroadcastMessage global="false" local="false" id="9005" style="broadcast-msg-craft">
+      <Constant text="STATE_STANDBY" />
+      <Constant number="0" />
+    </BroadcastMessage>
+  </Instructions>
+  <Instructions>
+    <Event event="ReceiveMessage" id="9010" style="receive-msg" pos="0,0">
+      <Constant canReplace="false" text="STATE_STANDBY" />
+    </Event>
+    <SetVariable id="9011" style="set-variable"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9012" style="set-variable"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9013" style="set-variable"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9014" style="set-variable"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9015" style="set-variable"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9016" style="set-variable"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9017" style="set-variable"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9018" style="set-variable"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9019" style="set-variable"><Variable list="false" local="false" variableName="nav_enabled" /><Constant text="0" /></SetVariable>
+  </Instructions>
+  <Instructions>
+    <Event event="ReceiveMessage" id="9020" style="receive-msg" pos="0,0"><Constant canReplace="false" text="STATE_ASCENT" /></Event>
+    <SetVariable id="9021" style="set-variable"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9022" style="set-variable"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9023" style="set-variable"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9024" style="set-variable"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9025" style="set-variable"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9026" style="set-variable"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9027" style="set-variable"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9028" style="set-variable"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9029" style="set-variable"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9038" style="set-variable"><Variable list="false" local="false" variableName="manual_override" /><Constant text="0" /></SetVariable>
+  </Instructions>
+  <Instructions>
+    <Event event="ReceiveMessage" id="9030" style="receive-msg" pos="0,0"><Constant canReplace="false" text="STATE_ORBIT" /></Event>
+    <SetVariable id="9031" style="set-variable"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9032" style="set-variable"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9033" style="set-variable"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9034" style="set-variable"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9035" style="set-variable"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9036" style="set-variable"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="2" /></SetVariable>
+    <SetVariable id="9037" style="set-variable"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+  </Instructions>
+  <Instructions>
+    <Event event="ReceiveMessage" id="9040" style="receive-msg" pos="0,0"><Constant canReplace="false" text="STATE_LANDING" /></Event>
+    <SetVariable id="9041" style="set-variable"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9042" style="set-variable"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9043" style="set-variable"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9044" style="set-variable"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9045" style="set-variable"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9046" style="set-variable"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="3" /></SetVariable>
+    <SetVariable id="9047" style="set-variable"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9048" style="set-variable"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9049" style="set-variable"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9058" style="set-variable"><Variable list="false" local="false" variableName="nav_enabled" /><Constant text="0" /></SetVariable>
+  </Instructions>
+  <Instructions>
+    <Event event="ReceiveMessage" id="9050" style="receive-msg" pos="0,0"><Constant canReplace="false" text="STATE_HOVER" /></Event>
+    <SetVariable id="9051" style="set-variable"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9052" style="set-variable"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9053" style="set-variable"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9054" style="set-variable"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9055" style="set-variable"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9056" style="set-variable"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="4" /></SetVariable>
+    <SetVariable id="9057" style="set-variable"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9059" style="set-variable"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9060" style="set-variable"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="0" /></SetVariable>
+  </Instructions>
 </Program>

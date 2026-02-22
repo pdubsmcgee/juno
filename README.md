@@ -12,7 +12,7 @@ This repo is focused on:
 
 ## Repository layout
 
-- `Flight Program R V3.0.xml` — Main Vizzy program export (`<Program name="Flight Program R V3.0">`). The project title remains “The Rocket Whisperer”.
+- `Flight Program R V3.0.xml` — Main Vizzy program export (`<Program name="Flight Program R V3.22">`). The project title remains “The Rocket Whisperer”.
 - `USER_MANUAL.md` — Full operator manual for using the flight computer.
 - `PROJECT_STUBS.md` — Resolution tracker describing recent implemented tasks.
 - `vizzy_kb/verified_index.md` — Repo-extracted tag/property inventory.
@@ -22,6 +22,7 @@ This repo is focused on:
 - `scripts/bump_version.sh` — Helper to bump `VERSION` (`change|major`).
 - `gpttest.xml` — Alternate complete Vizzy flight-control program profile (`<Program name="gpttest">`).
 - `Reference.xml` — Comprehensive syntax reference program containing manually placed instruction blocks, dropdown variants, and representative custom-instruction patterns for future program construction.
+- `docs/VIZZY_STATE_MACHINE_PATTERN.md` — Standardized Broadcast/Receive state-machine architecture and per-program state maps.
 
 ## What the program does (high level)
 
@@ -49,7 +50,7 @@ For full operation details, see [USER_MANUAL.md](USER_MANUAL.md).
 
 ## Versioning workflow
 
-This repo now tracks a `MAJOR.REVISION` version in `VERSION` (currently `3.12`).
+This repo now tracks a `MAJOR.REVISION` version in `VERSION` (currently `3.22`).
 
 When making changes:
 

@@ -112,3 +112,9 @@
   - Updated `Quadcopter Flight Program V3.xml` navigation pitch behavior to use heading-gated, staged tilt control: forward tilt only after heading alignment, reverse tilt for deceleration near target, and neutral 90° pitch at final settle.
   - Added `nav_heading_error_deg` computation using `Nav.CraftHeading` to gate translational tilt until heading error is small and wrapped into [0,180].
   - Bumped `VERSION` to `3.21` for controlled navigation-tilt and braking behavior integration.
+
+- 2026-02-22
+  - Standardized a repo-wide Vizzy state-machine scaffold in `Flight Program R V3.0.xml`, `gpttest.xml`, and `Quadcopter Flight Program V3.xml` using shared state variables (`ProgramState`, `RequestedState`, `StateChangePending`, `*Active`) and `STATE_*` Broadcast/Receive entrypoints.
+  - Added `docs/VIZZY_STATE_MACHINE_PATTERN.md` documenting required architecture and per-program state maps/triggers.
+  - Extended `logic-table.md` with state-standardization notes and quadcopter compatibility mapping to legacy mode flags.
+  - Bumped `VERSION` to `3.22` for the repo-wide state-machine standardization pass.
