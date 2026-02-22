@@ -18,6 +18,7 @@ This repo is focused on:
 - `vizzy_kb/verified_index.md` — Repo-extracted tag/property inventory.
 - `vizzy_kb/vizzy_commands_web_research.md` — Supplemental external research notes.
 - `agents.md` — Repo-scoped operating and verification contract.
+- `gpttest.xml` — Alternate complete Vizzy flight-control program profile (`<Program name="gpttest">`).
 
 ## What the program does (high level)
 
@@ -33,7 +34,7 @@ The flight computer runs a mode-driven launch and ascent flow with:
 
 ## Quick start
 
-1. Import `Flight Program R V3.0.xml` into a craft's Vizzy program in Juno: New Origins.
+1. Import either `Flight Program R V3.0.xml` or `gpttest.xml` into a craft's Vizzy program in Juno: New Origins.
 2. Start flight; respond to the three startup prompts:
    - Target altitude (m AGL)
    - Target inclination (deg)
@@ -46,3 +47,4 @@ For full operation details, see [USER_MANUAL.md](USER_MANUAL.md).
 ## Verification posture
 
 This repository follows a strict repo-grounded verification policy. If an instruction/field is not evidenced in the repository, it should be treated as **UNVERIFIED** and excluded from flight-program modifications.
+
