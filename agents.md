@@ -165,3 +165,8 @@
   - Added `docs/STEAM_GUIDE_ORBITAL_MECHANICS_NOTES.md` summarizing the reviewed Steam guide (`id=2961230801`) with practical orbital-mechanics maneuver-planning takeaways for repository documentation.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.29` during version bump.
   - Bumped `VERSION` to `3.29` for this Steam-guide distillation documentation update.
+
+- 2026-02-22
+  - Added `docs/FANDOM_VIZZY_WIKI_NOTES.md` with a recursive documentation pass from the Juno: New Origins Fandom Vizzy page and relevant linked instruction/expression pages.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.30` during version bump.
+  - Bumped `VERSION` to `3.30` for this Fandom wiki Vizzy documentation update.
