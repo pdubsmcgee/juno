@@ -23,6 +23,12 @@
     <Variable name="ecomp" number="0" />
     <Variable name="headingrad" number="0" />
     <Variable name="headingdeg" number="0" />
+    <Variable name="nav_cruise_throttle" number="0" />
+    <Variable name="hover_throttle" number="0" />
+    <Variable name="landing_throttle_high" number="0" />
+    <Variable name="landing_throttle_mid_high" number="0" />
+    <Variable name="landing_throttle_mid" number="0" />
+    <Variable name="landing_throttle_low" number="0" />
   </Variables>
   <Instructions>
     <Event event="FlightStart" id="0" style="flight-start" pos="0,0" />
@@ -64,6 +70,30 @@
     <SetVariable id="10" style="set-variable">
       <Variable list="false" local="false" variableName="home_pos" />
       <CraftProperty property="Nav.Position" style="prop-nav" />
+    </SetVariable>
+    <SetVariable id="150" style="set-variable">
+      <Variable list="false" local="false" variableName="nav_cruise_throttle" />
+      <Constant text="0.55" />
+    </SetVariable>
+    <SetVariable id="151" style="set-variable">
+      <Variable list="false" local="false" variableName="hover_throttle" />
+      <Constant text="0.48" />
+    </SetVariable>
+    <SetVariable id="152" style="set-variable">
+      <Variable list="false" local="false" variableName="landing_throttle_high" />
+      <Constant text="0.35" />
+    </SetVariable>
+    <SetVariable id="153" style="set-variable">
+      <Variable list="false" local="false" variableName="landing_throttle_mid_high" />
+      <Constant text="0.30" />
+    </SetVariable>
+    <SetVariable id="154" style="set-variable">
+      <Variable list="false" local="false" variableName="landing_throttle_mid" />
+      <Constant text="0.25" />
+    </SetVariable>
+    <SetVariable id="155" style="set-variable">
+      <Variable list="false" local="false" variableName="landing_throttle_low" />
+      <Constant text="0.18" />
     </SetVariable>
     <DisplayMessage id="11" style="display">
       <Constant text="Ready. AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
@@ -244,7 +274,7 @@
                       </Comparison>
                       <Instructions>
                         <SetInput input="throttle" id="40" style="set-input">
-                          <Constant text="0.35" />
+                          <Variable list="false" local="false" variableName="landing_throttle_high" />
                         </SetInput>
                       </Instructions>
                     </If>
@@ -261,7 +291,7 @@
                           </Comparison>
                           <Instructions>
                             <SetInput input="throttle" id="143" style="set-input">
-                              <Constant text="0.30" />
+                              <Variable list="false" local="false" variableName="landing_throttle_mid_high" />
                             </SetInput>
                           </Instructions>
                         </If>
@@ -269,7 +299,7 @@
                           <Constant bool="true" />
                           <Instructions>
                             <SetInput input="throttle" id="145" style="set-input">
-                              <Constant text="0.25" />
+                              <Variable list="false" local="false" variableName="landing_throttle_mid" />
                             </SetInput>
                           </Instructions>
                         </ElseIf>
@@ -282,7 +312,7 @@
                       </Comparison>
                       <Instructions>
                         <SetInput input="throttle" id="147" style="set-input">
-                          <Constant text="0.18" />
+                          <Variable list="false" local="false" variableName="landing_throttle_low" />
                         </SetInput>
                       </Instructions>
                     </ElseIf>
@@ -424,9 +454,37 @@
                         <SetTargetHeading property="pitch" id="67" style="set-heading">
                           <Constant text="90" />
                         </SetTargetHeading>
-                        <SetInput input="throttle" id="68" style="set-input">
-                          <Constant text="0.55" />
-                        </SetInput>
+                        <If id="156" style="if">
+                          <Comparison op="g" style="op-gt">
+                            <Variable list="false" local="false" variableName="distance_to_target" />
+                            <Variable list="false" local="false" variableName="target_tolerance_m" />
+                          </Comparison>
+                          <Instructions>
+                            <SetInput input="throttle" id="68" style="set-input">
+                              <Variable list="false" local="false" variableName="nav_cruise_throttle" />
+                            </SetInput>
+                          </Instructions>
+                        </If>
+                        <ElseIf id="157" style="else">
+                          <Constant bool="true" />
+                          <Instructions>
+                            <SetInput input="throttle" id="158" style="set-input">
+                              <Variable list="false" local="false" variableName="hover_throttle" />
+                            </SetInput>
+                            <SetVariable id="159" style="set-variable">
+                              <Variable list="false" local="false" variableName="nav_enabled" />
+                              <Constant text="0" />
+                            </SetVariable>
+                            <SetVariable id="160" style="set-variable">
+                              <Variable list="false" local="false" variableName="hold_alt_agl" />
+                              <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                            </SetVariable>
+                            <DisplayMessage id="161" style="display">
+                              <Constant text="Target reached. Holding position." />
+                              <Constant number="3" />
+                            </DisplayMessage>
+                          </Instructions>
+                        </ElseIf>
                       </Instructions>
                     </If>
                     <ElseIf id="69" style="else">
