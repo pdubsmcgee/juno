@@ -2493,15 +2493,15 @@
             </ElseIf>
             <SetVariable id="373" style="set-variable">
               <Variable list="false" local="false" variableName="peg_pitchcmd" />
-              <BinaryOp op="/" style="op-div">
-                <BinaryOp op="+" style="op-add">
-                  <Variable list="false" local="false" variableName="peg_pitchcmd" />
+              <BinaryOp op="+" style="op-add">
+                <Variable list="false" local="false" variableName="peg_pitchcmd" />
+                <BinaryOp op="/" style="op-div">
                   <BinaryOp op="-" style="op-sub">
                     <Variable list="false" local="false" variableName="pitchdeg" />
                     <Variable list="false" local="false" variableName="peg_pitchcmd" />
                   </BinaryOp>
+                  <Variable list="false" local="false" variableName="smoothdiv" />
                 </BinaryOp>
-                <Variable list="false" local="false" variableName="smoothdiv" />
               </BinaryOp>
             </SetVariable>
             <SetVariable id="374" style="set-variable">
