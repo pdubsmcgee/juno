@@ -9,7 +9,7 @@
 
 ### 2) Current repository index
 - Vizzy XML exports:
-  - `Flight Computer R V1.5.xml`
+  - `Flight Program R V3.0.xml`
 - Agent/reference docs:
   - `You are “DeltaVinci”.txt`
   - `agents.md.txt` (legacy template)
@@ -17,11 +17,11 @@
 
 ### 3) Verified structural facts (from current repo)
 - Vizzy program root element is `<Program name="...">`.  
-  Evidence: `Flight Computer R V1.5.xml`
+  Evidence: `Flight Program R V3.0.xml`
 - Global variables are declared under `<Variables>` with `<Variable name="..." number="..." />` entries.  
-  Evidence: `Flight Computer R V1.5.xml`
+  Evidence: `Flight Program R V3.0.xml`
 - This repository currently includes one large flight-computer program with many predeclared numeric variables (guidance, PEG, circularization, staging, and control intermediates).  
-  Evidence: `Flight Computer R V1.5.xml`
+  Evidence: `Flight Program R V3.0.xml`
 
 ### 4) XML editing safety rules
 - Make minimal diffs only.
