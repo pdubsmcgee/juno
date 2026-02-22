@@ -225,6 +225,16 @@
               <Variable list="false" local="false" variableName="throttle_active" />
               <Constant text="0" />
             </SetVariable>
+            <SetVariable id="163" style="set-variable">
+              <Variable list="false" local="false" variableName="pilot_throttle_cmd" />
+              <BinaryOp op="+" style="op-add">
+                <BinaryOp op="*" style="op-mul">
+                  <CraftProperty property="Input.Slider1" style="prop-input" />
+                  <Constant text="0.5" />
+                </BinaryOp>
+                <Constant text="0.5" />
+              </BinaryOp>
+            </SetVariable>
             <If id="30" style="if">
               <Comparison op="g" style="op-gt">
                 <CraftProperty property="Input.Slider1" style="prop-input" />

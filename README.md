@@ -18,6 +18,8 @@ This repo is focused on:
 - `vizzy_kb/verified_index.md` — Repo-extracted tag/property inventory.
 - `vizzy_kb/vizzy_commands_web_research.md` — Supplemental external research notes.
 - `agents.md` — Repo-scoped operating and verification contract.
+- `VERSION` — Repository semantic version used for release/process tracking.
+- `scripts/bump_version.sh` — Helper to bump `VERSION` (`major|minor|patch`).
 - `gpttest.xml` — Alternate complete Vizzy flight-control program profile (`<Program name="gpttest">`).
 
 ## What the program does (high level)
@@ -43,6 +45,16 @@ The flight computer runs a mode-driven launch and ascent flow with:
 4. Use AG1 as manual override / abort input where applicable.
 
 For full operation details, see [USER_MANUAL.md](USER_MANUAL.md).
+
+## Versioning workflow
+
+This repo now tracks a semantic version in `VERSION` (currently `3.0.1`).
+
+When making changes:
+
+1. Run `scripts/bump_version.sh patch` (or `minor` / `major` depending on scope).
+2. If needed for a release artifact, align the Vizzy program label/file naming with the new version.
+3. Record a short summary in `agents.md` change log and `PROJECT_STUBS.md`.
 
 ## Verification posture
 

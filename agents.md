@@ -10,6 +10,10 @@
 ### 2) Current repository index
 - Vizzy XML exports:
   - `Flight Program R V3.0.xml`
+- Repository version marker:
+  - `VERSION` (semantic version, currently `3.0.1`)
+- Version utility:
+  - `scripts/bump_version.sh`
 - Agent/reference docs:
   - `You are “DeltaVinci”.txt`
   - `agents.md.txt` (legacy template)
@@ -39,7 +43,16 @@
 - Exhaustive validated command list for this specific repo is not yet extracted (**UNVERIFIED**).
 - Exhaustive validated telemetry/toolkit field list for this specific repo is not yet extracted (**UNVERIFIED**).
 
-### 7) Change log
+### 7) Versioning protocol
+- Semantic version source of truth is the repo-root `VERSION` file.
+- Use `scripts/bump_version.sh {patch|minor|major}` when behavior/docs change.
+- For release artifacts, align XML program naming/file labels with the updated semantic version where practical.
+- Every version bump should be accompanied by a `agents.md` change-log entry summarizing impact.
+
+### 8) Change log
 - 2026-02-21
   - Created `agents.md` as the authoritative, repo-specific operating contract.
   - Converted generic template content into current verified facts + explicit unknowns.
+- 2026-02-22
+  - Added repository versioning protocol using root `VERSION` + `scripts/bump_version.sh`.
+  - Documented required version-bump linkage to change-log maintenance.

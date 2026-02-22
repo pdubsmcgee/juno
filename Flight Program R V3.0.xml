@@ -679,174 +679,188 @@
               <Variable list="false" local="false" variableName="throwner" />
               <Variable list="false" local="false" variableName="throwner_none" />
             </SetVariable>
-            <WaitSeconds id="106" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
+            <SetVariable id="106" style="set-variable">
+              <Variable list="false" local="false" variableName="fc_mode" />
+              <Variable list="false" local="false" variableName="fc_mode_none" />
+            </SetVariable>
+            <SetVariable id="1061" style="set-variable">
+              <Variable list="false" local="false" variableName="fc_status_code" />
+              <Constant text="5" />
+            </SetVariable>
+            <LogFlight id="1062" style="flightlog">
+              <Constant text="Manual takeover active: skipping FC mode dispatch this tick." />
+              <Constant style="false" bool="false" />
+            </LogFlight>
           </Instructions>
         </If>
-        <If id="107" style="if">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="fc_mode" />
-            <Variable list="false" local="false" variableName="fc_mode_countdown" />
-          </Comparison>
+        <ElseIf id="1063" style="else">
+          <Constant bool="true" />
           <Instructions>
-            <SetVariable id="108" style="set-variable">
-              <Variable list="false" local="false" variableName="fc_status_code" />
-              <Constant text="10" />
-            </SetVariable>
-            <CallCustomInstruction call="Countdown" id="109" style="call-custom-instruction" />
-          </Instructions>
-        </If>
-        <ElseIf id="110" style="else">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="fc_mode" />
-            <Variable list="false" local="false" variableName="fc_mode_ascent" />
-          </Comparison>
-          <Instructions>
-            <SetVariable id="111" style="set-variable">
-              <Variable list="false" local="false" variableName="fc_status_code" />
-              <Constant text="20" />
-            </SetVariable>
-            <If id="112" style="if">
-              <Comparison op="l" style="op-lt">
-                <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                <Variable list="false" local="false" variableName="ascent_transition_altitude_m" />
+            <If id="107" style="if">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="fc_mode" />
+                <Variable list="false" local="false" variableName="fc_mode_countdown" />
               </Comparison>
               <Instructions>
-                <SetVariable id="113" style="set-variable">
-                  <Variable list="false" local="false" variableName="attowner" />
-                  <Variable list="false" local="false" variableName="attowner_gravity_turn" />
+                <SetVariable id="108" style="set-variable">
+                  <Variable list="false" local="false" variableName="fc_status_code" />
+                  <Constant text="10" />
                 </SetVariable>
-                <SetVariable id="114" style="set-variable">
-                  <Variable list="false" local="false" variableName="throwner" />
-                  <Variable list="false" local="false" variableName="throwner_gravity_turn" />
-                </SetVariable>
+                <CallCustomInstruction call="Countdown" id="109" style="call-custom-instruction" />
               </Instructions>
             </If>
-            <ElseIf id="115" style="else">
-              <Constant bool="true" />
+            <ElseIf id="110" style="else">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="fc_mode" />
+                <Variable list="false" local="false" variableName="fc_mode_ascent" />
+              </Comparison>
               <Instructions>
-                <If id="116" style="if">
-                  <BoolOp op="and" style="op-and">
-                    <Comparison op="g" style="op-gt">
-                      <CraftProperty property="Vel.SurfaceVelocity" style="prop-velocity" />
-                      <Variable list="false" local="false" variableName="ascent_guidance_enable_speed_mps" />
-                    </Comparison>
-                    <Comparison op="l" style="op-lt">
-                      <CraftProperty property="Nav.AngleOfAttack" style="prop-nav" />
-                      <Variable list="false" local="false" variableName="gt_maxaoa" />
-                    </Comparison>
-                  </BoolOp>
+                <SetVariable id="111" style="set-variable">
+                  <Variable list="false" local="false" variableName="fc_status_code" />
+                  <Constant text="20" />
+                </SetVariable>
+                <If id="112" style="if">
+                  <Comparison op="l" style="op-lt">
+                    <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                    <Variable list="false" local="false" variableName="ascent_transition_altitude_m" />
+                  </Comparison>
                   <Instructions>
-                    <SetVariable id="117" style="set-variable">
-                      <Variable list="false" local="false" variableName="attowner" />
-                      <Variable list="false" local="false" variableName="attowner_guidance" />
-                    </SetVariable>
-                    <SetVariable id="118" style="set-variable">
-                      <Variable list="false" local="false" variableName="throwner" />
-                      <Variable list="false" local="false" variableName="throwner_guidance" />
-                    </SetVariable>
-                  </Instructions>
-                </If>
-                <ElseIf id="119" style="else">
-                  <Constant bool="true" />
-                  <Instructions>
-                    <SetVariable id="120" style="set-variable">
+                    <SetVariable id="113" style="set-variable">
                       <Variable list="false" local="false" variableName="attowner" />
                       <Variable list="false" local="false" variableName="attowner_gravity_turn" />
                     </SetVariable>
-                    <SetVariable id="121" style="set-variable">
+                    <SetVariable id="114" style="set-variable">
                       <Variable list="false" local="false" variableName="throwner" />
                       <Variable list="false" local="false" variableName="throwner_gravity_turn" />
                     </SetVariable>
                   </Instructions>
+                </If>
+                <ElseIf id="115" style="else">
+                  <Constant bool="true" />
+                  <Instructions>
+                    <If id="116" style="if">
+                      <BoolOp op="and" style="op-and">
+                        <Comparison op="g" style="op-gt">
+                          <CraftProperty property="Vel.SurfaceVelocity" style="prop-velocity" />
+                          <Variable list="false" local="false" variableName="ascent_guidance_enable_speed_mps" />
+                        </Comparison>
+                        <Comparison op="l" style="op-lt">
+                          <CraftProperty property="Nav.AngleOfAttack" style="prop-nav" />
+                          <Variable list="false" local="false" variableName="gt_maxaoa" />
+                        </Comparison>
+                      </BoolOp>
+                      <Instructions>
+                        <SetVariable id="117" style="set-variable">
+                          <Variable list="false" local="false" variableName="attowner" />
+                          <Variable list="false" local="false" variableName="attowner_guidance" />
+                        </SetVariable>
+                        <SetVariable id="118" style="set-variable">
+                          <Variable list="false" local="false" variableName="throwner" />
+                          <Variable list="false" local="false" variableName="throwner_guidance" />
+                        </SetVariable>
+                      </Instructions>
+                    </If>
+                    <ElseIf id="119" style="else">
+                      <Constant bool="true" />
+                      <Instructions>
+                        <SetVariable id="120" style="set-variable">
+                          <Variable list="false" local="false" variableName="attowner" />
+                          <Variable list="false" local="false" variableName="attowner_gravity_turn" />
+                        </SetVariable>
+                        <SetVariable id="121" style="set-variable">
+                          <Variable list="false" local="false" variableName="throwner" />
+                          <Variable list="false" local="false" variableName="throwner_gravity_turn" />
+                        </SetVariable>
+                      </Instructions>
+                    </ElseIf>
+                  </Instructions>
                 </ElseIf>
+                <If id="122" style="if">
+                  <BoolOp op="and" style="op-and">
+                    <Comparison op="ge" style="op-gte">
+                      <CraftProperty property="Orbit.Apoapsis" style="prop-orbit" />
+                      <BinaryOp op="+" style="op-add">
+                        <Variable list="false" local="false" variableName="targetalt_m" />
+                        <Variable list="false" local="false" variableName="ascent_apoapsis_buffer_m" />
+                      </BinaryOp>
+                    </Comparison>
+                    <Comparison op="ge" style="op-gte">
+                      <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                      <BinaryOp op="*" style="op-mul">
+                        <Variable list="false" local="false" variableName="targetalt_m" />
+                        <Variable list="false" local="false" variableName="ascent_circ_entry_altitude_ratio" />
+                      </BinaryOp>
+                    </Comparison>
+                  </BoolOp>
+                  <Instructions>
+                    <SetVariable id="123" style="set-variable">
+                      <Variable list="false" local="false" variableName="fc_mode" />
+                      <Variable list="false" local="false" variableName="fc_mode_circularization" />
+                    </SetVariable>
+                    <SetVariable id="124" style="set-variable">
+                      <Variable list="false" local="false" variableName="circ_active" />
+                      <Constant text="1" />
+                    </SetVariable>
+                  </Instructions>
+                </If>
               </Instructions>
             </ElseIf>
-            <If id="122" style="if">
-              <BoolOp op="and" style="op-and">
-                <Comparison op="ge" style="op-gte">
-                  <CraftProperty property="Orbit.Apoapsis" style="prop-orbit" />
-                  <BinaryOp op="+" style="op-add">
-                    <Variable list="false" local="false" variableName="targetalt_m" />
-                    <Variable list="false" local="false" variableName="ascent_apoapsis_buffer_m" />
-                  </BinaryOp>
-                </Comparison>
-                <Comparison op="ge" style="op-gte">
-                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                  <BinaryOp op="*" style="op-mul">
-                    <Variable list="false" local="false" variableName="targetalt_m" />
-                    <Variable list="false" local="false" variableName="ascent_circ_entry_altitude_ratio" />
-                  </BinaryOp>
-                </Comparison>
-              </BoolOp>
-              <Instructions>
-                <SetVariable id="123" style="set-variable">
-                  <Variable list="false" local="false" variableName="fc_mode" />
-                  <Variable list="false" local="false" variableName="fc_mode_circularization" />
-                </SetVariable>
-                <SetVariable id="124" style="set-variable">
-                  <Variable list="false" local="false" variableName="circ_active" />
-                  <Constant text="1" />
-                </SetVariable>
-              </Instructions>
-            </If>
-          </Instructions>
-        </ElseIf>
-        <ElseIf id="125" style="else">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="fc_mode" />
-            <Variable list="false" local="false" variableName="fc_mode_circularization" />
-          </Comparison>
-          <Instructions>
-            <SetVariable id="126" style="set-variable">
-              <Variable list="false" local="false" variableName="fc_status_code" />
-              <Constant text="30" />
-            </SetVariable>
-            <SetVariable id="127" style="set-variable">
-              <Variable list="false" local="false" variableName="attowner" />
-              <Variable list="false" local="false" variableName="attowner_circularization" />
-            </SetVariable>
-            <SetVariable id="128" style="set-variable">
-              <Variable list="false" local="false" variableName="throwner" />
-              <Variable list="false" local="false" variableName="throwner_circularization" />
-            </SetVariable>
-          </Instructions>
-        </ElseIf>
-        <ElseIf id="129" style="else">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="fc_mode" />
-            <Variable list="false" local="false" variableName="fc_mode_done" />
-          </Comparison>
-          <Instructions>
-            <SetVariable id="130" style="set-variable">
-              <Variable list="false" local="false" variableName="fc_status_code" />
-              <Constant text="40" />
-            </SetVariable>
-            <If id="131" style="if">
+            <ElseIf id="125" style="else">
               <Comparison op="=" style="op-eq">
-                <Variable list="false" local="false" variableName="circ_active" />
-                <Constant number="0" />
+                <Variable list="false" local="false" variableName="fc_mode" />
+                <Variable list="false" local="false" variableName="fc_mode_circularization" />
               </Comparison>
               <Instructions>
-                <SetVariable id="132" style="set-variable">
-                  <Variable list="false" local="false" variableName="fc_mode" />
-                  <Variable list="false" local="false" variableName="fc_mode_none" />
-                </SetVariable>
-                <SetVariable id="133" style="set-variable">
-                  <Variable list="false" local="false" variableName="attowner" />
-                  <Variable list="false" local="false" variableName="attowner_none" />
-                </SetVariable>
-                <SetVariable id="134" style="set-variable">
-                  <Variable list="false" local="false" variableName="throwner" />
-                  <Variable list="false" local="false" variableName="throwner_none" />
-                </SetVariable>
-                <SetVariable id="135" style="set-variable">
+                <SetVariable id="126" style="set-variable">
                   <Variable list="false" local="false" variableName="fc_status_code" />
-                  <Constant text="0" />
+                  <Constant text="30" />
+                </SetVariable>
+                <SetVariable id="127" style="set-variable">
+                  <Variable list="false" local="false" variableName="attowner" />
+                  <Variable list="false" local="false" variableName="attowner_circularization" />
+                </SetVariable>
+                <SetVariable id="128" style="set-variable">
+                  <Variable list="false" local="false" variableName="throwner" />
+                  <Variable list="false" local="false" variableName="throwner_circularization" />
                 </SetVariable>
               </Instructions>
-            </If>
+            </ElseIf>
+            <ElseIf id="129" style="else">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="fc_mode" />
+                <Variable list="false" local="false" variableName="fc_mode_done" />
+              </Comparison>
+              <Instructions>
+                <SetVariable id="130" style="set-variable">
+                  <Variable list="false" local="false" variableName="fc_status_code" />
+                  <Constant text="40" />
+                </SetVariable>
+                <If id="131" style="if">
+                  <Comparison op="=" style="op-eq">
+                    <Variable list="false" local="false" variableName="circ_active" />
+                    <Constant number="0" />
+                  </Comparison>
+                  <Instructions>
+                    <SetVariable id="132" style="set-variable">
+                      <Variable list="false" local="false" variableName="fc_mode" />
+                      <Variable list="false" local="false" variableName="fc_mode_none" />
+                    </SetVariable>
+                    <SetVariable id="133" style="set-variable">
+                      <Variable list="false" local="false" variableName="attowner" />
+                      <Variable list="false" local="false" variableName="attowner_none" />
+                    </SetVariable>
+                    <SetVariable id="134" style="set-variable">
+                      <Variable list="false" local="false" variableName="throwner" />
+                      <Variable list="false" local="false" variableName="throwner_none" />
+                    </SetVariable>
+                    <SetVariable id="135" style="set-variable">
+                      <Variable list="false" local="false" variableName="fc_status_code" />
+                      <Constant text="0" />
+                    </SetVariable>
+                  </Instructions>
+                </If>
+              </Instructions>
+            </ElseIf>
           </Instructions>
         </ElseIf>
         <WaitSeconds id="136" style="wait-seconds">
@@ -1579,7 +1593,31 @@
             </WaitSeconds>
           </Instructions>
         </If>
-        <SetVariable id="268" style="set-variable">
+        <If id="2680" style="if">
+          <Not style="op-not">
+            <BoolOp op="or" style="op-or">
+              <BoolOp op="or" style="op-or">
+                <Comparison op="=" style="op-eq">
+                  <Variable list="false" local="false" variableName="circ_active" />
+                  <Constant number="0" />
+                </Comparison>
+                <Not style="op-not">
+                  <Comparison op="=" style="op-eq">
+                    <Variable list="false" local="false" variableName="attowner" />
+                    <Variable list="false" local="false" variableName="attowner_circularization" />
+                  </Comparison>
+                </Not>
+              </BoolOp>
+              <Comparison op="=" style="op-eq">
+                <ActivationGroup style="activation-group">
+                  <Constant number="1" />
+                </ActivationGroup>
+                <Constant style="true" bool="true" />
+              </Comparison>
+            </BoolOp>
+          </Not>
+          <Instructions>
+            <SetVariable id="268" style="set-variable">
           <Variable list="false" local="false" variableName="rvec" />
           <CraftProperty property="Nav.Position" style="prop-nav" />
         </SetVariable>
@@ -1933,6 +1971,8 @@
         <WaitSeconds id="328" style="wait-seconds">
           <Constant text="0.05" />
         </WaitSeconds>
+          </Instructions>
+        </If>
       </Instructions>
     </While>
   </Instructions>

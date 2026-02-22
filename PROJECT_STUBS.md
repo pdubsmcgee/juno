@@ -52,3 +52,8 @@ This backlog tracks the static review and implementation work performed against 
 ## Task 9 — Fix autostage clamp path (RESOLVED)
 - Updated preflight autostage normalization so invalid input is forced through the clamp path.
 - Preserved final autostage output as explicit binary `0/1` state for downstream logic.
+
+## Task 10 — Add repository versioning workflow (RESOLVED)
+- Added semantic version source-of-truth file: `VERSION` (`3.0.1`).
+- Added `scripts/bump_version.sh` to automate `major|minor|patch` version increments.
+- Documented versioning procedure in `README.md`, `docs/MAINTAINER_GUIDE.md`, and `agents.md`.
