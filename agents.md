@@ -144,3 +144,8 @@
   - Ran layout tidy across `Flight Program R V3.0.xml`, `Quadcopter Flight Program V3.xml`, `gpttest.xml`, and `Reference.xml` to produce cleaner Vizzy canvas organization.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.26` during version bump.
   - Bumped `VERSION` to `3.26` for XML layout tidying automation and repo-wide layout cleanup pass.
+
+- 2026-02-22
+  - Added `docs/STEAM_GUIDE_VECTORS_AND_PIDS_NOTES.md` summarizing practical vector/PID control lessons from the reviewed Steam guide (`id=2944674093`) for local documentation reuse.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.27` during version bump.
+  - Bumped `VERSION` to `3.27` for this documentation/research-notes update.
