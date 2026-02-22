@@ -49,8 +49,30 @@ esac
 next="${major}.${revision}"
 printf '%s\n' "$next" > "$version_file"
 
+updated_xml=0
+for xml_file in *.xml; do
+  [[ -f "$xml_file" ]] || continue
+
+  current_name="$(sed -n 's/.*<Program name="\([^"]*\)".*/\1/p' "$xml_file" | head -n 1)"
+
+  if [[ "$current_name" =~ ^(.*[[:space:]]V)([0-9]+)(\.[0-9]+)?$ ]]; then
+    base_name="${BASH_REMATCH[1]}"
+    new_name="${base_name}${next}"
+
+    if [[ "$new_name" != "$current_name" ]]; then
+      OLD_NAME="$current_name" NEW_NAME="$new_name" perl -0pi -e 's/(<Program\s+name=")([^"]+)(")/${1} . ($2 eq $ENV{OLD_NAME} ? $ENV{NEW_NAME} : $2) . $3/e' "$xml_file"
+      echo "Updated XML program name: ${xml_file} -> ${new_name}"
+      updated_xml=1
+    fi
+  fi
+done
+
 echo "Version bumped: ${current_raw} -> ${next}"
 echo "Next steps:"
-echo "  1) Update XML Program name/file label if release-worthy."
+if [[ "$updated_xml" -eq 0 ]]; then
+  echo "  1) No version-tagged XML program names were auto-updated."
+else
+  echo "  1) Confirm auto-updated XML Program names using version suffix V${next}."
+fi
 echo "  2) Add a changelog entry in agents.md section 8."
 echo "  3) Commit VERSION (and any related docs/XML updates)."
