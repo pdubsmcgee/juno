@@ -154,3 +154,8 @@
   - Added `docs/STEAM_GUIDE_ORBITAL_TOOLKIT_INACCURACY_NOTES.md` summarizing the reviewed Steam guide (`id=3039843312`) with a focus on low-warp numerical-integration drift and practical mitigation workflow for maneuver planning.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.28` during version bump.
   - Bumped `VERSION` to `3.28` for this Steam-guide inaccuracy documentation update.
+
+- 2026-02-22
+  - Added `docs/STEAM_GUIDE_ORBITAL_MECHANICS_NOTES.md` summarizing the reviewed Steam guide (`id=2961230801`) with practical orbital-mechanics maneuver-planning takeaways for repository documentation.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.29` during version bump.
+  - Bumped `VERSION` to `3.29` for this Steam-guide distillation documentation update.
