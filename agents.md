@@ -90,3 +90,10 @@
   - Added explicit manual-to-takeoff handoff behavior: AG1 transition writes `manual_override=0` before enabling auto hold/takeoff state.
   - Expanded `logic-table.md` with a comprehensive quadcopter activation/mode/thread logic table and transition priorities.
   - Bumped `VERSION` to `3.17` for this quadcopter state-machine/thread refactor update.
+
+
+- 2026-02-22
+  - Refactored `Quadcopter Flight Program V3.xml` into clearer per-function threading: main control-logic planner thread now computes throttle/attitude command variables while dedicated throttle and navigation actuator threads apply those commands.
+  - Added new command/state variables (`throttle_cmd`, `pitch_cmd`, `nav_heading_cmd`, `heading_hold_enabled`) and initialized them at startup for deterministic behavior.
+  - Updated `logic-table.md` threading table to document the new control-logic + throttle-actuator + navigation-actuator split.
+  - Bumped `VERSION` to `3.18` for this quadcopter multi-thread control refactor update.

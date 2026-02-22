@@ -131,8 +131,10 @@ These changes preserve AG1 abort behavior while allowing pilot throttle authorit
 
 | Thread | Loop rate | Responsibility |
 |---|---|---|
-| Main flight-control loop (`Event id=0`, `While id=12`) | `0.05 s` | Pure control execution from state vars (`auto_enabled`, `landing_armed`, `nav_enabled`, `manual_override`). |
-| Activation/state manager (`Event id=300`, `While id=301`) | `0.05 s` | Read AG1..AG4, update command mirrors, apply transition priority/state updates. |
+| Control-logic planner (`Event id=0`, `While id=12`) | `0.05 s` | Computes command outputs (`throttle_cmd`, `pitch_cmd`, `nav_heading_cmd`, `heading_hold_enabled`) from state vars (`auto_enabled`, `landing_armed`, `nav_enabled`, `manual_override`). |
+| Throttle actuator (`Event id=344`, `While id=345`) | `0.05 s` | Applies `throttle_cmd` to `slider1` only when `manual_override=0`. |
+| Navigation actuator (`Event id=349`, `While id=350`) | `0.05 s` | Applies `pitch_cmd` continuously; applies heading hold from `nav_heading_cmd` when `heading_hold_enabled=1` and `manual_override=0`. |
+| Activation/state manager (`Event id=300`, `While id=301`) | `0.05 s` | Reads AG1..AG4, updates command mirrors, applies transition priority/state updates. |
 | Prop-pitch optimizer (`Event id=173`, `While id=174`) | `0.1 s` | Independent variable-pitch optimization and fail-safe reset behavior. |
 
 ### Input-handling answer (manual -> takeoff/hover)
