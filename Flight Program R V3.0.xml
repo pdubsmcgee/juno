@@ -1054,18 +1054,12 @@
   <Instructions>
     <Event event="FlightStart" id="174" style="flight-start" pos="4864.378,1133.246" />
     <Comment id="175" style="comment">
-      <Constant style="comment-text" canReplace="false" text="Throttle Manager (throttle control loop mostly frame-synced; idle gates 0.05s)" />
+      <Constant style="comment-text" canReplace="false" text="Throttle Manager (single-branch control path with clamp + circularization guard)" />
     </Comment>
     <WaitUntil id="176" style="wait-until">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_init_done" />
         <Constant text="1" />
-      </Comparison>
-    </WaitUntil>
-    <WaitUntil id="177" style="wait-until">
-      <Comparison op="=" style="op-eq">
-        <Variable list="false" local="false" variableName="fc_mode" />
-        <Variable list="false" local="false" variableName="fc_mode_ascent" />
       </Comparison>
     </WaitUntil>
     <SetVariable id="178" style="set-variable">
@@ -1095,55 +1089,6 @@
     <While id="184" style="while">
       <Constant style="true" bool="true" />
       <Instructions>
-        <If id="185" style="if">
-          <Comparison op="=" style="op-eq">
-            <ActivationGroup style="activation-group">
-              <Constant number="1" />
-            </ActivationGroup>
-            <Constant style="true" bool="true" />
-          </Comparison>
-          <Instructions>
-            <WaitSeconds id="186" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
-          </Instructions>
-        </If>
-        <If id="187" style="if">
-          <Comparison op="l" style="op-lt">
-            <Variable list="false" local="false" variableName="fc_mode" />
-            <Variable list="false" local="false" variableName="fc_mode_ascent" />
-          </Comparison>
-          <Instructions>
-            <WaitSeconds id="188" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
-          </Instructions>
-        </If>
-        <If id="189" style="if">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="thrcut" />
-            <Constant text="1" />
-          </Comparison>
-          <Instructions>
-            <SetInput input="throttle" id="190" style="set-input">
-              <Constant number="0" />
-            </SetInput>
-            <WaitSeconds id="191" style="wait-seconds">
-              <Constant text=".5" />
-            </WaitSeconds>
-          </Instructions>
-        </If>
-        <If id="192" style="if">
-          <Comparison op="=" style="op-eq">
-            <Variable list="false" local="false" variableName="throwner" />
-            <Variable list="false" local="false" variableName="throwner_none" />
-          </Comparison>
-          <Instructions>
-            <WaitSeconds id="193" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
-          </Instructions>
-        </If>
         <SetVariable id="194" style="set-variable">
           <Variable list="false" local="false" variableName="m" />
           <CraftProperty property="Performance.Mass" style="prop-performance" />
@@ -1152,28 +1097,59 @@
           <Variable list="false" local="false" variableName="maxt" />
           <CraftProperty property="Performance.MaxActiveEngineThrust" style="prop-performance" />
         </SetVariable>
-        <SetVariable id="196" style="set-variable">
-          <Variable list="false" local="false" variableName="gvec" />
-          <CraftProperty property="Vel.Gravity" style="prop-velocity" />
-        </SetVariable>
         <SetVariable id="197" style="set-variable">
           <Variable list="false" local="false" variableName="gmag" />
           <VectorOp op="length" style="vec-op-1">
             <CraftProperty property="Vel.Gravity" style="prop-velocity" />
           </VectorOp>
         </SetVariable>
-        <If id="198" style="if">
+        <If id="185" style="if">
+          <Comparison op="=" style="op-eq">
+            <ActivationGroup style="activation-group">
+              <Constant number="1" />
+            </ActivationGroup>
+            <Constant style="true" bool="true" />
+          </Comparison>
+          <Instructions>
+            <SetInput input="throttle" id="190" style="set-input">
+              <Constant number="0" />
+            </SetInput>
+          </Instructions>
+        </If>
+        <ElseIf id="187" style="else">
+          <Comparison op="l" style="op-lt">
+            <Variable list="false" local="false" variableName="fc_mode" />
+            <Variable list="false" local="false" variableName="fc_mode_ascent" />
+          </Comparison>
+          <Instructions>
+            <SetInput input="throttle" id="199" style="set-input">
+              <Constant number="0" />
+            </SetInput>
+          </Instructions>
+        </ElseIf>
+        <ElseIf id="189" style="else">
+          <Comparison op="=" style="op-eq">
+            <Variable list="false" local="false" variableName="thrcut" />
+            <Constant text="1" />
+          </Comparison>
+          <Instructions>
+            <SetInput input="throttle" id="206" style="set-input">
+              <Constant number="0" />
+            </SetInput>
+          </Instructions>
+        </ElseIf>
+        <ElseIf id="192" style="else">
           <Comparison op="l" style="op-lt">
             <Variable list="false" local="false" variableName="maxt" />
             <Constant text="1" />
           </Comparison>
           <Instructions>
-            <SetInput input="throttle" id="199" style="set-input">
-              <Constant text="0" />
+            <SetInput input="throttle" id="214" style="set-input">
+              <Constant number="0" />
             </SetInput>
           </Instructions>
-        </If>
-        <If id="200" style="if">
+        </ElseIf>
+        <ElseIf id="200" style="else">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="throwner" />
             <Variable list="false" local="false" variableName="throwner_gravity_turn" />
@@ -1192,39 +1168,9 @@
                 <Variable list="false" local="false" variableName="maxt" />
               </BinaryOp>
             </SetVariable>
-            <If id="202" style="if">
-              <Comparison op="l" style="op-lt">
-                <Variable list="false" local="false" variableName="thr" />
-                <Variable list="false" local="false" variableName="minthrottle" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="203" style="set-variable">
-                  <Variable list="false" local="false" variableName="thr" />
-                  <Variable list="false" local="false" variableName="minthrottle" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <If id="204" style="if">
-              <Comparison op="g" style="op-gt">
-                <Variable list="false" local="false" variableName="thr" />
-                <Variable list="false" local="false" variableName="maxthrottle" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="205" style="set-variable">
-                  <Variable list="false" local="false" variableName="thr" />
-                  <Variable list="false" local="false" variableName="maxthrottle" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <SetInput input="throttle" id="206" style="set-input">
-              <Variable list="false" local="false" variableName="thr" />
-            </SetInput>
-            <WaitSeconds id="207" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
           </Instructions>
-        </If>
-        <If id="208" style="if">
+        </ElseIf>
+        <ElseIf id="208" style="else">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="throwner" />
             <Variable list="false" local="false" variableName="throwner_guidance" />
@@ -1243,39 +1189,9 @@
                 <Variable list="false" local="false" variableName="maxt" />
               </BinaryOp>
             </SetVariable>
-            <If id="210" style="if">
-              <Comparison op="l" style="op-lt">
-                <Variable list="false" local="false" variableName="thr" />
-                <Variable list="false" local="false" variableName="minthrottle" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="211" style="set-variable">
-                  <Variable list="false" local="false" variableName="thr" />
-                  <Variable list="false" local="false" variableName="minthrottle" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <If id="212" style="if">
-              <Comparison op="g" style="op-gt">
-                <Variable list="false" local="false" variableName="thr" />
-                <Variable list="false" local="false" variableName="maxthrottle" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="213" style="set-variable">
-                  <Variable list="false" local="false" variableName="thr" />
-                  <Variable list="false" local="false" variableName="maxthrottle" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <SetInput input="throttle" id="214" style="set-input">
-              <Variable list="false" local="false" variableName="thr" />
-            </SetInput>
-            <WaitSeconds id="215" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
           </Instructions>
-        </If>
-        <If id="216" style="if">
+        </ElseIf>
+        <ElseIf id="216" style="else">
           <BoolOp op="and" style="op-and">
             <Comparison op="=" style="op-eq">
               <Variable list="false" local="false" variableName="throwner" />
@@ -1293,25 +1209,6 @@
             </BoolOp>
           </BoolOp>
           <Instructions>
-            <If id="217" style="if">
-              <BoolOp op="or" style="op-or">
-                <Not style="op-not">
-                  <Comparison op="=" style="op-eq">
-                    <Variable list="false" local="false" variableName="attowner" />
-                    <Variable list="false" local="false" variableName="attowner_circularization" />
-                  </Comparison>
-                </Not>
-                <Comparison op="=" style="op-eq">
-                  <Variable list="false" local="false" variableName="circ_active" />
-                  <Constant text="0" />
-                </Comparison>
-              </BoolOp>
-              <Instructions>
-                <WaitSeconds id="218" style="wait-seconds">
-                  <Constant text="0.05" />
-                </WaitSeconds>
-              </Instructions>
-            </If>
             <SetVariable id="219" style="set-variable">
               <Variable list="false" local="false" variableName="rvec" />
               <CraftProperty property="Nav.Position" style="prop-nav" />
@@ -1406,51 +1303,106 @@
                 <SetInput input="throttle" id="232" style="set-input">
                   <Constant number="0" />
                 </SetInput>
-                <WaitSeconds id="233" style="wait-seconds">
-                  <Constant text="0.05" />
-                </WaitSeconds>
               </Instructions>
             </If>
-            <SetVariable id="234" style="set-variable">
-              <Variable list="false" local="false" variableName="thr" />
-              <BinaryOp op="/" style="op-div">
-                <Variable list="false" local="false" variableName="dv" />
-                <Constant text="50" />
-              </BinaryOp>
-            </SetVariable>
-            <If id="235" style="if">
-              <Comparison op="g" style="op-gt">
-                <Variable list="false" local="false" variableName="thr" />
-                <Constant text="1" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="236" style="set-variable">
-                  <Variable list="false" local="false" variableName="thr" />
-                  <Constant text="1" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <If id="237" style="if">
+            <ElseIf id="233" style="else">
               <Comparison op="l" style="op-lt">
-                <Variable list="false" local="false" variableName="thr" />
-                <Constant text="0" />
+                <Variable list="false" local="false" variableName="maxt" />
+                <Variable list="false" local="false" variableName="circ_minthrust" />
               </Comparison>
               <Instructions>
-                <SetVariable id="238" style="set-variable">
+                <SetInput input="throttle" id="239" style="set-input">
+                  <Constant number="0" />
+                </SetInput>
+              </Instructions>
+            </ElseIf>
+            <ElseIf id="234" style="else">
+              <Constant bool="true" />
+              <Instructions>
+                <SetVariable id="235" style="set-variable">
                   <Variable list="false" local="false" variableName="thr" />
-                  <Constant text="0" />
+                  <BinaryOp op="/" style="op-div">
+                    <Variable list="false" local="false" variableName="dv" />
+                    <Constant text="50" />
+                  </BinaryOp>
                 </SetVariable>
               </Instructions>
-            </If>
-            <SetInput input="throttle" id="239" style="set-input">
-              <Variable list="false" local="false" variableName="thr" />
+            </ElseIf>
+          </Instructions>
+        </ElseIf>
+        <ElseIf id="237" style="else">
+          <Comparison op="=" style="op-eq">
+            <Variable list="false" local="false" variableName="throwner" />
+            <Variable list="false" local="false" variableName="throwner_none" />
+          </Comparison>
+          <Instructions>
+            <SetInput input="throttle" id="238" style="set-input">
+              <Constant number="0" />
             </SetInput>
-            <WaitSeconds id="240" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
+          </Instructions>
+        </ElseIf>
+        <ElseIf id="240" style="else">
+          <Constant bool="true" />
+          <Instructions>
+            <SetInput input="throttle" id="241" style="set-input">
+              <Constant number="0" />
+            </SetInput>
+          </Instructions>
+        </ElseIf>
+        <If id="202" style="if">
+          <Comparison op="l" style="op-lt">
+            <Variable list="false" local="false" variableName="thr" />
+            <Variable list="false" local="false" variableName="minthrottle" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="203" style="set-variable">
+              <Variable list="false" local="false" variableName="thr" />
+              <Variable list="false" local="false" variableName="minthrottle" />
+            </SetVariable>
           </Instructions>
         </If>
-        <WaitSeconds id="241" style="wait-seconds">
+        <If id="204" style="if">
+          <Comparison op="g" style="op-gt">
+            <Variable list="false" local="false" variableName="thr" />
+            <Variable list="false" local="false" variableName="maxthrottle" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="205" style="set-variable">
+              <Variable list="false" local="false" variableName="thr" />
+              <Variable list="false" local="false" variableName="maxthrottle" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <If id="207" style="if">
+          <BoolOp op="or" style="op-or">
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="throwner" />
+              <Variable list="false" local="false" variableName="throwner_gravity_turn" />
+            </Comparison>
+            <BoolOp op="or" style="op-or">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="throwner" />
+                <Variable list="false" local="false" variableName="throwner_guidance" />
+              </Comparison>
+              <BoolOp op="and" style="op-and">
+                <Comparison op="=" style="op-eq">
+                  <Variable list="false" local="false" variableName="throwner" />
+                  <Variable list="false" local="false" variableName="throwner_circularization" />
+                </Comparison>
+                <Comparison op="g" style="op-gt">
+                  <Variable list="false" local="false" variableName="dv" />
+                  <Variable list="false" local="false" variableName="circ_toldv" />
+                </Comparison>
+              </BoolOp>
+            </BoolOp>
+          </BoolOp>
+          <Instructions>
+            <SetInput input="throttle" id="215" style="set-input">
+              <Variable list="false" local="false" variableName="thr" />
+            </SetInput>
+          </Instructions>
+        </If>
+        <WaitSeconds id="218" style="wait-seconds">
           <Constant text="0.05" />
         </WaitSeconds>
       </Instructions>
