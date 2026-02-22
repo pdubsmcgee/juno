@@ -21,6 +21,7 @@ This repo is focused on:
 - `VERSION` — Repository version used for release/process tracking (`MAJOR.REVISION`).
 - `scripts/bump_version.sh` — Helper to bump `VERSION` (`change|major`).
 - `gpttest.xml` — Alternate complete Vizzy flight-control program profile (`<Program name="gpttest">`).
+- `Reference.xml` — Comprehensive syntax reference program containing manually placed instruction blocks, dropdown variants, and representative custom-instruction patterns for future program construction.
 
 ## What the program does (high level)
 
@@ -59,3 +60,13 @@ When making changes:
 ## Verification posture
 
 This repository follows a strict repo-grounded verification policy. If an instruction/field is not evidenced in the repository, it should be treated as **UNVERIFIED** and excluded from flight-program modifications.
+
+## Reference workflow (`Reference.xml`)
+
+`Reference.xml` is now the primary in-repo syntax catalog when drafting or validating new Vizzy logic patterns. It is intentionally non-operational and exists to show concrete XML shapes for:
+
+- Instruction block tag names and wrapper structure.
+- Dropdown/enum variants expressed as repeated attributes (for example: input channels, time modes, nav-sphere indicators, camera/craft property selectors).
+- Representative custom instruction wiring patterns and argument ordering.
+
+When adding or changing XML logic in executable programs, prefer syntax that already appears in `Reference.xml` (or the target flight program) to stay within verified repository evidence.

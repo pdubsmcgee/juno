@@ -1,9 +1,9 @@
 # Verified Vizzy Index (Repo-Extracted)
 
-Generated from `Flight Program R V3.0.xml` using local regex extraction.
+Generated from `Flight Program R V3.0.xml` and `Reference.xml` using local extraction.
 Only repository-observed commands/properties are listed (no external assumptions).
 
-## Command/Node tags observed (top 25 by frequency)
+## Flight program command/node tags observed (top 25 by frequency)
 
 - `SetVariable`: 242
 - `Comparison`: 105
@@ -31,7 +31,18 @@ Only repository-observed commands/properties are listed (no external assumptions
 - `SetCraftProperty`: 4
 - `UserInput`: 3
 
-## CraftProperty fields observed
+## Reference syntax catalog coverage (`Reference.xml`)
+
+- `Instructions` groups: 48
+- Unique instruction tags represented: 30
+- High-coverage selector families included:
+  - `SetInput` (13 variants)
+  - `SetTimeMode` (14 variants)
+  - `LockNavSphere` (7 variants)
+  - `SetCameraProperty` (7 variants)
+  - `SetCraftProperty` (6 variants)
+
+## CraftProperty fields observed in flight program
 
 - `Altitude.AGL`: 2
 - `Fuel.FuelInStage`: 1
@@ -51,4 +62,5 @@ Only repository-observed commands/properties are listed (no external assumptions
 
 ## Source
 - `Flight Program R V3.0.xml`
+- `Reference.xml`
 - `agents.md` (verification policy context)
