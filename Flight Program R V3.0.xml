@@ -724,13 +724,22 @@
               </Instructions>
             </ElseIf>
             <If id="122" style="if">
-              <Comparison op="ge" style="op-gte">
-                <CraftProperty property="Orbit.Apoapsis" style="prop-orbit" />
-                <BinaryOp op="+" style="op-add">
-                  <Variable list="false" local="false" variableName="targetalt_m" />
-                  <Constant text="1000" />
-                </BinaryOp>
-              </Comparison>
+              <BoolOp op="and" style="op-and">
+                <Comparison op="ge" style="op-gte">
+                  <CraftProperty property="Orbit.Apoapsis" style="prop-orbit" />
+                  <BinaryOp op="+" style="op-add">
+                    <Variable list="false" local="false" variableName="targetalt_m" />
+                    <Constant text="1000" />
+                  </BinaryOp>
+                </Comparison>
+                <Comparison op="ge" style="op-gte">
+                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                  <BinaryOp op="*" style="op-mul">
+                    <Variable list="false" local="false" variableName="targetalt_m" />
+                    <Constant text="0.7" />
+                  </BinaryOp>
+                </Comparison>
+              </BoolOp>
               <Instructions>
                 <SetVariable id="123" style="set-variable">
                   <Variable list="false" local="false" variableName="fc_mode" />
@@ -1886,7 +1895,7 @@
     </WaitUntil>
     <SetVariable id="332" style="set-variable">
       <Variable list="false" local="false" variableName="escale" />
-      <Constant text="2000000" />
+      <Constant text="500000" />
     </SetVariable>
     <SetVariable id="333" style="set-variable">
       <Variable list="false" local="false" variableName="k_e_max" />
