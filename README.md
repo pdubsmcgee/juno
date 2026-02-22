@@ -23,6 +23,7 @@ This repo is focused on:
 - `gpttest.xml` — Alternate complete Vizzy flight-control program profile (`<Program name="gpttest">`).
 - `Reference.xml` — Comprehensive syntax reference program containing manually placed instruction blocks, dropdown variants, and representative custom-instruction patterns for future program construction.
 - `docs/VIZZY_STATE_MACHINE_PATTERN.md` — Standardized Broadcast/Receive state-machine architecture and per-program state maps.
+- `docs/STEAM_GUIDE_ADVANCED_DATA_STRUCTURES_NOTES.md` — Distilled notes from the Steam guide on dynamic-variable and pseudo-struct patterns in Vizzy.
 
 ## What the program does (high level)
 
