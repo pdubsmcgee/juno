@@ -1087,21 +1087,31 @@
                 <If id="166" style="if">
                   <BoolOp op="and" style="op-and">
                     <Comparison op="=" style="op-eq">
+                      <Variable list="false" local="false" variableName="fc_mode" />
+                      <Variable list="false" local="false" variableName="fc_mode_ascent" />
+                    </Comparison>
+                    <BoolOp op="and" style="op-and">
+                    <Comparison op="=" style="op-eq">
                       <Variable list="false" local="false" variableName="stagelock" />
                       <Constant number="0" />
                     </Comparison>
-                    <Comparison op="ge" style="op-gte">
-                      <Variable list="false" local="false" variableName="lowfuelcount" />
-                      <Constant text="3" />
-                    </Comparison>
-                    <Comparison op="ge" style="op-gte">
-                      <Variable list="false" local="false" variableName="lowthrustcount" />
-                      <Constant text="3" />
-                    </Comparison>
-                    <Comparison op="ge" style="op-gte">
-                      <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                      <Constant text="10000" />
-                    </Comparison>
+                      <BoolOp op="and" style="op-and">
+                        <Comparison op="ge" style="op-gte">
+                          <Variable list="false" local="false" variableName="lowfuelcount" />
+                          <Constant text="3" />
+                        </Comparison>
+                        <BoolOp op="and" style="op-and">
+                          <Comparison op="ge" style="op-gte">
+                            <Variable list="false" local="false" variableName="lowthrustcount" />
+                            <Constant text="3" />
+                          </Comparison>
+                          <Comparison op="ge" style="op-gte">
+                            <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                            <Constant text="10000" />
+                          </Comparison>
+                        </BoolOp>
+                      </BoolOp>
+                    </BoolOp>
                   </BoolOp>
                   <Instructions>
                     <ActivateStage id="167" style="activate-stage" />
