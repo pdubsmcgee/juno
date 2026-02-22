@@ -73,3 +73,18 @@ This is a deterministic logical deadlock between the countdown thread and thrott
 1. In Throttle Manager, do **not** force throttle to 0 during countdown pre-arm (or gate this clamp behind an explicit abort/manual state instead of `fc_mode < ascent`).
 2. Normalize autostage variable usage (`init` vs `autostage`) so one declared flag is used consistently.
 3. Keep AG1 abort semantics, but separate “abort command” from “always-zero pre-ascent throttle” behavior.
+
+---
+
+## G) Implemented fixes (post-analysis)
+
+The following XML fixes were applied to align implementation with the desired logic above:
+
+1. **Countdown throttle deadlock removed**
+   - In Throttle Manager, the pre-ascent zero-throttle branch was narrowed from `fc_mode < ascent` to `fc_mode == none`, so countdown no longer gets blanket-throttled to zero.
+   - Additional `throwner_none`/fallback zero-throttle branches were gated so they do not fire in `countdown` mode.
+
+2. **Autostage flag consistency fixed**
+   - Autostager now checks `init` (the same flag populated by user input normalization), replacing inconsistent `autostage` usage.
+
+These changes preserve AG1 abort behavior while allowing pilot throttle authority during countdown arming.
