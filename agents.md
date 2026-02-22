@@ -90,3 +90,8 @@
   - Added explicit manual-to-takeoff handoff behavior: AG1 transition writes `manual_override=0` before enabling auto hold/takeoff state.
   - Expanded `logic-table.md` with a comprehensive quadcopter activation/mode/thread logic table and transition priorities.
   - Bumped `VERSION` to `3.17` for this quadcopter state-machine/thread refactor update.
+
+- 2026-02-22
+  - Updated `scripts/bump_version.sh` to automatically sync version-tagged XML `<Program name="...">` labels to the newly bumped `VERSION` value.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.18` during the version bump.
+  - Bumped `VERSION` to `3.18` for XML program-version tracking automation.
