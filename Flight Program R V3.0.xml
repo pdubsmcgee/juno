@@ -346,57 +346,62 @@
             </WaitSeconds>
           </Instructions>
         </If>
-        <WaitSeconds id="43" style="wait-seconds">
-          <Constant text="10" />
-        </WaitSeconds>
-        <SetVariable id="44" style="set-variable">
-          <Variable list="false" local="false" variableName="peg_e2" />
-          <VectorOp op="norm" style="vec-op-1">
-            <CraftProperty property="Nav.East" style="prop-nav" />
-          </VectorOp>
-        </SetVariable>
-        <SetVariable id="45" style="set-variable">
-          <Variable list="false" local="false" variableName="peg_temp" />
-          <VectorOp op="cross" style="vec-op-2">
-            <Variable list="false" local="false" variableName="peg_e1" />
-            <Variable list="false" local="false" variableName="peg_e2" />
-          </VectorOp>
-        </SetVariable>
-        <SetVariable id="46" style="set-variable">
-          <Variable list="false" local="false" variableName="tempmag" />
-          <VectorOp op="length" style="vec-op-1">
-            <Variable list="false" local="false" variableName="peg_temp" />
-          </VectorOp>
-        </SetVariable>
-        <If id="47" style="if">
-          <Comparison op="g" style="op-gt">
-            <Variable list="false" local="false" variableName="tempmag" />
-            <Constant text=".0001" />
-          </Comparison>
+        <ElseIf id="3622" style="else">
+          <Constant bool="true" />
           <Instructions>
-            <SetVariable id="48" style="set-variable">
-              <Variable list="false" local="false" variableName="peg_k" />
+            <WaitSeconds id="43" style="wait-seconds">
+              <Constant text="10" />
+            </WaitSeconds>
+            <SetVariable id="44" style="set-variable">
+              <Variable list="false" local="false" variableName="peg_e2" />
               <VectorOp op="norm" style="vec-op-1">
+                <CraftProperty property="Nav.East" style="prop-nav" />
+              </VectorOp>
+            </SetVariable>
+            <SetVariable id="45" style="set-variable">
+              <Variable list="false" local="false" variableName="peg_temp" />
+              <VectorOp op="cross" style="vec-op-2">
+                <Variable list="false" local="false" variableName="peg_e1" />
+                <Variable list="false" local="false" variableName="peg_e2" />
+              </VectorOp>
+            </SetVariable>
+            <SetVariable id="46" style="set-variable">
+              <Variable list="false" local="false" variableName="tempmag" />
+              <VectorOp op="length" style="vec-op-1">
                 <Variable list="false" local="false" variableName="peg_temp" />
               </VectorOp>
             </SetVariable>
-            <SetVariable id="49" style="set-variable">
-              <Variable list="false" local="false" variableName="peg_readyk" />
-              <Constant text="1" />
-            </SetVariable>
-            <LogFlight id="50" style="flightlog">
-              <Constant text="K value solved" />
-              <Constant style="false" bool="false" />
-            </LogFlight>
-          </Instructions>
-        </If>
-        <ElseIf id="51" style="else">
-          <Constant bool="true" />
-          <Instructions>
-            <SetVariable id="52" style="set-variable">
-              <Variable list="false" local="false" variableName="peg_e1" />
-              <Variable list="false" local="false" variableName="peg_e2" />
-            </SetVariable>
+            <If id="47" style="if">
+              <Comparison op="g" style="op-gt">
+                <Variable list="false" local="false" variableName="tempmag" />
+                <Constant text=".0001" />
+              </Comparison>
+              <Instructions>
+                <SetVariable id="48" style="set-variable">
+                  <Variable list="false" local="false" variableName="peg_k" />
+                  <VectorOp op="norm" style="vec-op-1">
+                    <Variable list="false" local="false" variableName="peg_temp" />
+                  </VectorOp>
+                </SetVariable>
+                <SetVariable id="49" style="set-variable">
+                  <Variable list="false" local="false" variableName="peg_readyk" />
+                  <Constant text="1" />
+                </SetVariable>
+                <LogFlight id="50" style="flightlog">
+                  <Constant text="K value solved" />
+                  <Constant style="false" bool="false" />
+                </LogFlight>
+              </Instructions>
+            </If>
+            <ElseIf id="51" style="else">
+              <Constant bool="true" />
+              <Instructions>
+                <SetVariable id="52" style="set-variable">
+                  <Variable list="false" local="false" variableName="peg_e1" />
+                  <Variable list="false" local="false" variableName="peg_e2" />
+                </SetVariable>
+              </Instructions>
+            </ElseIf>
           </Instructions>
         </ElseIf>
       </Instructions>
@@ -664,7 +669,7 @@
             <CallCustomInstruction call="Countdown" id="109" style="call-custom-instruction" />
           </Instructions>
         </If>
-        <If id="110" style="if">
+        <ElseIf id="110" style="else">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="fc_mode" />
             <Variable list="false" local="false" variableName="fc_mode_ascent" />
@@ -750,8 +755,8 @@
               </Instructions>
             </If>
           </Instructions>
-        </If>
-        <If id="125" style="if">
+        </ElseIf>
+        <ElseIf id="125" style="else">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="fc_mode" />
             <Variable list="false" local="false" variableName="fc_mode_circularization" />
@@ -770,8 +775,8 @@
               <Variable list="false" local="false" variableName="throwner_circularization" />
             </SetVariable>
           </Instructions>
-        </If>
-        <If id="129" style="if">
+        </ElseIf>
+        <ElseIf id="129" style="else">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="fc_mode" />
             <Variable list="false" local="false" variableName="fc_mode_done" />
@@ -806,7 +811,7 @@
               </Instructions>
             </If>
           </Instructions>
-        </If>
+        </ElseIf>
         <WaitSeconds id="136" style="wait-seconds">
           <Constant text="0.05" />
         </WaitSeconds>
