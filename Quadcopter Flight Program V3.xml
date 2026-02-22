@@ -1,0 +1,463 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Program name="Quadcopter Flight Program V3">
+  <Variables>
+    <Variable name="auto_enabled" number="0" />
+    <Variable name="manual_override" number="0" />
+    <Variable name="landing_armed" number="0" />
+    <Variable name="nav_enabled" number="0" />
+    <Variable name="hold_alt_agl" number="0" />
+    <Variable name="throttle_active" number="0" />
+    <Variable name="throttle_prev_active" number="0" />
+    <Variable name="target_north_m" number="0" />
+    <Variable name="target_east_m" number="0" />
+    <Variable name="target_tolerance_m" number="0" />
+    <Variable name="home_pos" number="0" />
+    <Variable name="north_hat" number="0" />
+    <Variable name="east_hat" number="0" />
+    <Variable name="target_pos" number="0" />
+    <Variable name="current_pos" number="0" />
+    <Variable name="to_target" number="0" />
+    <Variable name="distance_to_target" number="0" />
+    <Variable name="to_target_hat" number="0" />
+    <Variable name="ncomp" number="0" />
+    <Variable name="ecomp" number="0" />
+  </Variables>
+  <Instructions>
+    <Event event="FlightStart" id="0" style="flight-start" pos="0,0" />
+    <Comment id="1" style="comment">
+      <Constant style="comment-text" canReplace="false" text="AG1: takeoff + altitude hold | AG4: start nav to target | AG2: land | AG3: manual override" />
+    </Comment>
+    <SetVariable id="2" style="set-variable">
+      <Variable list="false" local="false" variableName="auto_enabled" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="3" style="set-variable">
+      <Variable list="false" local="false" variableName="manual_override" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="4" style="set-variable">
+      <Variable list="false" local="false" variableName="landing_armed" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="5" style="set-variable">
+      <Variable list="false" local="false" variableName="nav_enabled" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="6" style="set-variable">
+      <Variable list="false" local="false" variableName="target_north_m" />
+      <Constant text="1200" />
+    </SetVariable>
+    <SetVariable id="7" style="set-variable">
+      <Variable list="false" local="false" variableName="target_east_m" />
+      <Constant text="800" />
+    </SetVariable>
+    <SetVariable id="8" style="set-variable">
+      <Variable list="false" local="false" variableName="target_tolerance_m" />
+      <Constant text="100" />
+    </SetVariable>
+    <SetVariable id="9" style="set-variable">
+      <Variable list="false" local="false" variableName="hold_alt_agl" />
+      <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+    </SetVariable>
+    <SetVariable id="10" style="set-variable">
+      <Variable list="false" local="false" variableName="home_pos" />
+      <CraftProperty property="Nav.Position" style="prop-nav" />
+    </SetVariable>
+    <DisplayMessage id="11" style="display">
+      <Constant text="Ready. AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
+      <Constant number="7" />
+    </DisplayMessage>
+    <While id="12" style="while">
+      <Constant style="true" bool="true" />
+      <Instructions>
+        <If id="13" style="if">
+          <Comparison op="=" style="op-eq">
+            <ActivationGroup style="activation-group">
+              <Constant number="3" />
+            </ActivationGroup>
+            <Constant text="1" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="14" style="set-variable">
+              <Variable list="false" local="false" variableName="manual_override" />
+              <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="15" style="set-variable">
+              <Variable list="false" local="false" variableName="auto_enabled" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="16" style="set-variable">
+              <Variable list="false" local="false" variableName="nav_enabled" />
+              <Constant text="0" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <If id="17" style="if">
+          <BoolOp op="and" style="op-and">
+            <Comparison op="=" style="op-eq">
+              <ActivationGroup style="activation-group">
+                <Constant number="1" />
+              </ActivationGroup>
+              <Constant text="1" />
+            </Comparison>
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="manual_override" />
+              <Constant text="0" />
+            </Comparison>
+          </BoolOp>
+          <Instructions>
+            <SetVariable id="18" style="set-variable">
+              <Variable list="false" local="false" variableName="auto_enabled" />
+              <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="19" style="set-variable">
+              <Variable list="false" local="false" variableName="landing_armed" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="20" style="set-variable">
+              <Variable list="false" local="false" variableName="nav_enabled" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="21" style="set-variable">
+              <Variable list="false" local="false" variableName="hold_alt_agl" />
+              <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+            </SetVariable>
+            <SetVariable id="22" style="set-variable">
+              <Variable list="false" local="false" variableName="home_pos" />
+              <CraftProperty property="Nav.Position" style="prop-nav" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <If id="23" style="if">
+          <BoolOp op="and" style="op-and">
+            <Comparison op="=" style="op-eq">
+              <ActivationGroup style="activation-group">
+                <Constant number="4" />
+              </ActivationGroup>
+              <Constant text="1" />
+            </Comparison>
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="auto_enabled" />
+              <Constant text="1" />
+            </Comparison>
+          </BoolOp>
+          <Instructions>
+            <SetVariable id="24" style="set-variable">
+              <Variable list="false" local="false" variableName="nav_enabled" />
+              <Constant text="1" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <If id="25" style="if">
+          <BoolOp op="and" style="op-and">
+            <Comparison op="=" style="op-eq">
+              <ActivationGroup style="activation-group">
+                <Constant number="2" />
+              </ActivationGroup>
+              <Constant text="1" />
+            </Comparison>
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="auto_enabled" />
+              <Constant text="1" />
+            </Comparison>
+          </BoolOp>
+          <Instructions>
+            <SetVariable id="26" style="set-variable">
+              <Variable list="false" local="false" variableName="landing_armed" />
+              <Constant text="1" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <If id="27" style="if">
+          <Comparison op="=" style="op-eq">
+            <Variable list="false" local="false" variableName="auto_enabled" />
+            <Constant text="1" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="28" style="set-variable">
+              <Variable list="false" local="false" variableName="throttle_prev_active" />
+              <Variable list="false" local="false" variableName="throttle_active" />
+            </SetVariable>
+            <SetVariable id="29" style="set-variable">
+              <Variable list="false" local="false" variableName="throttle_active" />
+              <Constant text="0" />
+            </SetVariable>
+            <If id="30" style="if">
+              <Comparison op="g" style="op-gt">
+                <CraftProperty property="Input.Throttle" style="prop-input" />
+                <Constant text="0.55" />
+              </Comparison>
+              <Instructions>
+                <SetVariable id="31" style="set-variable">
+                  <Variable list="false" local="false" variableName="throttle_active" />
+                  <Constant text="1" />
+                </SetVariable>
+              </Instructions>
+            </If>
+            <If id="32" style="if">
+              <Comparison op="l" style="op-lt">
+                <CraftProperty property="Input.Throttle" style="prop-input" />
+                <Constant text="0.45" />
+              </Comparison>
+              <Instructions>
+                <SetVariable id="33" style="set-variable">
+                  <Variable list="false" local="false" variableName="throttle_active" />
+                  <Constant text="1" />
+                </SetVariable>
+              </Instructions>
+            </If>
+            <If id="34" style="if">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="throttle_active" />
+                <Constant text="1" />
+              </Comparison>
+              <Instructions>
+                <SetInput input="throttle" id="35" style="set-input">
+                  <CraftProperty property="Input.Throttle" style="prop-input" />
+                </SetInput>
+              </Instructions>
+            </If>
+            <ElseIf id="36" style="else">
+              <Constant bool="true" />
+              <Instructions>
+                <If id="37" style="if">
+                  <Comparison op="=" style="op-eq">
+                    <Variable list="false" local="false" variableName="landing_armed" />
+                    <Constant text="1" />
+                  </Comparison>
+                  <Instructions>
+                    <If id="38" style="if">
+                      <Comparison op="g" style="op-gt">
+                        <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                        <Constant text="20" />
+                      </Comparison>
+                      <Instructions>
+                        <SetTargetHeading property="pitch" id="39" style="set-heading">
+                          <Constant text="90" />
+                        </SetTargetHeading>
+                        <SetInput input="throttle" id="40" style="set-input">
+                          <Constant text="0.35" />
+                        </SetInput>
+                      </Instructions>
+                    </If>
+                    <ElseIf id="41" style="else">
+                      <Constant bool="true" />
+                      <Instructions>
+                        <SetInput input="throttle" id="42" style="set-input">
+                          <Constant text="0" />
+                        </SetInput>
+                        <SetVariable id="43" style="set-variable">
+                          <Variable list="false" local="false" variableName="auto_enabled" />
+                          <Constant text="0" />
+                        </SetVariable>
+                        <SetVariable id="44" style="set-variable">
+                          <Variable list="false" local="false" variableName="nav_enabled" />
+                          <Constant text="0" />
+                        </SetVariable>
+                      </Instructions>
+                    </ElseIf>
+                  </Instructions>
+                </If>
+                <ElseIf id="45" style="else">
+                  <Constant bool="true" />
+                  <Instructions>
+                    <If id="46" style="if">
+                      <Comparison op="=" style="op-eq">
+                        <Variable list="false" local="false" variableName="nav_enabled" />
+                        <Constant text="1" />
+                      </Comparison>
+                      <Instructions>
+                        <SetVariable id="47" style="set-variable">
+                          <Variable list="false" local="false" variableName="north_hat" />
+                          <VectorOp op="norm" style="vec-op-1">
+                            <CraftProperty property="Nav.North" style="prop-nav" />
+                          </VectorOp>
+                        </SetVariable>
+                        <SetVariable id="48" style="set-variable">
+                          <Variable list="false" local="false" variableName="east_hat" />
+                          <VectorOp op="norm" style="vec-op-1">
+                            <CraftProperty property="Nav.East" style="prop-nav" />
+                          </VectorOp>
+                        </SetVariable>
+                        <SetVariable id="49" style="set-variable">
+                          <Variable list="false" local="false" variableName="target_pos" />
+                          <BinaryOp op="+" style="op-add">
+                            <BinaryOp op="+" style="op-add">
+                              <Variable list="false" local="false" variableName="home_pos" />
+                              <BinaryOp op="*" style="op-mul">
+                                <Variable list="false" local="false" variableName="north_hat" />
+                                <Variable list="false" local="false" variableName="target_north_m" />
+                              </BinaryOp>
+                            </BinaryOp>
+                            <BinaryOp op="*" style="op-mul">
+                              <Variable list="false" local="false" variableName="east_hat" />
+                              <Variable list="false" local="false" variableName="target_east_m" />
+                            </BinaryOp>
+                          </BinaryOp>
+                        </SetVariable>
+                        <SetVariable id="50" style="set-variable">
+                          <Variable list="false" local="false" variableName="current_pos" />
+                          <CraftProperty property="Nav.Position" style="prop-nav" />
+                        </SetVariable>
+                        <SetVariable id="51" style="set-variable">
+                          <Variable list="false" local="false" variableName="to_target" />
+                          <BinaryOp op="-" style="op-sub">
+                            <Variable list="false" local="false" variableName="target_pos" />
+                            <Variable list="false" local="false" variableName="current_pos" />
+                          </BinaryOp>
+                        </SetVariable>
+                        <SetVariable id="52" style="set-variable">
+                          <Variable list="false" local="false" variableName="distance_to_target" />
+                          <VectorOp op="length" style="vec-op-1">
+                            <Variable list="false" local="false" variableName="to_target" />
+                          </VectorOp>
+                        </SetVariable>
+                        <If id="53" style="if">
+                          <Comparison op="g" style="op-gt">
+                            <Variable list="false" local="false" variableName="distance_to_target" />
+                            <Variable list="false" local="false" variableName="target_tolerance_m" />
+                          </Comparison>
+                          <Instructions>
+                            <SetVariable id="54" style="set-variable">
+                              <Variable list="false" local="false" variableName="to_target_hat" />
+                              <VectorOp op="norm" style="vec-op-1">
+                                <Variable list="false" local="false" variableName="to_target" />
+                              </VectorOp>
+                            </SetVariable>
+                            <SetVariable id="55" style="set-variable">
+                              <Variable list="false" local="false" variableName="ncomp" />
+                              <VectorOp op="dot" style="vec-op-2">
+                                <Variable list="false" local="false" variableName="to_target_hat" />
+                                <Variable list="false" local="false" variableName="north_hat" />
+                              </VectorOp>
+                            </SetVariable>
+                            <SetVariable id="56" style="set-variable">
+                              <Variable list="false" local="false" variableName="ecomp" />
+                              <VectorOp op="dot" style="vec-op-2">
+                                <Variable list="false" local="false" variableName="to_target_hat" />
+                                <Variable list="false" local="false" variableName="east_hat" />
+                              </VectorOp>
+                            </SetVariable>
+                            <If id="57" style="if">
+                              <Comparison op="ge" style="op-gte">
+                                <Variable list="false" local="false" variableName="ncomp" />
+                                <Constant text="0" />
+                              </Comparison>
+                              <Instructions>
+                                <If id="58" style="if">
+                                  <Comparison op="ge" style="op-gte">
+                                    <Variable list="false" local="false" variableName="ecomp" />
+                                    <Constant text="0" />
+                                  </Comparison>
+                                  <Instructions>
+                                    <SetTargetHeading property="heading" id="59" style="set-heading">
+                                      <Constant text="45" />
+                                    </SetTargetHeading>
+                                  </Instructions>
+                                </If>
+                                <ElseIf id="60" style="else">
+                                  <Constant bool="true" />
+                                  <Instructions>
+                                    <SetTargetHeading property="heading" id="61" style="set-heading">
+                                      <Constant text="315" />
+                                    </SetTargetHeading>
+                                  </Instructions>
+                                </ElseIf>
+                              </Instructions>
+                            </If>
+                            <ElseIf id="62" style="else">
+                              <Constant bool="true" />
+                              <Instructions>
+                                <If id="63" style="if">
+                                  <Comparison op="ge" style="op-gte">
+                                    <Variable list="false" local="false" variableName="ecomp" />
+                                    <Constant text="0" />
+                                  </Comparison>
+                                  <Instructions>
+                                    <SetTargetHeading property="heading" id="64" style="set-heading">
+                                      <Constant text="135" />
+                                    </SetTargetHeading>
+                                  </Instructions>
+                                </If>
+                                <ElseIf id="65" style="else">
+                                  <Constant bool="true" />
+                                  <Instructions>
+                                    <SetTargetHeading property="heading" id="66" style="set-heading">
+                                      <Constant text="225" />
+                                    </SetTargetHeading>
+                                  </Instructions>
+                                </ElseIf>
+                              </Instructions>
+                            </ElseIf>
+                          </Instructions>
+                        </If>
+                        <SetTargetHeading property="pitch" id="67" style="set-heading">
+                          <Constant text="90" />
+                        </SetTargetHeading>
+                        <SetInput input="throttle" id="68" style="set-input">
+                          <Constant text="0.55" />
+                        </SetInput>
+                      </Instructions>
+                    </If>
+                    <ElseIf id="69" style="else">
+                      <Constant bool="true" />
+                      <Instructions>
+                        <If id="70" style="if">
+                          <Comparison op="l" style="op-lt">
+                            <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                            <Variable list="false" local="false" variableName="hold_alt_agl" />
+                          </Comparison>
+                          <Instructions>
+                            <SetTargetHeading property="pitch" id="71" style="set-heading">
+                              <Constant text="90" />
+                            </SetTargetHeading>
+                            <SetInput input="throttle" id="72" style="set-input">
+                              <Constant text="0.55" />
+                            </SetInput>
+                          </Instructions>
+                        </If>
+                        <ElseIf id="73" style="else">
+                          <Constant bool="true" />
+                          <Instructions>
+                            <SetTargetHeading property="pitch" id="74" style="set-heading">
+                              <Constant text="90" />
+                            </SetTargetHeading>
+                            <SetInput input="throttle" id="75" style="set-input">
+                              <Constant text="0.48" />
+                            </SetInput>
+                          </Instructions>
+                        </ElseIf>
+                      </Instructions>
+                    </ElseIf>
+                  </Instructions>
+                </ElseIf>
+              </Instructions>
+            </ElseIf>
+            <If id="76" style="if">
+              <BoolOp op="and" style="op-and">
+                <Comparison op="=" style="op-eq">
+                  <Variable list="false" local="false" variableName="throttle_prev_active" />
+                  <Constant text="1" />
+                </Comparison>
+                <Comparison op="=" style="op-eq">
+                  <Variable list="false" local="false" variableName="throttle_active" />
+                  <Constant text="0" />
+                </Comparison>
+              </BoolOp>
+              <Instructions>
+                <SetVariable id="77" style="set-variable">
+                  <Variable list="false" local="false" variableName="hold_alt_agl" />
+                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                </SetVariable>
+              </Instructions>
+            </If>
+          </Instructions>
+        </If>
+        <WaitSeconds id="78" style="wait-seconds">
+          <Constant text="0.05" />
+        </WaitSeconds>
+      </Instructions>
+    </While>
+  </Instructions>
+  <Expressions />
+</Program>
