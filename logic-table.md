@@ -87,4 +87,10 @@ The following XML fixes were applied to align implementation with the desired lo
 2. **Autostage flag consistency fixed**
    - Autostager now checks `init` (the same flag populated by user input normalization), replacing inconsistent `autostage` usage.
 
+
+3. **Circularization thread conflict fixes**
+   - AG1 abort in Circularize outer loop now sets `thrcut=1` (cut thrust) instead of `0`.
+   - Circularize inner-loop attitude-owner mismatch now relinquishes with `thrcut=0` instead of forcing a global throttle cut.
+   - Throttle Manager circularization branch now holds throttle at zero until the craft is within 1 km of apoapsis altitude (`Altitude.AGL >= Orbit.Apoapsis - 1000`), reducing premature/negative-Δv throttle behavior.
+
 These changes preserve AG1 abort behavior while allowing pilot throttle authority during countdown arming.
