@@ -234,26 +234,68 @@
                     <Constant text="1" />
                   </Comparison>
                   <Instructions>
+                    <SetTargetHeading property="pitch" id="39" style="set-heading">
+                      <Constant text="90" />
+                    </SetTargetHeading>
                     <If id="38" style="if">
                       <Comparison op="g" style="op-gt">
                         <CraftProperty property="Altitude.AGL" style="prop-altitude" />
                         <Constant text="20" />
                       </Comparison>
                       <Instructions>
-                        <SetTargetHeading property="pitch" id="39" style="set-heading">
-                          <Constant text="90" />
-                        </SetTargetHeading>
                         <SetInput input="throttle" id="40" style="set-input">
                           <Constant text="0.35" />
                         </SetInput>
                       </Instructions>
                     </If>
                     <ElseIf id="41" style="else">
+                      <Comparison op="g" style="op-gt">
+                        <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                        <Constant text="5" />
+                      </Comparison>
+                      <Instructions>
+                        <If id="142" style="if">
+                          <Comparison op="g" style="op-gt">
+                            <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                            <Constant text="12" />
+                          </Comparison>
+                          <Instructions>
+                            <SetInput input="throttle" id="143" style="set-input">
+                              <Constant text="0.30" />
+                            </SetInput>
+                          </Instructions>
+                        </If>
+                        <ElseIf id="144" style="else">
+                          <Constant bool="true" />
+                          <Instructions>
+                            <SetInput input="throttle" id="145" style="set-input">
+                              <Constant text="0.25" />
+                            </SetInput>
+                          </Instructions>
+                        </ElseIf>
+                      </Instructions>
+                    </ElseIf>
+                    <ElseIf id="146" style="else">
+                      <Comparison op="g" style="op-gt">
+                        <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                        <Constant text="1" />
+                      </Comparison>
+                      <Instructions>
+                        <SetInput input="throttle" id="147" style="set-input">
+                          <Constant text="0.18" />
+                        </SetInput>
+                      </Instructions>
+                    </ElseIf>
+                    <ElseIf id="148" style="else">
                       <Constant bool="true" />
                       <Instructions>
                         <SetInput input="throttle" id="42" style="set-input">
                           <Constant text="0" />
                         </SetInput>
+                        <SetVariable id="149" style="set-variable">
+                          <Variable list="false" local="false" variableName="landing_armed" />
+                          <Constant text="0" />
+                        </SetVariable>
                         <SetVariable id="43" style="set-variable">
                           <Variable list="false" local="false" variableName="auto_enabled" />
                           <Constant text="0" />
