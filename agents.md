@@ -124,3 +124,9 @@
   - Updated state receive behavior for `STATE_STANDBY` and `STATE_ORBIT` to keep mode flags (`manual_override`, `auto_enabled`, `nav_enabled`, `landing_armed`) synchronized with active program mode.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.23` during version bump.
   - Bumped `VERSION` to `3.23` for activation-state-to-mode synchronization repair.
+
+- 2026-02-22
+  - Reworked `Quadcopter Flight Program V3.xml` state-thread interactions by introducing a dedicated state-transition dispatcher FlightStart loop that emits `STATE_*` craft broadcasts only when `StateChangePending == 1` and keyed by `RequestedState`.
+  - Updated AG1/AG2/AG3/AG4 activation-state manager thread to request states via `RequestedState`/`StateChangePending` without direct inline broadcast calls, so transitions are routed through one broadcast owner thread.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.24` during version bump.
+  - Bumped `VERSION` to `3.24` for state-thread broadcast-dispatch reliability hardening.
