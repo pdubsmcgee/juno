@@ -64,3 +64,7 @@
   - Updated versioning policy to `MAJOR.REVISION` with minimum `+0.01` equivalent bump for every non-major change.
   - Updated bump helper usage to `change|major`.
   - Bumped `VERSION` to `3.12` for this repository policy update.
+
+- 2026-02-22
+  - Updated `Quadcopter Flight Program V3.xml` so `target_alt_agl` is recomputed inside the main while-loop as `Altitude.AGL + 1000`.
+  - Bumped `VERSION` to `3.13` for this quadcopter altitude-target behavior update.

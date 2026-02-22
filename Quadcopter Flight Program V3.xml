@@ -65,10 +65,6 @@
       <Variable list="false" local="false" variableName="target_tolerance_m" />
       <Constant text="100" />
     </SetVariable>
-    <SetVariable id="162" style="set-variable">
-      <Variable list="false" local="false" variableName="target_alt_agl" />
-      <Constant text="40" />
-    </SetVariable>
     <SetVariable id="9" style="set-variable">
       <Variable list="false" local="false" variableName="hold_alt_agl" />
       <CraftProperty property="Altitude.AGL" style="prop-altitude" />
@@ -108,6 +104,13 @@
     <While id="12" style="while">
       <Constant style="true" bool="true" />
       <Instructions>
+        <SetVariable id="162" style="set-variable">
+          <Variable list="false" local="false" variableName="target_alt_agl" />
+          <BinaryOp op="+" style="op-add">
+            <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+            <Constant text="1000" />
+          </BinaryOp>
+        </SetVariable>
         <SetVariable id="14" style="set-variable">
           <Variable list="false" local="false" variableName="manual_override" />
           <ActivationGroup style="activation-group">
