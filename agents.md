@@ -149,3 +149,8 @@
   - Added `docs/STEAM_GUIDE_VECTORS_AND_PIDS_NOTES.md` summarizing practical vector/PID control lessons from the reviewed Steam guide (`id=2944674093`) for local documentation reuse.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.27` during version bump.
   - Bumped `VERSION` to `3.27` for this documentation/research-notes update.
+
+- 2026-02-22
+  - Added `docs/STEAM_GUIDE_ORBITAL_TOOLKIT_INACCURACY_NOTES.md` summarizing the reviewed Steam guide (`id=3039843312`) with a focus on low-warp numerical-integration drift and practical mitigation workflow for maneuver planning.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.28` during version bump.
+  - Bumped `VERSION` to `3.28` for this Steam-guide inaccuracy documentation update.
