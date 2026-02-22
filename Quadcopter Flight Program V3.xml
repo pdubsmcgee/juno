@@ -290,7 +290,7 @@
                       </Comparison>
                       <Instructions>
                         <SetInput input="throttle" id="40" style="set-input">
-                          <Variable list="false" local="false" variableName="landing_throttle_high" />
+                          <CraftProperty property="Input.Slider1" style="prop-input" />
                         </SetInput>
                       </Instructions>
                     </If>
@@ -307,7 +307,7 @@
                           </Comparison>
                           <Instructions>
                             <SetInput input="throttle" id="143" style="set-input">
-                              <Variable list="false" local="false" variableName="landing_throttle_mid_high" />
+                              <CraftProperty property="Input.Slider1" style="prop-input" />
                             </SetInput>
                           </Instructions>
                         </If>
@@ -315,7 +315,7 @@
                           <Constant style="true" bool="true" />
                           <Instructions>
                             <SetInput input="throttle" id="145" style="set-input">
-                              <Variable list="false" local="false" variableName="landing_throttle_mid" />
+                              <CraftProperty property="Input.Slider1" style="prop-input" />
                             </SetInput>
                           </Instructions>
                         </ElseIf>
@@ -328,7 +328,7 @@
                       </Comparison>
                       <Instructions>
                         <SetInput input="throttle" id="147" style="set-input">
-                          <Variable list="false" local="false" variableName="landing_throttle_low" />
+                          <CraftProperty property="Input.Slider1" style="prop-input" />
                         </SetInput>
                       </Instructions>
                     </ElseIf>
@@ -336,7 +336,7 @@
                       <Constant style="true" bool="true" />
                       <Instructions>
                         <SetInput input="throttle" id="42" style="set-input">
-                          <Constant text="0" />
+                          <CraftProperty property="Input.Slider1" style="prop-input" />
                         </SetInput>
                         <SetVariable id="149" style="set-variable">
                           <Variable list="false" local="false" variableName="landing_armed" />
@@ -477,7 +477,7 @@
                           </Comparison>
                           <Instructions>
                             <SetInput input="throttle" id="68" style="set-input">
-                              <Variable list="false" local="false" variableName="nav_cruise_throttle" />
+                              <CraftProperty property="Input.Slider1" style="prop-input" />
                             </SetInput>
                           </Instructions>
                         </If>
@@ -485,7 +485,7 @@
                           <Constant style="true" bool="true" />
                           <Instructions>
                             <SetInput input="throttle" id="158" style="set-input">
-                              <Variable list="false" local="false" variableName="hover_throttle" />
+                              <CraftProperty property="Input.Slider1" style="prop-input" />
                             </SetInput>
                             <SetVariable id="159" style="set-variable">
                               <Variable list="false" local="false" variableName="nav_enabled" />
@@ -516,7 +516,7 @@
                               <Constant text="90" />
                             </SetTargetHeading>
                             <SetInput input="throttle" id="72" style="set-input">
-                              <Constant text="0.55" />
+                              <CraftProperty property="Input.Slider1" style="prop-input" />
                             </SetInput>
                           </Instructions>
                         </If>
@@ -527,7 +527,7 @@
                               <Constant text="90" />
                             </SetTargetHeading>
                             <SetInput input="throttle" id="75" style="set-input">
-                              <Constant text="0.48" />
+                              <CraftProperty property="Input.Slider1" style="prop-input" />
                             </SetInput>
                           </Instructions>
                         </ElseIf>
