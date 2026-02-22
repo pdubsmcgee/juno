@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Program name="Quadcopter Flight Program V3.23">
+<Program name="Quadcopter Flight Program V3.24">
   <Variables>
     <Variable name="auto_enabled" number="0" />
     <Variable name="manual_override" number="0" />
@@ -751,10 +751,6 @@
               <Variable list="false" local="false" variableName="StateChangePending" />
               <Constant text="1" />
             </SetVariable>
-            <BroadcastMessage global="false" local="false" id="9063" style="broadcast-msg-craft">
-              <Constant text="STATE_STANDBY" />
-              <Constant number="0" />
-            </BroadcastMessage>
             <SetVariable id="314" style="set-variable">
               <Variable list="false" local="false" variableName="auto_enabled" />
               <Constant text="0" />
@@ -820,10 +816,6 @@
               <Variable list="false" local="false" variableName="StateChangePending" />
               <Constant text="1" />
             </SetVariable>
-            <BroadcastMessage global="false" local="false" id="9066" style="broadcast-msg-craft">
-              <Constant text="STATE_ASCENT" />
-              <Constant number="0" />
-            </BroadcastMessage>
             <SetVariable id="320" style="set-variable">
               <Variable list="false" local="false" variableName="auto_enabled" />
               <Constant text="1" />
@@ -866,10 +858,6 @@
               <Variable list="false" local="false" variableName="StateChangePending" />
               <Constant text="1" />
             </SetVariable>
-            <BroadcastMessage global="false" local="false" id="9069" style="broadcast-msg-craft">
-              <Constant text="STATE_ORBIT" />
-              <Constant number="0" />
-            </BroadcastMessage>
             <SetVariable id="326" style="set-variable">
               <Variable list="false" local="false" variableName="nav_enabled" />
               <Constant text="1" />
@@ -896,10 +884,6 @@
               <Variable list="false" local="false" variableName="StateChangePending" />
               <Constant text="1" />
             </SetVariable>
-            <BroadcastMessage global="false" local="false" id="9072" style="broadcast-msg-craft">
-              <Constant text="STATE_LANDING" />
-              <Constant number="0" />
-            </BroadcastMessage>
             <SetVariable id="328" style="set-variable">
               <Variable list="false" local="false" variableName="landing_armed" />
               <Constant text="1" />
@@ -911,6 +895,86 @@
           </Instructions>
         </If>
         <WaitSeconds id="330" style="wait-seconds">
+          <Constant text="0.05" />
+        </WaitSeconds>
+      </Instructions>
+    </While>
+    <Comment id="9080" style="comment">
+      <Constant style="comment-text" canReplace="false" text="Thread: state transition dispatcher; broadcasts STATE_* only when StateChangePending is set." />
+    </Comment>
+    <Event event="FlightStart" id="9081" style="flight-start" pos="132,0" />
+    <While id="9082" style="while">
+      <Constant style="true" bool="true" />
+      <Instructions>
+        <If id="9083" style="if">
+          <Comparison op="=" style="op-eq">
+            <Variable list="false" local="false" variableName="StateChangePending" />
+            <Constant text="1" />
+          </Comparison>
+          <Instructions>
+            <If id="9084" style="if">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="RequestedState" />
+                <Constant text="0" />
+              </Comparison>
+              <Instructions>
+                <BroadcastMessage global="false" local="false" id="9085" style="broadcast-msg-craft">
+                  <Constant text="STATE_STANDBY" />
+                  <Constant number="0" />
+                </BroadcastMessage>
+              </Instructions>
+            </If>
+            <ElseIf id="9086" style="else">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="RequestedState" />
+                <Constant text="1" />
+              </Comparison>
+              <Instructions>
+                <BroadcastMessage global="false" local="false" id="9087" style="broadcast-msg-craft">
+                  <Constant text="STATE_ASCENT" />
+                  <Constant number="0" />
+                </BroadcastMessage>
+              </Instructions>
+            </ElseIf>
+            <ElseIf id="9088" style="else">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="RequestedState" />
+                <Constant text="2" />
+              </Comparison>
+              <Instructions>
+                <BroadcastMessage global="false" local="false" id="9089" style="broadcast-msg-craft">
+                  <Constant text="STATE_ORBIT" />
+                  <Constant number="0" />
+                </BroadcastMessage>
+              </Instructions>
+            </ElseIf>
+            <ElseIf id="9090" style="else">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="RequestedState" />
+                <Constant text="3" />
+              </Comparison>
+              <Instructions>
+                <BroadcastMessage global="false" local="false" id="9091" style="broadcast-msg-craft">
+                  <Constant text="STATE_LANDING" />
+                  <Constant number="0" />
+                </BroadcastMessage>
+              </Instructions>
+            </ElseIf>
+            <ElseIf id="9092" style="else">
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="RequestedState" />
+                <Constant text="4" />
+              </Comparison>
+              <Instructions>
+                <BroadcastMessage global="false" local="false" id="9093" style="broadcast-msg-craft">
+                  <Constant text="STATE_HOVER" />
+                  <Constant number="0" />
+                </BroadcastMessage>
+              </Instructions>
+            </ElseIf>
+          </Instructions>
+        </If>
+        <WaitSeconds id="9094" style="wait-seconds">
           <Constant text="0.05" />
         </WaitSeconds>
       </Instructions>
