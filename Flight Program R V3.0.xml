@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Program name="Flight Program R V3.31">
+<Program name="Flight Program R V3.32">
   <Variables>
     <Variable name="targetalt_m" number="0" />
     <Variable name="targetinc_deg" number="0" />

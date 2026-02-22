@@ -177,3 +177,10 @@
   - Added `.github/workflows/flight-program-invariants.yml` so invariant checks run on push/PR.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.31` during version bump.
   - Bumped `VERSION` to `3.31` for launch-critical invariant validation automation.
+
+- 2026-02-22
+  - Added startup timing variables in `Quadcopter Flight Program V3.xml` (`dt_control`, `dt_nav`, `dt_actuator`, `dt_debug`) and routed control/state/actuator/debug loop `WaitSeconds` blocks to those named cadence variables.
+  - Replaced hardcoded controller integrator timestep in `Quadcopter Flight Program V3.xml` so `alt_error_int` accumulation uses `dt_control` directly.
+  - Added explicit per-thread cadence comments in `Quadcopter Flight Program V3.xml` (controller/actuator at 20 Hz, state/nav at 10 Hz, debug at ~2 Hz) to document intended loop frequencies and throttling expectations.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.32` during version bump.
+  - Bumped `VERSION` to `3.32` for quadcopter control-loop timing variable refactor and cadence documentation.
