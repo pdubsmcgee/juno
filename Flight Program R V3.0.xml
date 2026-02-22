@@ -917,7 +917,7 @@
             </SetVariable>
             <SetVariable id="156" style="set-variable">
               <Variable list="false" local="false" variableName="stagelock" />
-              <Constant number="0" />
+              <Constant number="1" />
             </SetVariable>
             <WaitSeconds id="157" style="wait-seconds">
               <Constant text=".2" />
