@@ -734,7 +734,10 @@
                 </Comparison>
                 <Comparison op="ge" style="op-gte">
                   <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                  <Constant text="30000" />
+                  <BinaryOp op="*" style="op-mul">
+                    <Variable list="false" local="false" variableName="targetalt_m" />
+                    <Constant text="0.7" />
+                  </BinaryOp>
                 </Comparison>
               </BoolOp>
               <Instructions>
