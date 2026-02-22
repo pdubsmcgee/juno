@@ -7,9 +7,6 @@
     <Variable name="nav_enabled" number="0" />
     <Variable name="hold_alt_agl" number="0" />
     <Variable name="target_alt_agl" number="0" />
-    <Variable name="throttle_active" number="0" />
-    <Variable name="throttle_prev_active" number="0" />
-    <Variable name="pilot_throttle_cmd" number="0" />
     <Variable name="target_north_m" number="0" />
     <Variable name="target_east_m" number="0" />
     <Variable name="target_tolerance_m" number="0" />
@@ -25,12 +22,6 @@
     <Variable name="ecomp" number="0" />
     <Variable name="headingrad" number="0" />
     <Variable name="headingdeg" number="0" />
-    <Variable name="nav_cruise_throttle" number="0" />
-    <Variable name="hover_throttle" number="0" />
-    <Variable name="landing_throttle_high" number="0" />
-    <Variable name="landing_throttle_mid_high" number="0" />
-    <Variable name="landing_throttle_mid" number="0" />
-    <Variable name="landing_throttle_low" number="0" />
   </Variables>
   <Instructions>
     <Event event="FlightStart" id="0" style="flight-start" pos="0,0" />
@@ -76,30 +67,6 @@
     <SetVariable id="10" style="set-variable">
       <Variable list="false" local="false" variableName="home_pos" />
       <CraftProperty property="Nav.Position" style="prop-nav" />
-    </SetVariable>
-    <SetVariable id="150" style="set-variable">
-      <Variable list="false" local="false" variableName="nav_cruise_throttle" />
-      <Constant text="0.55" />
-    </SetVariable>
-    <SetVariable id="151" style="set-variable">
-      <Variable list="false" local="false" variableName="hover_throttle" />
-      <Constant text="0.48" />
-    </SetVariable>
-    <SetVariable id="152" style="set-variable">
-      <Variable list="false" local="false" variableName="landing_throttle_high" />
-      <Constant text="0.35" />
-    </SetVariable>
-    <SetVariable id="153" style="set-variable">
-      <Variable list="false" local="false" variableName="landing_throttle_mid_high" />
-      <Constant text="0.30" />
-    </SetVariable>
-    <SetVariable id="154" style="set-variable">
-      <Variable list="false" local="false" variableName="landing_throttle_mid" />
-      <Constant text="0.25" />
-    </SetVariable>
-    <SetVariable id="155" style="set-variable">
-      <Variable list="false" local="false" variableName="landing_throttle_low" />
-      <Constant text="0.18" />
     </SetVariable>
     <DisplayMessage id="11" style="display">
       <Constant text="Ready. AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
@@ -218,60 +185,7 @@
             <Constant text="1" />
           </Comparison>
           <Instructions>
-            <SetVariable id="28" style="set-variable">
-              <Variable list="false" local="false" variableName="throttle_prev_active" />
-              <Variable list="false" local="false" variableName="throttle_active" />
-            </SetVariable>
-            <SetVariable id="29" style="set-variable">
-              <Variable list="false" local="false" variableName="throttle_active" />
-              <Constant text="0" />
-            </SetVariable>
-            <SetVariable id="163" style="set-variable">
-              <Variable list="false" local="false" variableName="pilot_throttle_cmd" />
-              <BinaryOp op="+" style="op-add">
-                <BinaryOp op="*" style="op-mul">
-                  <CraftProperty property="Input.Slider1" style="prop-input" />
-                  <Constant text="0.5" />
-                </BinaryOp>
-                <Constant text="0.5" />
-              </BinaryOp>
-            </SetVariable>
-            <If id="30" style="if">
-              <Comparison op="g" style="op-gt">
-                <CraftProperty property="Input.Slider1" style="prop-input" />
-                <Constant text="0.05" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="31" style="set-variable">
-                  <Variable list="false" local="false" variableName="throttle_active" />
-                  <Constant text="1" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <If id="32" style="if">
-              <Comparison op="l" style="op-lt">
-                <CraftProperty property="Input.Slider1" style="prop-input" />
-                <Constant text="-0.05" />
-              </Comparison>
-              <Instructions>
-                <SetVariable id="33" style="set-variable">
-                  <Variable list="false" local="false" variableName="throttle_active" />
-                  <Constant text="1" />
-                </SetVariable>
-              </Instructions>
-            </If>
-            <If id="34" style="if">
-              <Comparison op="=" style="op-eq">
-                <Variable list="false" local="false" variableName="throttle_active" />
-                <Constant text="1" />
-              </Comparison>
-              <Instructions>
-                <SetInput input="throttle" id="35" style="set-input">
-                  <CraftProperty property="Input.Slider1" style="prop-input" />
-                </SetInput>
-              </Instructions>
-            </If>
-            <ElseIf id="36" style="else">
+            <If id="36" style="if">
               <Constant style="true" bool="true" />
               <Instructions>
                 <If id="37" style="if">
@@ -289,9 +203,15 @@
                         <Constant text="20" />
                       </Comparison>
                       <Instructions>
-                        <SetInput input="throttle" id="40" style="set-input">
-                          <CraftProperty property="Input.Slider1" style="prop-input" />
-                        </SetInput>
+                        <SetInput input="slider1" id="40" style="set-input">
+                  <BinaryOp op="min" style="op-min">
+                    <Constant text="1" />
+                    <BinaryOp op="max" style="op-max">
+                      <Constant text="-1" />
+                      <CraftProperty property="Input.Slider1" style="prop-input" />
+                    </BinaryOp>
+                  </BinaryOp>
+                </SetInput>
                       </Instructions>
                     </If>
                     <ElseIf id="41" style="else">
@@ -306,17 +226,29 @@
                             <Constant text="12" />
                           </Comparison>
                           <Instructions>
-                            <SetInput input="throttle" id="143" style="set-input">
-                              <CraftProperty property="Input.Slider1" style="prop-input" />
-                            </SetInput>
+                            <SetInput input="slider1" id="143" style="set-input">
+                  <BinaryOp op="min" style="op-min">
+                    <Constant text="1" />
+                    <BinaryOp op="max" style="op-max">
+                      <Constant text="-1" />
+                      <CraftProperty property="Input.Slider1" style="prop-input" />
+                    </BinaryOp>
+                  </BinaryOp>
+                </SetInput>
                           </Instructions>
                         </If>
                         <ElseIf id="144" style="else">
                           <Constant style="true" bool="true" />
                           <Instructions>
-                            <SetInput input="throttle" id="145" style="set-input">
-                              <CraftProperty property="Input.Slider1" style="prop-input" />
-                            </SetInput>
+                            <SetInput input="slider1" id="145" style="set-input">
+                  <BinaryOp op="min" style="op-min">
+                    <Constant text="1" />
+                    <BinaryOp op="max" style="op-max">
+                      <Constant text="-1" />
+                      <CraftProperty property="Input.Slider1" style="prop-input" />
+                    </BinaryOp>
+                  </BinaryOp>
+                </SetInput>
                           </Instructions>
                         </ElseIf>
                       </Instructions>
@@ -327,17 +259,29 @@
                         <Constant text="1" />
                       </Comparison>
                       <Instructions>
-                        <SetInput input="throttle" id="147" style="set-input">
-                          <CraftProperty property="Input.Slider1" style="prop-input" />
-                        </SetInput>
+                        <SetInput input="slider1" id="147" style="set-input">
+                  <BinaryOp op="min" style="op-min">
+                    <Constant text="1" />
+                    <BinaryOp op="max" style="op-max">
+                      <Constant text="-1" />
+                      <CraftProperty property="Input.Slider1" style="prop-input" />
+                    </BinaryOp>
+                  </BinaryOp>
+                </SetInput>
                       </Instructions>
                     </ElseIf>
                     <ElseIf id="148" style="else">
                       <Constant style="true" bool="true" />
                       <Instructions>
-                        <SetInput input="throttle" id="42" style="set-input">
-                          <CraftProperty property="Input.Slider1" style="prop-input" />
-                        </SetInput>
+                        <SetInput input="slider1" id="42" style="set-input">
+                  <BinaryOp op="min" style="op-min">
+                    <Constant text="1" />
+                    <BinaryOp op="max" style="op-max">
+                      <Constant text="-1" />
+                      <CraftProperty property="Input.Slider1" style="prop-input" />
+                    </BinaryOp>
+                  </BinaryOp>
+                </SetInput>
                         <SetVariable id="149" style="set-variable">
                           <Variable list="false" local="false" variableName="landing_armed" />
                           <Constant text="0" />
@@ -476,17 +420,29 @@
                             <Variable list="false" local="false" variableName="target_tolerance_m" />
                           </Comparison>
                           <Instructions>
-                            <SetInput input="throttle" id="68" style="set-input">
-                              <CraftProperty property="Input.Slider1" style="prop-input" />
-                            </SetInput>
+                            <SetInput input="slider1" id="68" style="set-input">
+                  <BinaryOp op="min" style="op-min">
+                    <Constant text="1" />
+                    <BinaryOp op="max" style="op-max">
+                      <Constant text="-1" />
+                      <CraftProperty property="Input.Slider1" style="prop-input" />
+                    </BinaryOp>
+                  </BinaryOp>
+                </SetInput>
                           </Instructions>
                         </If>
                         <ElseIf id="157" style="else">
                           <Constant style="true" bool="true" />
                           <Instructions>
-                            <SetInput input="throttle" id="158" style="set-input">
-                              <CraftProperty property="Input.Slider1" style="prop-input" />
-                            </SetInput>
+                            <SetInput input="slider1" id="158" style="set-input">
+                  <BinaryOp op="min" style="op-min">
+                    <Constant text="1" />
+                    <BinaryOp op="max" style="op-max">
+                      <Constant text="-1" />
+                      <CraftProperty property="Input.Slider1" style="prop-input" />
+                    </BinaryOp>
+                  </BinaryOp>
+                </SetInput>
                             <SetVariable id="159" style="set-variable">
                               <Variable list="false" local="false" variableName="nav_enabled" />
                               <Constant text="0" />
@@ -515,9 +471,15 @@
                             <SetTargetHeading property="pitch" id="71" style="set-heading">
                               <Constant text="90" />
                             </SetTargetHeading>
-                            <SetInput input="throttle" id="72" style="set-input">
-                              <CraftProperty property="Input.Slider1" style="prop-input" />
-                            </SetInput>
+                            <SetInput input="slider1" id="72" style="set-input">
+                  <BinaryOp op="min" style="op-min">
+                    <Constant text="1" />
+                    <BinaryOp op="max" style="op-max">
+                      <Constant text="-1" />
+                      <CraftProperty property="Input.Slider1" style="prop-input" />
+                    </BinaryOp>
+                  </BinaryOp>
+                </SetInput>
                           </Instructions>
                         </If>
                         <ElseIf id="73" style="else">
@@ -526,9 +488,15 @@
                             <SetTargetHeading property="pitch" id="74" style="set-heading">
                               <Constant text="90" />
                             </SetTargetHeading>
-                            <SetInput input="throttle" id="75" style="set-input">
-                              <CraftProperty property="Input.Slider1" style="prop-input" />
-                            </SetInput>
+                            <SetInput input="slider1" id="75" style="set-input">
+                  <BinaryOp op="min" style="op-min">
+                    <Constant text="1" />
+                    <BinaryOp op="max" style="op-max">
+                      <Constant text="-1" />
+                      <CraftProperty property="Input.Slider1" style="prop-input" />
+                    </BinaryOp>
+                  </BinaryOp>
+                </SetInput>
                           </Instructions>
                         </ElseIf>
                       </Instructions>
@@ -536,7 +504,7 @@
                   </Instructions>
                 </ElseIf>
               </Instructions>
-            </ElseIf>
+            </If>
             <If id="76" style="if">
               <Comparison op="=" style="op-eq">
                 <Variable list="false" local="false" variableName="manual_override" />
