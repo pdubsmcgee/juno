@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <Program name="Quadcopter Flight Program V3">
   <Variables>
     <Variable name="auto_enabled" number="0" />
@@ -27,6 +27,10 @@
     <Variable name="prop_pitch_thrust_prev" number="0" />
     <Variable name="prop_pitch_thrust_now" number="0" />
     <Variable name="prop_pitch_throttle_zero_s" number="0" />
+    <Variable name="ag1_takeoff_hold_cmd" number="0" />
+    <Variable name="ag2_land_cmd" number="0" />
+    <Variable name="ag3_manual_cmd" number="0" />
+    <Variable name="ag4_nav_cmd" number="0" />
   </Variables>
   <Instructions>
     <Event event="FlightStart" id="0" style="flight-start" pos="0,0" />
@@ -43,10 +47,26 @@
     </SetVariable>
     <SetVariable id="4" style="set-variable">
       <Variable list="false" local="false" variableName="landing_armed" />
-      <Constant text="0" />
+      <Constant text="1" />
     </SetVariable>
     <SetVariable id="5" style="set-variable">
       <Variable list="false" local="false" variableName="nav_enabled" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="304" style="set-variable">
+      <Variable list="false" local="false" variableName="ag1_takeoff_hold_cmd" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="305" style="set-variable">
+      <Variable list="false" local="false" variableName="ag2_land_cmd" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="306" style="set-variable">
+      <Variable list="false" local="false" variableName="ag3_manual_cmd" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="307" style="set-variable">
+      <Variable list="false" local="false" variableName="ag4_nav_cmd" />
       <Constant text="0" />
     </SetVariable>
     <SetVariable id="6" style="set-variable">
@@ -92,110 +112,6 @@
     <While id="12" style="while">
       <Constant style="true" bool="true" />
       <Instructions>
-        <SetVariable id="14" style="set-variable">
-          <Variable list="false" local="false" variableName="manual_override" />
-          <ActivationGroup style="activation-group">
-            <Constant number="3" />
-          </ActivationGroup>
-        </SetVariable>
-        <If id="13" style="if">
-          <Comparison op="=" style="op-eq">
-            <ActivationGroup style="activation-group">
-              <Constant number="3" />
-            </ActivationGroup>
-            <Constant style="true" bool="true" />
-          </Comparison>
-          <Instructions>
-            <SetVariable id="15" style="set-variable">
-              <Variable list="false" local="false" variableName="auto_enabled" />
-              <Constant text="0" />
-            </SetVariable>
-            <SetVariable id="16" style="set-variable">
-              <Variable list="false" local="false" variableName="nav_enabled" />
-              <Constant text="0" />
-            </SetVariable>
-          </Instructions>
-        </If>
-        <If id="17" style="if">
-          <BoolOp op="and" style="op-and">
-            <Comparison op="=" style="op-eq">
-              <ActivationGroup style="activation-group">
-                <Constant number="1" />
-              </ActivationGroup>
-              <Constant style="true" bool="true" />
-            </Comparison>
-            <Comparison op="=" style="op-eq">
-              <Variable list="false" local="false" variableName="manual_override" />
-              <Constant text="0" />
-            </Comparison>
-          </BoolOp>
-          <Instructions>
-            <SetVariable id="141" style="set-variable">
-              <Variable list="false" local="false" variableName="manual_override" />
-              <Constant text="0" />
-            </SetVariable>
-            <SetVariable id="18" style="set-variable">
-              <Variable list="false" local="false" variableName="auto_enabled" />
-              <Constant text="1" />
-            </SetVariable>
-            <SetVariable id="19" style="set-variable">
-              <Variable list="false" local="false" variableName="landing_armed" />
-              <Constant text="0" />
-            </SetVariable>
-            <SetVariable id="20" style="set-variable">
-              <Variable list="false" local="false" variableName="nav_enabled" />
-              <Constant text="0" />
-            </SetVariable>
-            <SetVariable id="21" style="set-variable">
-              <Variable list="false" local="false" variableName="hold_alt_agl" />
-              <Variable list="false" local="false" variableName="target_alt_agl" />
-            </SetVariable>
-            <SetVariable id="22" style="set-variable">
-              <Variable list="false" local="false" variableName="home_pos" />
-              <CraftProperty property="Nav.Position" style="prop-nav" />
-            </SetVariable>
-          </Instructions>
-        </If>
-        <If id="23" style="if">
-          <BoolOp op="and" style="op-and">
-            <Comparison op="=" style="op-eq">
-              <ActivationGroup style="activation-group">
-                <Constant number="4" />
-              </ActivationGroup>
-              <Constant style="true" bool="true" />
-            </Comparison>
-            <Comparison op="=" style="op-eq">
-              <Variable list="false" local="false" variableName="auto_enabled" />
-              <Constant text="1" />
-            </Comparison>
-          </BoolOp>
-          <Instructions>
-            <SetVariable id="24" style="set-variable">
-              <Variable list="false" local="false" variableName="nav_enabled" />
-              <Constant text="1" />
-            </SetVariable>
-          </Instructions>
-        </If>
-        <If id="25" style="if">
-          <BoolOp op="and" style="op-and">
-            <Comparison op="=" style="op-eq">
-              <ActivationGroup style="activation-group">
-                <Constant number="2" />
-              </ActivationGroup>
-              <Constant style="true" bool="true" />
-            </Comparison>
-            <Comparison op="=" style="op-eq">
-              <Variable list="false" local="false" variableName="auto_enabled" />
-              <Constant text="1" />
-            </Comparison>
-          </BoolOp>
-          <Instructions>
-            <SetVariable id="26" style="set-variable">
-              <Variable list="false" local="false" variableName="landing_armed" />
-              <Constant text="1" />
-            </SetVariable>
-          </Instructions>
-        </If>
         <If id="27" style="if">
           <Comparison op="=" style="op-eq">
             <Variable list="false" local="false" variableName="auto_enabled" />
@@ -220,9 +136,9 @@
                         <Constant text="20" />
                       </Comparison>
                       <Instructions>
-                            <SetInput input="slider1" id="40" style="set-input">
-                              <Constant text="0.35" />
-                            </SetInput>
+                        <SetInput input="slider1" id="40" style="set-input">
+                          <Constant text="0.35" />
+                        </SetInput>
                       </Instructions>
                     </If>
                     <ElseIf id="41" style="else">
@@ -495,6 +411,140 @@
           </Instructions>
         </If>
         <WaitSeconds id="78" style="wait-seconds">
+          <Constant text="0.05" />
+        </WaitSeconds>
+      </Instructions>
+    </While>
+    <Event event="FlightStart" id="300" style="flight-start" pos="105,0" />
+    <While id="301" style="while">
+      <Constant style="true" bool="true" />
+      <Instructions>
+        <SetVariable id="308" style="set-variable">
+          <Variable list="false" local="false" variableName="ag1_takeoff_hold_cmd" />
+          <ActivationGroup style="activation-group">
+            <Constant number="1" />
+          </ActivationGroup>
+        </SetVariable>
+        <SetVariable id="309" style="set-variable">
+          <Variable list="false" local="false" variableName="ag2_land_cmd" />
+          <ActivationGroup style="activation-group">
+            <Constant number="2" />
+          </ActivationGroup>
+        </SetVariable>
+        <SetVariable id="310" style="set-variable">
+          <Variable list="false" local="false" variableName="ag3_manual_cmd" />
+          <ActivationGroup style="activation-group">
+            <Constant number="3" />
+          </ActivationGroup>
+        </SetVariable>
+        <SetVariable id="311" style="set-variable">
+          <Variable list="false" local="false" variableName="ag4_nav_cmd" />
+          <ActivationGroup style="activation-group">
+            <Constant number="4" />
+          </ActivationGroup>
+        </SetVariable>
+        <If id="312" style="if">
+          <Comparison op="=" style="op-eq">
+            <Variable list="false" local="false" variableName="ag3_manual_cmd" />
+            <Constant style="true" bool="true" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="313" style="set-variable">
+              <Variable list="false" local="false" variableName="manual_override" />
+              <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="314" style="set-variable">
+              <Variable list="false" local="false" variableName="auto_enabled" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="315" style="set-variable">
+              <Variable list="false" local="false" variableName="nav_enabled" />
+              <Constant text="0" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <ElseIf id="316" style="else">
+          <Constant style="true" bool="true" />
+          <Instructions>
+            <SetVariable id="317" style="set-variable">
+              <Variable list="false" local="false" variableName="manual_override" />
+              <Constant text="0" />
+            </SetVariable>
+          </Instructions>
+        </ElseIf>
+        <If id="318" style="if">
+          <Comparison op="=" style="op-eq">
+            <Variable list="false" local="false" variableName="ag1_takeoff_hold_cmd" />
+            <Constant style="true" bool="true" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="319" style="set-variable">
+              <Variable list="false" local="false" variableName="manual_override" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="320" style="set-variable">
+              <Variable list="false" local="false" variableName="auto_enabled" />
+              <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="321" style="set-variable">
+              <Variable list="false" local="false" variableName="landing_armed" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="322" style="set-variable">
+              <Variable list="false" local="false" variableName="nav_enabled" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="323" style="set-variable">
+              <Variable list="false" local="false" variableName="hold_alt_agl" />
+              <Variable list="false" local="false" variableName="target_alt_agl" />
+            </SetVariable>
+            <SetVariable id="324" style="set-variable">
+              <Variable list="false" local="false" variableName="home_pos" />
+              <CraftProperty property="Nav.Position" style="prop-nav" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <If id="325" style="if">
+          <BoolOp op="and" style="op-and">
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="ag4_nav_cmd" />
+              <Constant style="true" bool="true" />
+            </Comparison>
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="auto_enabled" />
+              <Constant text="1" />
+            </Comparison>
+          </BoolOp>
+          <Instructions>
+            <SetVariable id="326" style="set-variable">
+              <Variable list="false" local="false" variableName="nav_enabled" />
+              <Constant text="1" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <If id="327" style="if">
+          <BoolOp op="and" style="op-and">
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="ag2_land_cmd" />
+              <Constant style="true" bool="true" />
+            </Comparison>
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="auto_enabled" />
+              <Constant text="1" />
+            </Comparison>
+          </BoolOp>
+          <Instructions>
+            <SetVariable id="328" style="set-variable">
+              <Variable list="false" local="false" variableName="landing_armed" />
+              <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="329" style="set-variable">
+              <Variable list="false" local="false" variableName="nav_enabled" />
+              <Constant text="0" />
+            </SetVariable>
+          </Instructions>
+        </If>
+        <WaitSeconds id="330" style="wait-seconds">
           <Constant text="0.05" />
         </WaitSeconds>
       </Instructions>

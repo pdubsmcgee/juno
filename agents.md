@@ -83,3 +83,10 @@
   - Refined `Quadcopter Flight Program V3.xml` variable-pitch thread to optimize against `Performance.CurrentEngineThrust` instead of vertical speed.
   - Added fail-safe/default behavior in variable-pitch control: force 50° when landing is armed, when thrust is near zero, or when `Input.Throttle` stays at zero for more than 2 seconds.
   - Bumped `VERSION` to `3.16` for this quadcopter variable-pitch thrust-control refinement.
+
+- 2026-02-22
+  - Refactored `Quadcopter Flight Program V3.xml` into clearer thread separation by introducing a dedicated activation/state-manager FlightStart loop (AG1/AG2/AG3/AG4 command decoding + mode transitions), while keeping flight-control and prop-pitch logic in their own loops.
+  - Updated quadcopter startup state so all activation-driven state flags initialize false except `landing_armed=1` to reflect landed-safe startup.
+  - Added explicit manual-to-takeoff handoff behavior: AG1 transition writes `manual_override=0` before enabling auto hold/takeoff state.
+  - Expanded `logic-table.md` with a comprehensive quadcopter activation/mode/thread logic table and transition priorities.
+  - Bumped `VERSION` to `3.17` for this quadcopter state-machine/thread refactor update.
