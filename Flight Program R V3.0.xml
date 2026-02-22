@@ -702,11 +702,40 @@
                 <Variable list="false" local="false" variableName="fc_mode_countdown" />
               </Comparison>
               <Instructions>
-                <SetVariable id="108" style="set-variable">
-                  <Variable list="false" local="false" variableName="fc_status_code" />
-                  <Constant text="10" />
-                </SetVariable>
-                <CallCustomInstruction call="Countdown" id="109" style="call-custom-instruction" />
+                <If id="1071" style="if">
+                  <Comparison op="=" style="op-eq">
+                    <Variable list="false" local="false" variableName="fc_fault_code" />
+                    <Constant text="0" />
+                  </Comparison>
+                  <Instructions>
+                    <SetVariable id="108" style="set-variable">
+                      <Variable list="false" local="false" variableName="fc_status_code" />
+                      <Constant text="10" />
+                    </SetVariable>
+                    <CallCustomInstruction call="Countdown" id="109" style="call-custom-instruction" />
+                  </Instructions>
+                </If>
+                <ElseIf id="1072" style="else">
+                  <Constant bool="true" />
+                  <Instructions>
+                    <SetVariable id="1073" style="set-variable">
+                      <Variable list="false" local="false" variableName="fc_mode" />
+                      <Variable list="false" local="false" variableName="fc_mode_none" />
+                    </SetVariable>
+                    <SetVariable id="1074" style="set-variable">
+                      <Variable list="false" local="false" variableName="attowner" />
+                      <Variable list="false" local="false" variableName="attowner_none" />
+                    </SetVariable>
+                    <SetVariable id="1075" style="set-variable">
+                      <Variable list="false" local="false" variableName="throwner" />
+                      <Variable list="false" local="false" variableName="throwner_none" />
+                    </SetVariable>
+                    <SetVariable id="1076" style="set-variable">
+                      <Variable list="false" local="false" variableName="fc_status_code" />
+                      <Constant text="0" />
+                    </SetVariable>
+                  </Instructions>
+                </ElseIf>
               </Instructions>
             </If>
             <ElseIf id="110" style="else">
@@ -2848,8 +2877,27 @@
     <ElseIf id="471" style="else">
       <Constant bool="true" />
       <Instructions>
+        <SetVariable id="4711" style="set-variable">
+          <Variable list="false" local="false" variableName="fc_mode" />
+          <Variable list="false" local="false" variableName="fc_mode_none" />
+        </SetVariable>
+        <SetVariable id="4712" style="set-variable">
+          <Variable list="false" local="false" variableName="attowner" />
+          <Variable list="false" local="false" variableName="attowner_none" />
+        </SetVariable>
+        <SetVariable id="4713" style="set-variable">
+          <Variable list="false" local="false" variableName="throwner" />
+          <Variable list="false" local="false" variableName="throwner_none" />
+        </SetVariable>
+        <SetVariable id="4714" style="set-variable">
+          <Variable list="false" local="false" variableName="fc_status_code" />
+          <Constant text="0" />
+        </SetVariable>
         <LogFlight id="472" style="flightlog">
-          <Constant text="Countdown aborted or timed out; staying in countdown mode." />
+          <BinaryOp op="+" style="op-add">
+            <Constant text="Countdown fault latched; fc_fault_code=" />
+            <Variable list="false" local="false" variableName="fc_fault_code" />
+          </BinaryOp>
           <Constant style="false" bool="false" />
         </LogFlight>
       </Instructions>
