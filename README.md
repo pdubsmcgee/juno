@@ -12,6 +12,7 @@ This repo is focused on:
 
 ## Repository layout
 
+- `docs/MASTER_REFERENCE.md` — Master documentation index with organized canonical/research/legacy map.
 - `Flight Program R V3.0.xml` — Main Vizzy program export (`<Program name="Flight Program R V3.22">`). The project title remains “The Rocket Whisperer”.
 - `USER_MANUAL.md` — Full operator manual for using the flight computer.
 - `PROJECT_STUBS.md` — Resolution tracker describing recent implemented tasks.
