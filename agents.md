@@ -130,3 +130,10 @@
   - Updated AG1/AG2/AG3/AG4 activation-state manager thread to request states via `RequestedState`/`StateChangePending` without direct inline broadcast calls, so transitions are routed through one broadcast owner thread.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.24` during version bump.
   - Bumped `VERSION` to `3.24` for state-thread broadcast-dispatch reliability hardening.
+
+- 2026-02-22
+  - Updated `Quadcopter Flight Program V3.xml` altitude-control variable model to use `target_alt_agl` (startup user-set offset), `auto_alt_agl` (`Altitude.AGL + target_alt_agl` in auto/nav), and `hover_alt_agl`/`hover_alt_target` capture for hover hold behavior.
+  - Replaced stepped hover/nav throttle setpoints in `Quadcopter Flight Program V3.xml` with a damped altitude controller using altitude error and `Vel.VerticalSurfaceVelocity` to reduce pogoing while preserving output clamping via the slider-output thread.
+  - Kept Slider2 fully program-driven for prop-pitch optimization and retained existing state-message filtering/broadcast architecture.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.25` during version bump.
+  - Bumped `VERSION` to `3.25` for quadcopter altitude-control and startup-target refactor.
