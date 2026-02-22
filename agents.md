@@ -74,3 +74,12 @@
   - Updated altitude-target policy in main loop: if `manual_override == 1` set `hold_alt_agl = Altitude.AGL`, else set `target_alt_agl = Altitude.AGL + 500`.
   - Bumped `VERSION` to `3.14` for this quadcopter control reliability and altitude-target behavior update.
 
+
+- 2026-02-22
+  - Updated `Quadcopter Flight Program V3.xml` to add a dedicated FlightStart/while loop that continuously tunes variable-pitch prop angle for thrust using `Vel.VerticalSurfaceVelocity`, starting at 50 degrees and clamped to 0-90.
+  - Bumped `VERSION` to `3.15` for this quadcopter variable-pitch control enhancement.
+
+- 2026-02-22
+  - Refined `Quadcopter Flight Program V3.xml` variable-pitch thread to optimize against `Performance.CurrentEngineThrust` instead of vertical speed.
+  - Added fail-safe/default behavior in variable-pitch control: force 50° when landing is armed, when thrust is near zero, or when `Input.Throttle` stays at zero for more than 2 seconds.
+  - Bumped `VERSION` to `3.16` for this quadcopter variable-pitch thrust-control refinement.
