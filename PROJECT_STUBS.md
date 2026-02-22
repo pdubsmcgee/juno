@@ -57,3 +57,8 @@ This backlog tracks the static review and implementation work performed against 
 - Added semantic version source-of-truth file: `VERSION` (`3.0.1`).
 - Added `scripts/bump_version.sh` to automate `major|minor|patch` version increments.
 - Documented versioning procedure in `README.md`, `docs/MAINTAINER_GUIDE.md`, and `agents.md`.
+
+## Task 11 — Incorporate reference syntax XML into docs/rules (RESOLVED)
+- Reviewed `Reference.xml` as a manually assembled block/selector syntax catalog.
+- Updated `README.md`, `docs/MAINTAINER_GUIDE.md`, and `vizzy_kb/verified_index.md` to treat `Reference.xml` as a first-class verification source.
+- Updated `agents.md` repository contract and change log to reflect partially verified schema coverage from the reference catalog.
