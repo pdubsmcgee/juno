@@ -5,6 +5,8 @@ This guide describes how to safely maintain this repository's Vizzy XML program 
 ## 1) Source of truth
 
 - Primary executable artifact: `Flight Program R V3.0.xml`.
+- Repository version marker: `VERSION` (semantic version).
+- Version bump helper: `scripts/bump_version.sh`.
 - Verification policy and guardrails: `agents.md`.
 - Repo-extracted command/property inventory: `vizzy_kb/verified_index.md`.
 
@@ -17,7 +19,14 @@ When changing flight logic:
 - Preserve behavior outside the target change.
 - Keep repo evidence for any new command/property usage.
 
-## 3) Documentation update checklist
+## 3) Version bump workflow
+
+- Choose bump type: `patch` (small safe changes), `minor` (new behavior/features), `major` (breaking behavior/contract shift).
+- Run `scripts/bump_version.sh <patch|minor|major>`.
+- If doing a formal release, align XML program naming/file naming to the new version.
+- Add/update the corresponding entry in `agents.md` change log.
+
+## 4) Documentation update checklist
 
 After changing behavior, update at least:
 
@@ -26,13 +35,13 @@ After changing behavior, update at least:
 - `README.md` (high-level summary if scope changed).
 - `vizzy_kb/verified_index.md` if command/property surface changed.
 
-## 4) Suggested validation passes
+## 5) Suggested validation passes
 
 - XML well-formedness check.
 - Quick scan for newly introduced command/property nodes.
 - Sanity read of startup prompts, mode transitions, and fault paths.
 
-## 5) Repository conventions
+## 6) Repository conventions
 
 - Keep claims repository-grounded.
 - Mark unknowns as **UNVERIFIED** rather than guessing.
