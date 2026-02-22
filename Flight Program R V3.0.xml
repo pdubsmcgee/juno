@@ -2082,6 +2082,10 @@
                         </BinaryOp>
                       </VectorOp>
                     </SetVariable>
+                    <SetVariable id="3621" style="set-variable">
+                      <Variable list="false" local="false" variableName="peg_htarget_ready" />
+                      <Constant text="1" />
+                    </SetVariable>
                   </Instructions>
                 </If>
                 <If id="363" style="if">
@@ -2093,8 +2097,8 @@
                     <SetVariable id="364" style="set-variable">
                       <Variable list="false" local="false" variableName="hvec" />
                       <VectorOp op="cross" style="vec-op-2">
-                        <Constant vector="(0, 0, 0)" />
-                        <Constant vector="(0, 0, 0)" />
+                        <Variable list="false" local="false" variableName="rvec" />
+                        <Variable list="false" local="false" variableName="vvec" />
                       </VectorOp>
                     </SetVariable>
                     <SetVariable id="365" style="set-variable">
@@ -2105,7 +2109,10 @@
                     </SetVariable>
                     <SetVariable id="366" style="set-variable">
                       <Variable list="false" local="false" variableName="planeerroraxis" />
-                      <Constant text="" />
+                      <VectorOp op="cross" style="vec-op-2">
+                        <Variable list="false" local="false" variableName="hhat" />
+                        <Variable list="false" local="false" variableName="peg_htarget" />
+                      </VectorOp>
                     </SetVariable>
                     <SetVariable id="367" style="set-variable">
                       <Variable list="false" local="false" variableName="planeerrormag" />
