@@ -1297,9 +1297,12 @@
               </Instructions>
             </If>
             <If id="231" style="if">
-              <Comparison op="le" style="op-lte">
-                <Variable list="false" local="false" variableName="dv" />
-                <Variable list="false" local="false" variableName="circ_toldv" />
+              <Comparison op="l" style="op-lt">
+                <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                <BinaryOp op="-" style="op-sub">
+                  <CraftProperty property="Orbit.Apoapsis" style="prop-orbit" />
+                  <Constant text="1000" />
+                </BinaryOp>
               </Comparison>
               <Instructions>
                 <SetInput input="throttle" id="232" style="set-input">
@@ -1308,9 +1311,9 @@
               </Instructions>
             </If>
             <ElseIf id="233" style="else">
-              <Comparison op="l" style="op-lt">
-                <Variable list="false" local="false" variableName="maxt" />
-                <Variable list="false" local="false" variableName="circ_minthrust" />
+              <Comparison op="le" style="op-lte">
+                <Variable list="false" local="false" variableName="dv" />
+                <Variable list="false" local="false" variableName="circ_toldv" />
               </Comparison>
               <Instructions>
                 <SetInput input="throttle" id="239" style="set-input">
@@ -1319,9 +1322,20 @@
               </Instructions>
             </ElseIf>
             <ElseIf id="234" style="else">
+              <Comparison op="l" style="op-lt">
+                <Variable list="false" local="false" variableName="maxt" />
+                <Variable list="false" local="false" variableName="circ_minthrust" />
+              </Comparison>
+              <Instructions>
+                <SetInput input="throttle" id="240" style="set-input">
+                  <Constant number="0" />
+                </SetInput>
+              </Instructions>
+            </ElseIf>
+            <ElseIf id="235" style="else">
               <Constant bool="true" />
               <Instructions>
-                <SetVariable id="235" style="set-variable">
+                <SetVariable id="236" style="set-variable">
                   <Variable list="false" local="false" variableName="thr" />
                   <BinaryOp op="/" style="op-div">
                     <Variable list="false" local="false" variableName="dv" />
@@ -1518,7 +1532,7 @@
             </If>
             <SetVariable id="266" style="set-variable">
               <Variable list="false" local="false" variableName="thrcut" />
-              <Constant text="0" />
+              <Constant text="1" />
             </SetVariable>
             <WaitSeconds id="267" style="wait-seconds">
               <Constant text="0.05" />
@@ -1736,7 +1750,7 @@
               <Instructions>
                 <SetVariable id="304" style="set-variable">
                   <Variable list="false" local="false" variableName="thrcut" />
-                  <Constant text="1" />
+                  <Constant text="0" />
                 </SetVariable>
                 <Break id="305" style="break" />
               </Instructions>
