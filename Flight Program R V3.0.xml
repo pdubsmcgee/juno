@@ -167,11 +167,7 @@
               <Constant text="1" />
             </Comparison>
           </Not>
-          <Instructions>
-            <WaitSeconds id="11" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
-          </Instructions>
+          <Instructions />
         </If>
         <ElseIf id="12" style="else">
           <Constant bool="true" />
@@ -255,6 +251,10 @@
                 </SetVariable>
               </Instructions>
             </If>
+            <SetVariable id="28" style="set-variable">
+              <Variable list="false" local="false" variableName="smoothdiv" />
+              <Constant text="10" />
+            </SetVariable>
             <If id="25" style="if">
               <Comparison op="l" style="op-lt">
                 <Variable list="false" local="false" variableName="gt_maxaoa" />
@@ -267,15 +267,6 @@
                 </SetVariable>
               </Instructions>
             </If>
-            <ElseIf id="27" style="else">
-              <Constant bool="true" />
-              <Instructions>
-                <SetVariable id="28" style="set-variable">
-                  <Variable list="false" local="false" variableName="smoothdiv" />
-                  <Constant text="10" />
-                </SetVariable>
-              </Instructions>
-            </ElseIf>
             <SetVariable id="29" style="set-variable">
               <Variable list="false" local="false" variableName="gt_pitchcmd" />
               <BinaryOp op="+" style="op-add">
@@ -295,9 +286,6 @@
             <SetTargetHeading property="pitch" id="31" style="set-heading">
               <Variable list="false" local="false" variableName="gt_pitchcmd" />
             </SetTargetHeading>
-            <WaitSeconds id="32" style="wait-seconds">
-              <Constant text="0.05" />
-            </WaitSeconds>
           </Instructions>
         </ElseIf>
         <WaitSeconds id="33" style="wait-seconds">
