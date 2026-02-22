@@ -1,11 +1,13 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Program name="Quadcopter Flight Program V3.24">
+<Program name="Quadcopter Flight Program V3.25">
   <Variables>
     <Variable name="auto_enabled" number="0" />
     <Variable name="manual_override" number="0" />
     <Variable name="landing_armed" number="0" />
     <Variable name="nav_enabled" number="0" />
-    <Variable name="hold_alt_agl" number="0" />
+    <Variable name="hover_alt_agl" number="0" />
+    <Variable name="hover_alt_target" number="0" />
+    <Variable name="auto_alt_agl" number="0" />
     <Variable name="target_alt_agl" number="0" />
     <Variable name="target_north_m" number="0" />
     <Variable name="target_east_m" number="0" />
@@ -120,9 +122,17 @@
       <Variable list="false" local="false" variableName="target_tolerance_m" />
       <Constant text="100" />
     </SetVariable>
+    <SetVariable id="9069" style="set-variable">
+      <Variable list="false" local="false" variableName="target_alt_agl" />
+      <Constant text="500" />
+    </SetVariable>
     <SetVariable id="9" style="set-variable">
-      <Variable list="false" local="false" variableName="hold_alt_agl" />
+      <Variable list="false" local="false" variableName="hover_alt_agl" />
       <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+    </SetVariable>
+    <SetVariable id="9072" style="set-variable">
+      <Variable list="false" local="false" variableName="hover_alt_target" />
+      <Variable list="false" local="false" variableName="hover_alt_agl" />
     </SetVariable>
     <SetVariable id="10" style="set-variable">
       <Variable list="false" local="false" variableName="home_pos" />
@@ -461,7 +471,22 @@
                       <Instructions>
                         <SetVariable id="68" style="set-variable">
                           <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <Constant text="0.55" />
+                          <BinaryOp op="-" style="op-sub">
+                            <BinaryOp op="+" style="op-add">
+                              <Constant text="0.5" />
+                              <BinaryOp op="*" style="op-mul">
+                                <Constant text="0.004" />
+                                <BinaryOp op="-" style="op-sub">
+                                  <Variable list="false" local="false" variableName="auto_alt_agl" />
+                                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                                </BinaryOp>
+                              </BinaryOp>
+                            </BinaryOp>
+                            <BinaryOp op="*" style="op-mul">
+                              <Constant text="0.02" />
+                              <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
+                            </BinaryOp>
+                          </BinaryOp>
                         </SetVariable>
                       </Instructions>
                     </If>
@@ -470,7 +495,22 @@
                       <Instructions>
                         <SetVariable id="158" style="set-variable">
                           <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <Constant text="0.50" />
+                          <BinaryOp op="-" style="op-sub">
+                            <BinaryOp op="+" style="op-add">
+                              <Constant text="0.5" />
+                              <BinaryOp op="*" style="op-mul">
+                                <Constant text="0.004" />
+                                <BinaryOp op="-" style="op-sub">
+                                  <Variable list="false" local="false" variableName="auto_alt_agl" />
+                                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                                </BinaryOp>
+                              </BinaryOp>
+                            </BinaryOp>
+                            <BinaryOp op="*" style="op-mul">
+                              <Constant text="0.02" />
+                              <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
+                            </BinaryOp>
+                          </BinaryOp>
                         </SetVariable>
                         <SetVariable id="159" style="set-variable">
                           <Variable list="false" local="false" variableName="nav_enabled" />
@@ -485,8 +525,12 @@
                           <Constant text="90" />
                         </SetVariable>
                         <SetVariable id="160" style="set-variable">
-                          <Variable list="false" local="false" variableName="hold_alt_agl" />
+                          <Variable list="false" local="false" variableName="hover_alt_agl" />
                           <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                        </SetVariable>
+                        <SetVariable id="9095" style="set-variable">
+                          <Variable list="false" local="false" variableName="hover_alt_target" />
+                          <Variable list="false" local="false" variableName="hover_alt_agl" />
                         </SetVariable>
                         <DisplayMessage id="161" style="display">
                           <Constant text="Target reached. Holding position." />
@@ -510,12 +554,27 @@
                     <If id="70" style="if">
                       <Comparison op="l" style="op-lt">
                         <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                        <Variable list="false" local="false" variableName="hold_alt_agl" />
+                        <Variable list="false" local="false" variableName="hover_alt_target" />
                       </Comparison>
                       <Instructions>
                         <SetVariable id="72" style="set-variable">
                           <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <Constant text="0.60" />
+                          <BinaryOp op="-" style="op-sub">
+                            <BinaryOp op="+" style="op-add">
+                              <Constant text="0.5" />
+                              <BinaryOp op="*" style="op-mul">
+                                <Constant text="0.005" />
+                                <BinaryOp op="-" style="op-sub">
+                                  <Variable list="false" local="false" variableName="hover_alt_target" />
+                                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                                </BinaryOp>
+                              </BinaryOp>
+                            </BinaryOp>
+                            <BinaryOp op="*" style="op-mul">
+                              <Constant text="0.02" />
+                              <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
+                            </BinaryOp>
+                          </BinaryOp>
                         </SetVariable>
                       </Instructions>
                     </If>
@@ -524,7 +583,22 @@
                       <Instructions>
                         <SetVariable id="75" style="set-variable">
                           <Variable list="false" local="false" variableName="throttle_cmd" />
-                          <Constant text="0.45" />
+                          <BinaryOp op="-" style="op-sub">
+                            <BinaryOp op="+" style="op-add">
+                              <Constant text="0.5" />
+                              <BinaryOp op="*" style="op-mul">
+                                <Constant text="0.005" />
+                                <BinaryOp op="-" style="op-sub">
+                                  <Variable list="false" local="false" variableName="hover_alt_target" />
+                                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                                </BinaryOp>
+                              </BinaryOp>
+                            </BinaryOp>
+                            <BinaryOp op="*" style="op-mul">
+                              <Constant text="0.02" />
+                              <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
+                            </BinaryOp>
+                          </BinaryOp>
                         </SetVariable>
                       </Instructions>
                     </ElseIf>
@@ -541,8 +615,12 @@
           </Comparison>
           <Instructions>
             <SetVariable id="77" style="set-variable">
-              <Variable list="false" local="false" variableName="hold_alt_agl" />
+              <Variable list="false" local="false" variableName="hover_alt_agl" />
               <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+            </SetVariable>
+            <SetVariable id="9096" style="set-variable">
+              <Variable list="false" local="false" variableName="hover_alt_target" />
+              <Variable list="false" local="false" variableName="hover_alt_agl" />
             </SetVariable>
             <SetVariable id="342" style="set-variable">
               <Variable list="false" local="false" variableName="heading_hold_enabled" />
@@ -554,10 +632,10 @@
           <Constant style="true" bool="true" />
           <Instructions>
             <SetVariable id="164" style="set-variable">
-              <Variable list="false" local="false" variableName="target_alt_agl" />
+              <Variable list="false" local="false" variableName="auto_alt_agl" />
               <BinaryOp op="+" style="op-add">
                 <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-                <Constant text="500" />
+                <Variable list="false" local="false" variableName="target_alt_agl" />
               </BinaryOp>
             </SetVariable>
           </Instructions>
@@ -829,8 +907,11 @@
               <Constant text="0" />
             </SetVariable>
             <SetVariable id="323" style="set-variable">
-              <Variable list="false" local="false" variableName="hold_alt_agl" />
-              <Variable list="false" local="false" variableName="target_alt_agl" />
+              <Variable list="false" local="false" variableName="hover_alt_target" />
+              <BinaryOp op="+" style="op-add">
+                <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                <Variable list="false" local="false" variableName="target_alt_agl" />
+              </BinaryOp>
             </SetVariable>
             <SetVariable id="324" style="set-variable">
               <Variable list="false" local="false" variableName="home_pos" />
