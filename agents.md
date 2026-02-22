@@ -159,3 +159,6 @@
   - Added `docs/STEAM_GUIDE_INTRO_TO_VIZZY_LAUNCH_AUTOMATION_NOTES.md` summarizing the reviewed Steam guide (`id=3247360849`) with emphasis on incremental launch-autopilot construction, thread separation, and reusable guidance patterns.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.29` during version bump.
   - Bumped `VERSION` to `3.29` for this Steam-guide documentation update.
+  - Added `docs/STEAM_GUIDE_ORBITAL_MECHANICS_NOTES.md` summarizing the reviewed Steam guide (`id=2961230801`) with practical orbital-mechanics maneuver-planning takeaways for repository documentation.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.29` during version bump.
+  - Bumped `VERSION` to `3.29` for this Steam-guide distillation documentation update.
