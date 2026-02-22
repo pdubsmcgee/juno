@@ -107,3 +107,8 @@
   - Added pitch/heading-thread clamp and normalization protection to keep `pitch_cmd` in [0,90] and `nav_heading_cmd` in [0,360] before heading outputs.
   - Added activation-state thread safety enforcement (`thread_safe_mode`) so manual override always clears auto/nav/heading-hold states.
   - Bumped `VERSION` to `3.20` for this quadcopter thread-hardening update.
+
+- 2026-02-22
+  - Updated `Quadcopter Flight Program V3.xml` navigation pitch behavior to use heading-gated, staged tilt control: forward tilt only after heading alignment, reverse tilt for deceleration near target, and neutral 90° pitch at final settle.
+  - Added `nav_heading_error_deg` computation using `Nav.CraftHeading` to gate translational tilt until heading error is small and wrapped into [0,180].
+  - Bumped `VERSION` to `3.21` for controlled navigation-tilt and braking behavior integration.
