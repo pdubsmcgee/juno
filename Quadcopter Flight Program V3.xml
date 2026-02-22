@@ -38,6 +38,9 @@
     <Variable name="ag2_land_cmd" number="0" />
     <Variable name="ag3_manual_cmd" number="0" />
     <Variable name="ag4_nav_cmd" number="0" />
+    <Variable name="debug_enabled" number="0" />
+    <Variable name="debug_period_s" number="0" />
+    <Variable name="debug_msg" number="0" />
     <Variable name="throttle_cmd" number="0" />
     <Variable name="alt_error" number="0" />
     <Variable name="alt_error_int" number="0" />
@@ -99,6 +102,14 @@
     <SetVariable id="307" style="set-variable" pos="0,1170">
       <Variable list="false" local="false" variableName="ag4_nav_cmd" />
       <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="9600" style="set-variable" pos="0,1235">
+      <Variable list="false" local="false" variableName="debug_enabled" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="9601" style="set-variable" pos="0,1265">
+      <Variable list="false" local="false" variableName="debug_period_s" />
+      <Constant text="0.5" />
     </SetVariable>
     <SetVariable id="331" style="set-variable" pos="0,1300">
       <Variable list="false" local="false" variableName="throttle_cmd" />
@@ -235,6 +246,48 @@
       <Constant text="Quadcopter controller initialized: AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
       <Constant style="false" bool="false" />
     </LogFlight>
+    <Comment id="9602" style="comment" pos="0,3710">
+      <Constant style="comment-text" canReplace="false" text="Thread ownership: diagnostics (low-rate compact tuple; set debug_enabled=1 to enable)." />
+    </Comment>
+    <Event event="FlightStart" id="9603" style="flight-start" pos="0,3840" />
+    <While id="9604" style="while" pos="0,3970">
+      <Constant style="true" bool="true" />
+      <Instructions>
+        <If id="9605" style="if">
+          <Comparison op="=" style="op-eq">
+            <Variable list="false" local="false" variableName="debug_enabled" />
+            <Constant text="1" />
+          </Comparison>
+          <Instructions>
+            <SetVariable id="9609" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><Constant text="DBG m/n/l=" /></SetVariable>
+            <SetVariable id="9610" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="manual_override" /></BinaryOp></SetVariable>
+            <SetVariable id="9611" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text="/" /></BinaryOp></SetVariable>
+            <SetVariable id="9612" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="nav_enabled" /></BinaryOp></SetVariable>
+            <SetVariable id="9613" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text="/" /></BinaryOp></SetVariable>
+            <SetVariable id="9614" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="landing_armed" /></BinaryOp></SetVariable>
+            <SetVariable id="9615" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text=" altA/H=" /></BinaryOp></SetVariable>
+            <SetVariable id="9616" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="auto_alt_agl" /></BinaryOp></SetVariable>
+            <SetVariable id="9617" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text="/" /></BinaryOp></SetVariable>
+            <SetVariable id="9618" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="hover_alt_target" /></BinaryOp></SetVariable>
+            <SetVariable id="9619" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text=" err d/a/v=" /></BinaryOp></SetVariable>
+            <SetVariable id="9620" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="distance_to_target" /></BinaryOp></SetVariable>
+            <SetVariable id="9621" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text="/" /></BinaryOp></SetVariable>
+            <SetVariable id="9622" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="alt_error" /></BinaryOp></SetVariable>
+            <SetVariable id="9623" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text="/" /></BinaryOp></SetVariable>
+            <SetVariable id="9624" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" /></BinaryOp></SetVariable>
+            <SetVariable id="9625" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text=" cmd t/p/pp=" /></BinaryOp></SetVariable>
+            <SetVariable id="9626" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="throttle_cmd" /></BinaryOp></SetVariable>
+            <SetVariable id="9627" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text="/" /></BinaryOp></SetVariable>
+            <SetVariable id="9628" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="pitch_cmd" /></BinaryOp></SetVariable>
+            <SetVariable id="9629" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Constant text="/" /></BinaryOp></SetVariable>
+            <SetVariable id="9630" style="set-variable"><Variable list="false" local="false" variableName="debug_msg" /><BinaryOp op="+" style="op-add"><Variable list="false" local="false" variableName="debug_msg" /><Variable list="false" local="false" variableName="prop_pitch_deg" /></BinaryOp></SetVariable>
+            <DisplayMessage id="9606" style="display"><Variable list="false" local="false" variableName="debug_msg" /><Constant number="0.6" /></DisplayMessage>
+            <LogFlight id="9607" style="flightlog"><Variable list="false" local="false" variableName="debug_msg" /><Constant style="false" bool="false" /></LogFlight>
+          </Instructions>
+        </If>
+        <WaitSeconds id="9608" style="wait-seconds"><Variable list="false" local="false" variableName="debug_period_s" /></WaitSeconds>
+      </Instructions>
+    </While>
     <Comment id="9405" style="comment" pos="0,3640">
       <Constant style="comment-text" canReplace="false" text="Thread ownership: targets (mode-aware setpoint generation only)." />
     </Comment>
