@@ -23,7 +23,7 @@ Core operator-visible behavior:
 ### Requirements
 
 - Juno: New Origins craft with Vizzy support.
-- Program imported from `Flight Computer R V1.5.xml`.
+- Program imported from `Flight Program R V3.0.xml`.
 
 ### Program identity
 
@@ -52,7 +52,9 @@ The program clamps/normalizes startup values and logs preflight status:
 
 - Altitude is clamped to `10000..500000` meters.
 - Inclination is clamped to `0..180` degrees.
-- Autostage is normalized to `0` or `1`.
+- Autostage input clamp behavior (v3.0):
+  - Invalid input logs `Autostage input invalid; normalizing to 0 or 1.` and is forced into the clamp path.
+  - Final autostage value is normalized to `0` or `1`.
 
 After normalization, initialization completes by setting `fc_init_done = 1`, allowing dependent workers to proceed.
 
@@ -183,7 +185,7 @@ Loop cadences are generally non-zero (notably `0.05s` in many polling loops).
 
 Primary sources in this repository:
 
-- `Flight Computer R V1.5.xml`
+- `Flight Program R V3.0.xml`
 - `PROJECT_STUBS.md`
 - `vizzy_kb/verified_index.md`
 - `agents.md`

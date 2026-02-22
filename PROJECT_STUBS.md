@@ -1,6 +1,6 @@
 # Codex Task Stubs — `The Rocket Whisperer`
 
-This backlog tracks the static review and implementation work performed against `Flight Computer R V1.5.xml`.
+This backlog tracks the static review and implementation work performed against `Flight Program R V3.0.xml`.
 
 ## Resolution Summary (2026-02-21)
 - [x] Task 1 — Refresh stale backlog items
@@ -47,3 +47,8 @@ This backlog tracks the static review and implementation work performed against 
 ## Task 8 — Build verified command and telemetry KB index (RESOLVED)
 - Added `vizzy_kb/verified_index.md` with in-repo extracted command/telemetry inventory.
 - Included generation method and evidence references tied to repository sources.
+
+
+## Task 9 — Fix autostage clamp path (RESOLVED)
+- Updated preflight autostage normalization so invalid input is forced through the clamp path.
+- Preserved final autostage output as explicit binary `0/1` state for downstream logic.

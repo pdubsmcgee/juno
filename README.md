@@ -6,13 +6,13 @@
 
 This repo is focused on:
 
-- Maintaining the primary Vizzy program export (`Flight Computer R V1.5.xml`).
+- Maintaining the primary Vizzy program export (`Flight Program R V3.0.xml`).
 - Capturing verified command/telemetry references under `vizzy_kb/`.
 - Tracking implementation and safety updates in markdown docs.
 
 ## Repository layout
 
-- `Flight Computer R V1.5.xml` — Main Vizzy program export (`<Program name="The Rocket Whisperer">`).
+- `Flight Program R V3.0.xml` — Main Vizzy program export (`<Program name="The Rocket Whisperer">`).
 - `USER_MANUAL.md` — Full operator manual for using the flight computer.
 - `PROJECT_STUBS.md` — Resolution tracker describing recent implemented tasks.
 - `vizzy_kb/verified_index.md` — Repo-extracted tag/property inventory.
@@ -25,6 +25,7 @@ The flight computer runs a mode-driven launch and ascent flow with:
 
 - Preflight user input collection (target altitude, inclination, autostage).
 - Input normalization and startup synchronization (`fc_init_done` gate).
+- Autostage clamp fix: invalid autostage input is explicitly normalized to `1` before final `0/1` clamp logic.
 - Countdown arming with timeout and abort handling.
 - Gravity-turn and PEG guidance worker loops.
 - Circularization ownership transitions.
@@ -32,7 +33,7 @@ The flight computer runs a mode-driven launch and ascent flow with:
 
 ## Quick start
 
-1. Import `Flight Computer R V1.5.xml` into a craft's Vizzy program in Juno: New Origins.
+1. Import `Flight Program R V3.0.xml` into a craft's Vizzy program in Juno: New Origins.
 2. Start flight; respond to the three startup prompts:
    - Target altitude (m AGL)
    - Target inclination (deg)
