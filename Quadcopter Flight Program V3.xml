@@ -70,6 +70,12 @@
     <While id="12" style="while">
       <Constant style="true" bool="true" />
       <Instructions>
+        <SetVariable id="14" style="set-variable">
+          <Variable list="false" local="false" variableName="manual_override" />
+          <ActivationGroup style="activation-group">
+            <Constant number="3" />
+          </ActivationGroup>
+        </SetVariable>
         <If id="13" style="if">
           <Comparison op="=" style="op-eq">
             <ActivationGroup style="activation-group">
@@ -78,10 +84,6 @@
             <Constant text="1" />
           </Comparison>
           <Instructions>
-            <SetVariable id="14" style="set-variable">
-              <Variable list="false" local="false" variableName="manual_override" />
-              <Constant text="1" />
-            </SetVariable>
             <SetVariable id="15" style="set-variable">
               <Variable list="false" local="false" variableName="auto_enabled" />
               <Constant text="0" />
@@ -106,6 +108,10 @@
             </Comparison>
           </BoolOp>
           <Instructions>
+            <SetVariable id="141" style="set-variable">
+              <Variable list="false" local="false" variableName="manual_override" />
+              <Constant text="0" />
+            </SetVariable>
             <SetVariable id="18" style="set-variable">
               <Variable list="false" local="false" variableName="auto_enabled" />
               <Constant text="1" />
