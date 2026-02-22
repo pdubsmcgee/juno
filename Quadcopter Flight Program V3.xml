@@ -6,6 +6,8 @@
     <Variable name="landing_armed" number="0" />
     <Variable name="nav_enabled" number="0" />
     <Variable name="hold_alt_agl" number="0" />
+    <Variable name="target_alt_agl" number="0" />
+    <Variable name="pilot_throttle_cmd" number="0" />
     <Variable name="throttle_active" number="0" />
     <Variable name="throttle_prev_active" number="0" />
     <Variable name="target_north_m" number="0" />
@@ -63,6 +65,10 @@
       <Variable list="false" local="false" variableName="target_tolerance_m" />
       <Constant text="100" />
     </SetVariable>
+    <SetVariable id="162" style="set-variable">
+      <Variable list="false" local="false" variableName="target_alt_agl" />
+      <Constant text="40" />
+    </SetVariable>
     <SetVariable id="9" style="set-variable">
       <Variable list="false" local="false" variableName="hold_alt_agl" />
       <CraftProperty property="Altitude.AGL" style="prop-altitude" />
@@ -113,7 +119,7 @@
             <ActivationGroup style="activation-group">
               <Constant number="3" />
             </ActivationGroup>
-            <Constant text="1" />
+            <Constant bool="true" />
           </Comparison>
           <Instructions>
             <SetVariable id="15" style="set-variable">
@@ -132,7 +138,7 @@
               <ActivationGroup style="activation-group">
                 <Constant number="1" />
               </ActivationGroup>
-              <Constant text="1" />
+              <Constant bool="true" />
             </Comparison>
             <Comparison op="=" style="op-eq">
               <Variable list="false" local="false" variableName="manual_override" />
@@ -158,7 +164,7 @@
             </SetVariable>
             <SetVariable id="21" style="set-variable">
               <Variable list="false" local="false" variableName="hold_alt_agl" />
-              <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+              <Variable list="false" local="false" variableName="target_alt_agl" />
             </SetVariable>
             <SetVariable id="22" style="set-variable">
               <Variable list="false" local="false" variableName="home_pos" />
@@ -172,7 +178,7 @@
               <ActivationGroup style="activation-group">
                 <Constant number="4" />
               </ActivationGroup>
-              <Constant text="1" />
+              <Constant bool="true" />
             </Comparison>
             <Comparison op="=" style="op-eq">
               <Variable list="false" local="false" variableName="auto_enabled" />
@@ -192,7 +198,7 @@
               <ActivationGroup style="activation-group">
                 <Constant number="2" />
               </ActivationGroup>
-              <Constant text="1" />
+              <Constant bool="true" />
             </Comparison>
             <Comparison op="=" style="op-eq">
               <Variable list="false" local="false" variableName="auto_enabled" />
@@ -220,10 +226,20 @@
               <Variable list="false" local="false" variableName="throttle_active" />
               <Constant text="0" />
             </SetVariable>
+            <SetVariable id="163" style="set-variable">
+              <Variable list="false" local="false" variableName="pilot_throttle_cmd" />
+              <BinaryOp op="+" style="op-add">
+                <BinaryOp op="*" style="op-mul">
+                  <CraftProperty property="Input.Slider1" style="prop-input" />
+                  <Constant text="0.5" />
+                </BinaryOp>
+                <Constant text="0.5" />
+              </BinaryOp>
+            </SetVariable>
             <If id="30" style="if">
               <Comparison op="g" style="op-gt">
-                <CraftProperty property="Input.Throttle" style="prop-input" />
-                <Constant text="0.55" />
+                <CraftProperty property="Input.Slider1" style="prop-input" />
+                <Constant text="0.05" />
               </Comparison>
               <Instructions>
                 <SetVariable id="31" style="set-variable">
@@ -234,8 +250,8 @@
             </If>
             <If id="32" style="if">
               <Comparison op="l" style="op-lt">
-                <CraftProperty property="Input.Throttle" style="prop-input" />
-                <Constant text="0.45" />
+                <CraftProperty property="Input.Slider1" style="prop-input" />
+                <Constant text="-0.05" />
               </Comparison>
               <Instructions>
                 <SetVariable id="33" style="set-variable">
@@ -251,7 +267,7 @@
               </Comparison>
               <Instructions>
                 <SetInput input="throttle" id="35" style="set-input">
-                  <CraftProperty property="Input.Throttle" style="prop-input" />
+                  <Variable list="false" local="false" variableName="pilot_throttle_cmd" />
                 </SetInput>
               </Instructions>
             </If>
@@ -522,16 +538,10 @@
               </Instructions>
             </ElseIf>
             <If id="76" style="if">
-              <BoolOp op="and" style="op-and">
-                <Comparison op="=" style="op-eq">
-                  <Variable list="false" local="false" variableName="throttle_prev_active" />
-                  <Constant text="1" />
-                </Comparison>
-                <Comparison op="=" style="op-eq">
-                  <Variable list="false" local="false" variableName="throttle_active" />
-                  <Constant text="0" />
-                </Comparison>
-              </BoolOp>
+              <Comparison op="=" style="op-eq">
+                <Variable list="false" local="false" variableName="manual_override" />
+                <Constant text="1" />
+              </Comparison>
               <Instructions>
                 <SetVariable id="77" style="set-variable">
                   <Variable list="false" local="false" variableName="hold_alt_agl" />
