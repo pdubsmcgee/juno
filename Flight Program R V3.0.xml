@@ -876,13 +876,19 @@
               <Variable list="false" local="false" variableName="stagelock" />
               <Constant text="1" />
             </Comparison>
-            <Comparison op="g" style="op-gt">
-              <CraftProperty property="Performance.CurrentEngineThrust" style="prop-performance" />
-              <BinaryOp op="*" style="op-mul">
+            <BoolOp op="or" style="op-or">
+              <Comparison op="g" style="op-gt">
+                <CraftProperty property="Performance.CurrentEngineThrust" style="prop-performance" />
+                <BinaryOp op="*" style="op-mul">
+                  <CraftProperty property="Performance.MaxActiveEngineThrust" style="prop-performance" />
+                  <Constant text=".2" />
+                </BinaryOp>
+              </Comparison>
+              <Comparison op="le" style="op-lte">
                 <CraftProperty property="Performance.MaxActiveEngineThrust" style="prop-performance" />
-                <Constant text=".2" />
-              </BinaryOp>
-            </Comparison>
+                <Constant number="0" />
+              </Comparison>
+            </BoolOp>
           </BoolOp>
           <Instructions>
             <SetVariable id="151" style="set-variable">
@@ -958,6 +964,10 @@
         </ElseIf>
         <If id="166" style="if">
           <BoolOp op="and" style="op-and">
+            <Comparison op="=" style="op-eq">
+              <Variable list="false" local="false" variableName="init" />
+              <Constant text="1" />
+            </Comparison>
             <Comparison op="=" style="op-eq">
               <Variable list="false" local="false" variableName="stagelock" />
               <Constant number="0" />
