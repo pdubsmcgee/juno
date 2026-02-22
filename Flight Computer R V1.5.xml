@@ -1741,7 +1741,7 @@
               </VectorOp>
             </SetVariable>
             <SetVariable id="259" style="set-variable">
-              <Variable list="false" local="false" variableName="rmag" />
+              <Variable list="false" local="false" variableName="gmag" />
               <VectorOp op="length" style="vec-op-1">
                 <Variable list="false" local="false" variableName="gvec" />
               </VectorOp>
