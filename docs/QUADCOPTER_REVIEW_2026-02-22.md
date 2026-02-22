@@ -27,14 +27,14 @@ In the nav branch (`If id="46"`), distance gating is used for heading updates (`
   - `hold_alt_agl = Altitude.AGL` (capture current hover altitude)
 - Optional: display a short "Target reached" message.
 
-### 3) Landing flare is altitude-only with no sink-rate check
-Landing logic now uses stepped throttle bands (`0.35`, `0.30`, `0.25`, `0.18`, then `0`). This is safer than hard cutoff, but the final shutdown still depends only on altitude thresholds.
+### 3) Landing flare is altitude-only with no sink-rate check — ✅ Closed
+Landing branch now keeps low throttle in the touchdown zone until both conditions are true:
+- `Altitude.AGL < 1` (touchdown zone)
+- `Vel.VerticalSurfaceVelocity` is within a safe band (`-0.6 < v < 0.6`), i.e., low absolute vertical speed.
 
-**Impact:** on heavier or faster-descending craft, touchdown can still be hard because throttle cuts without considering current descent rate.
+Only then does logic set `throttle_cmd = 0`, clear `landing_armed`, clear `auto_enabled/nav_enabled`, and emit a touchdown confirmation display/log message.
 
-**Recommended improvement:**
-- Add sink-rate check before final motor cut (if a verified vertical-speed property is available in this repo).
-- If no verified sink-rate property is available, keep current approach but expose the throttle thresholds as tunables near program start for easier per-craft calibration.
+**Closure impact:** final motor shutdown is now gated by both altitude and sink-rate evidence, reducing hard-cut risk during high descent rates.
 
 ## Validation notes
-- XML remains well-formed after review (no program edits in this change).
+- XML remains well-formed after the landing-branch sink-rate gate update.

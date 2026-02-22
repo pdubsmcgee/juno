@@ -52,6 +52,9 @@ After changing behavior, update at least:
 
 - XML well-formedness check.
 - Run `scripts/check_reference_guardrails.sh` and require a pass before merging PRs that touch XML/docs.
+- Launch-critical invariant check for Flight Program R:
+  - `python3 scripts/check_flight_program_r_invariants.py`
+  - Verifies countdown protection logic (no unconditional throttle-zero in countdown mode), countdown arming/abort paths, and autostage canonical input usage consistency.
 - Quick scan for newly introduced command/property nodes.
 - Sanity read of startup prompts, mode transitions, and fault paths.
 

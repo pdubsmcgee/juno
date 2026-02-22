@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Program name="Quadcopter Flight Program V3.30">
+<Program name="Quadcopter Flight Program V3.31">
   <Variables>
     <Variable name="auto_enabled" number="0" />
     <Variable name="manual_override" number="0" />
@@ -241,22 +241,59 @@
                 <ElseIf id="148" style="else">
                   <Constant style="true" bool="true" />
                   <Instructions>
-                    <SetVariable id="42" style="set-variable">
-                      <Variable list="false" local="false" variableName="throttle_cmd" />
-                      <Constant text="0" />
-                    </SetVariable>
-                    <SetVariable id="149" style="set-variable">
-                      <Variable list="false" local="false" variableName="landing_armed" />
-                      <Constant text="0" />
-                    </SetVariable>
-                    <SetVariable id="43" style="set-variable">
-                      <Variable list="false" local="false" variableName="auto_enabled" />
-                      <Constant text="0" />
-                    </SetVariable>
-                    <SetVariable id="44" style="set-variable">
-                      <Variable list="false" local="false" variableName="nav_enabled" />
-                      <Constant text="0" />
-                    </SetVariable>
+                    <If id="9101" style="if">
+                      <BoolOp op="and" style="op-and">
+                        <Comparison op="l" style="op-lt">
+                          <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                          <Constant text="1" />
+                        </Comparison>
+                        <BoolOp op="and" style="op-and">
+                          <Comparison op="g" style="op-gt">
+                            <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
+                            <Constant text="-0.6" />
+                          </Comparison>
+                          <Comparison op="l" style="op-lt">
+                            <CraftProperty property="Vel.VerticalSurfaceVelocity" style="prop-velocity" />
+                            <Constant text="0.6" />
+                          </Comparison>
+                        </BoolOp>
+                      </BoolOp>
+                      <Instructions>
+                        <SetVariable id="42" style="set-variable">
+                          <Variable list="false" local="false" variableName="throttle_cmd" />
+                          <Constant text="0" />
+                        </SetVariable>
+                        <SetVariable id="149" style="set-variable">
+                          <Variable list="false" local="false" variableName="landing_armed" />
+                          <Constant text="0" />
+                        </SetVariable>
+                        <SetVariable id="43" style="set-variable">
+                          <Variable list="false" local="false" variableName="auto_enabled" />
+                          <Constant text="0" />
+                        </SetVariable>
+                        <SetVariable id="44" style="set-variable">
+                          <Variable list="false" local="false" variableName="nav_enabled" />
+                          <Constant text="0" />
+                        </SetVariable>
+                        <DisplayMessage id="9102" style="display">
+                          <Constant text="Landing: touchdown confirmed." />
+                          <Constant number="2" />
+                        </DisplayMessage>
+                        <LogFlight id="9103" style="flightlog">
+                          <Constant text="Landing: touchdown confirmed, throttle shutdown and auto/nav disabled." />
+                          <Constant style="false" bool="false" />
+                        </LogFlight>
+                      </Instructions>
+                    </If>
+                    <ElseIf id="9104" style="else">
+                      <Constant style="true" bool="true" />
+                      <Instructions>
+                        <SetVariable id="9105" style="set-variable">
+                          <Variable list="false" local="false" variableName="throttle_cmd" />
+                          <Constant text="0.12" />
+                        </SetVariable>
+                      </Instructions>
+                    </ElseIf>
                   </Instructions>
                 </ElseIf>
               </Instructions>
