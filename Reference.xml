@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Program name="Reference">
   <Variables>
     <Variable name="variable" number="0" />
@@ -169,7 +169,7 @@
     <SetTimeMode mode="TimeWarp10" id="53" style="set-time-mode" />
   </Instructions>
   <Instructions>
-    <Event event="FlightStart" id="54" style="flight-start" pos="-2107.83,-181.3713" />
+    <Event event="FlightStart" id="54" style="flight-start" pos="0,0" />
   </Instructions>
   <Instructions>
     <SetCameraProperty property="rotationX" id="55" style="set-camera" pos="-2405.438,-297.5442">
@@ -229,22 +229,22 @@
     </SetCraftProperty>
   </Instructions>
   <Instructions>
-    <Event event="FlightStart" id="69" style="flight-start" pos="-4629.006,54.17099" />
+    <Event event="FlightStart" id="69" style="flight-start" pos="5700,0" />
   </Instructions>
   <Instructions>
-    <Event event="PartCollision" id="70" style="part-collision" pos="-4487.269,44.52211" />
+    <Event event="PartCollision" id="70" style="part-collision" pos="4750,0" />
   </Instructions>
   <Instructions>
-    <Event event="PartExplode" id="71" style="part-explode" pos="-4780.725,-79.91403" />
+    <Event event="PartExplode" id="71" style="part-explode" pos="950,0" />
   </Instructions>
   <Instructions>
-    <Event event="Docked" id="72" style="craft-docked" pos="-4465.31,-78.58312" />
+    <Event event="Docked" id="72" style="craft-docked" pos="1900,0" />
   </Instructions>
   <Instructions>
-    <Event event="ChangeSoi" id="73" style="change-soi" pos="-3963.24,-58.28748" />
+    <Event event="ChangeSoi" id="73" style="change-soi" pos="2850,0" />
   </Instructions>
   <Instructions>
-    <Event event="ReceiveMessage" id="74" style="receive-msg" pos="-5047.231,14.91039">
+    <Event event="ReceiveMessage" id="74" style="receive-msg" pos="3800,0">
       <Constant canReplace="false" text="message" />
     </Event>
   </Instructions>
