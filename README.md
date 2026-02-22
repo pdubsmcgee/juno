@@ -22,7 +22,7 @@ This repo is focused on:
 - `VERSION` — Repository version used for release/process tracking (`MAJOR.REVISION`).
 - `scripts/bump_version.sh` — Helper to bump `VERSION` (`change|major`).
 - `gpttest.xml` — Alternate complete Vizzy flight-control program profile (`<Program name="gpttest">`).
-- `Reference.xml` — Comprehensive syntax reference program containing manually placed instruction blocks, dropdown variants, and representative custom-instruction patterns for future program construction.
+- `Reference.xml` — Comprehensive syntax atlas (reference-only, non-operational, do-not-fly) containing manually placed instruction blocks, dropdown variants, and representative custom-instruction patterns for future program construction.
 - `docs/VIZZY_STATE_MACHINE_PATTERN.md` — Standardized Broadcast/Receive state-machine architecture and per-program state maps.
 - `docs/STEAM_GUIDE_ADVANCED_DATA_STRUCTURES_NOTES.md` — Distilled notes from the Steam guide on dynamic-variable and pseudo-struct patterns in Vizzy.
 
@@ -66,10 +66,10 @@ This repository follows a strict repo-grounded verification policy. If an instru
 
 ## Reference workflow (`Reference.xml`)
 
-`Reference.xml` is now the primary in-repo syntax catalog when drafting or validating new Vizzy logic patterns. It is intentionally non-operational and exists to show concrete XML shapes for:
+`Reference.xml` is now the primary in-repo syntax catalog when drafting or validating new Vizzy logic patterns. It is a reference-only, non-operational, do-not-fly artifact and exists to show concrete XML shapes for:
 
 - Instruction block tag names and wrapper structure.
 - Dropdown/enum variants expressed as repeated attributes (for example: input channels, time modes, nav-sphere indicators, camera/craft property selectors).
 - Representative custom instruction wiring patterns and argument ordering.
 
-When adding or changing XML logic in executable programs, prefer syntax that already appears in `Reference.xml` (or the target flight program) to stay within verified repository evidence.
+When adding or changing XML logic in executable programs, prefer syntax that already appears in `Reference.xml` (or the target flight program) to stay within verified repository evidence. Never treat `Reference.xml` as executable mission logic; it remains reference-only, non-operational, do-not-fly.
