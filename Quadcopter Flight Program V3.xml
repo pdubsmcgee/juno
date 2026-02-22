@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Program name="Quadcopter Flight Program V3.22">
+<Program name="Quadcopter Flight Program V3.23">
   <Variables>
     <Variable name="auto_enabled" number="0" />
     <Variable name="manual_override" number="0" />
@@ -743,6 +743,18 @@
               <Variable list="false" local="false" variableName="manual_override" />
               <Constant text="1" />
             </SetVariable>
+            <SetVariable id="9061" style="set-variable">
+              <Variable list="false" local="false" variableName="RequestedState" />
+              <Constant text="0" />
+            </SetVariable>
+            <SetVariable id="9062" style="set-variable">
+              <Variable list="false" local="false" variableName="StateChangePending" />
+              <Constant text="1" />
+            </SetVariable>
+            <BroadcastMessage global="false" local="false" id="9063" style="broadcast-msg-craft">
+              <Constant text="STATE_STANDBY" />
+              <Constant number="0" />
+            </BroadcastMessage>
             <SetVariable id="314" style="set-variable">
               <Variable list="false" local="false" variableName="auto_enabled" />
               <Constant text="0" />
@@ -800,6 +812,18 @@
               <Variable list="false" local="false" variableName="manual_override" />
               <Constant text="0" />
             </SetVariable>
+            <SetVariable id="9064" style="set-variable">
+              <Variable list="false" local="false" variableName="RequestedState" />
+              <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="9065" style="set-variable">
+              <Variable list="false" local="false" variableName="StateChangePending" />
+              <Constant text="1" />
+            </SetVariable>
+            <BroadcastMessage global="false" local="false" id="9066" style="broadcast-msg-craft">
+              <Constant text="STATE_ASCENT" />
+              <Constant number="0" />
+            </BroadcastMessage>
             <SetVariable id="320" style="set-variable">
               <Variable list="false" local="false" variableName="auto_enabled" />
               <Constant text="1" />
@@ -834,6 +858,18 @@
             </Comparison>
           </BoolOp>
           <Instructions>
+            <SetVariable id="9067" style="set-variable">
+              <Variable list="false" local="false" variableName="RequestedState" />
+              <Constant text="2" />
+            </SetVariable>
+            <SetVariable id="9068" style="set-variable">
+              <Variable list="false" local="false" variableName="StateChangePending" />
+              <Constant text="1" />
+            </SetVariable>
+            <BroadcastMessage global="false" local="false" id="9069" style="broadcast-msg-craft">
+              <Constant text="STATE_ORBIT" />
+              <Constant number="0" />
+            </BroadcastMessage>
             <SetVariable id="326" style="set-variable">
               <Variable list="false" local="false" variableName="nav_enabled" />
               <Constant text="1" />
@@ -852,6 +888,18 @@
             </Comparison>
           </BoolOp>
           <Instructions>
+            <SetVariable id="9070" style="set-variable">
+              <Variable list="false" local="false" variableName="RequestedState" />
+              <Constant text="3" />
+            </SetVariable>
+            <SetVariable id="9071" style="set-variable">
+              <Variable list="false" local="false" variableName="StateChangePending" />
+              <Constant text="1" />
+            </SetVariable>
+            <BroadcastMessage global="false" local="false" id="9072" style="broadcast-msg-craft">
+              <Constant text="STATE_LANDING" />
+              <Constant number="0" />
+            </BroadcastMessage>
             <SetVariable id="328" style="set-variable">
               <Variable list="false" local="false" variableName="landing_armed" />
               <Constant text="1" />
@@ -1072,6 +1120,7 @@
     <SetVariable id="9017" style="set-variable"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
     <SetVariable id="9018" style="set-variable"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="0" /></SetVariable>
     <SetVariable id="9019" style="set-variable"><Variable list="false" local="false" variableName="nav_enabled" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9073" style="set-variable"><Variable list="false" local="false" variableName="manual_override" /><Constant text="1" /></SetVariable>
   </Instructions>
   <Instructions>
     <Event event="ReceiveMessage" id="9020" style="receive-msg" pos="0,0"><Constant canReplace="false" text="STATE_ASCENT" /></Event>
@@ -1095,6 +1144,10 @@
     <SetVariable id="9035" style="set-variable"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
     <SetVariable id="9036" style="set-variable"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="2" /></SetVariable>
     <SetVariable id="9037" style="set-variable"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9074" style="set-variable"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9075" style="set-variable"><Variable list="false" local="false" variableName="nav_enabled" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9076" style="set-variable"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9077" style="set-variable"><Variable list="false" local="false" variableName="manual_override" /><Constant text="0" /></SetVariable>
   </Instructions>
   <Instructions>
     <Event event="ReceiveMessage" id="9040" style="receive-msg" pos="0,0"><Constant canReplace="false" text="STATE_LANDING" /></Event>
