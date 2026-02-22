@@ -68,3 +68,9 @@
 - 2026-02-22
   - Updated `Quadcopter Flight Program V3.xml` so `target_alt_agl` is recomputed inside the main while-loop as `Altitude.AGL + 1000`.
   - Bumped `VERSION` to `3.13` for this quadcopter altitude-target behavior update.
+
+- 2026-02-22
+  - Repaired `Quadcopter Flight Program V3.xml` control math/logic: replaced self-referential `slider1` writes with explicit throttle commands for landing/nav/altitude-hold branches.
+  - Updated altitude-target policy in main loop: if `manual_override == 1` set `hold_alt_agl = Altitude.AGL`, else set `target_alt_agl = Altitude.AGL + 500`.
+  - Bumped `VERSION` to `3.14` for this quadcopter control reliability and altitude-target behavior update.
+
