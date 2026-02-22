@@ -71,13 +71,6 @@
     <While id="12" style="while">
       <Constant style="true" bool="true" />
       <Instructions>
-        <SetVariable id="162" style="set-variable">
-          <Variable list="false" local="false" variableName="target_alt_agl" />
-          <BinaryOp op="+" style="op-add">
-            <CraftProperty property="Altitude.AGL" style="prop-altitude" />
-            <Constant text="1000" />
-          </BinaryOp>
-        </SetVariable>
         <SetVariable id="14" style="set-variable">
           <Variable list="false" local="false" variableName="manual_override" />
           <ActivationGroup style="activation-group">
@@ -206,15 +199,9 @@
                         <Constant text="20" />
                       </Comparison>
                       <Instructions>
-                        <SetInput input="slider1" id="40" style="set-input">
-                  <BinaryOp op="min" style="op-min">
-                    <Constant text="1" />
-                    <BinaryOp op="max" style="op-max">
-                      <Constant text="-1" />
-                      <CraftProperty property="Input.Slider1" style="prop-input" />
-                    </BinaryOp>
-                  </BinaryOp>
-                </SetInput>
+                            <SetInput input="slider1" id="40" style="set-input">
+                              <Constant text="0.35" />
+                            </SetInput>
                       </Instructions>
                     </If>
                     <ElseIf id="41" style="else">
@@ -230,28 +217,16 @@
                           </Comparison>
                           <Instructions>
                             <SetInput input="slider1" id="143" style="set-input">
-                  <BinaryOp op="min" style="op-min">
-                    <Constant text="1" />
-                    <BinaryOp op="max" style="op-max">
-                      <Constant text="-1" />
-                      <CraftProperty property="Input.Slider1" style="prop-input" />
-                    </BinaryOp>
-                  </BinaryOp>
-                </SetInput>
+                              <Constant text="0.30" />
+                            </SetInput>
                           </Instructions>
                         </If>
                         <ElseIf id="144" style="else">
                           <Constant style="true" bool="true" />
                           <Instructions>
                             <SetInput input="slider1" id="145" style="set-input">
-                  <BinaryOp op="min" style="op-min">
-                    <Constant text="1" />
-                    <BinaryOp op="max" style="op-max">
-                      <Constant text="-1" />
-                      <CraftProperty property="Input.Slider1" style="prop-input" />
-                    </BinaryOp>
-                  </BinaryOp>
-                </SetInput>
+                              <Constant text="0.25" />
+                            </SetInput>
                           </Instructions>
                         </ElseIf>
                       </Instructions>
@@ -263,28 +238,16 @@
                       </Comparison>
                       <Instructions>
                         <SetInput input="slider1" id="147" style="set-input">
-                  <BinaryOp op="min" style="op-min">
-                    <Constant text="1" />
-                    <BinaryOp op="max" style="op-max">
-                      <Constant text="-1" />
-                      <CraftProperty property="Input.Slider1" style="prop-input" />
-                    </BinaryOp>
-                  </BinaryOp>
-                </SetInput>
+                          <Constant text="0.18" />
+                        </SetInput>
                       </Instructions>
                     </ElseIf>
                     <ElseIf id="148" style="else">
                       <Constant style="true" bool="true" />
                       <Instructions>
                         <SetInput input="slider1" id="42" style="set-input">
-                  <BinaryOp op="min" style="op-min">
-                    <Constant text="1" />
-                    <BinaryOp op="max" style="op-max">
-                      <Constant text="-1" />
-                      <CraftProperty property="Input.Slider1" style="prop-input" />
-                    </BinaryOp>
-                  </BinaryOp>
-                </SetInput>
+                          <Constant text="0" />
+                        </SetInput>
                         <SetVariable id="149" style="set-variable">
                           <Variable list="false" local="false" variableName="landing_armed" />
                           <Constant text="0" />
@@ -424,28 +387,16 @@
                           </Comparison>
                           <Instructions>
                             <SetInput input="slider1" id="68" style="set-input">
-                  <BinaryOp op="min" style="op-min">
-                    <Constant text="1" />
-                    <BinaryOp op="max" style="op-max">
-                      <Constant text="-1" />
-                      <CraftProperty property="Input.Slider1" style="prop-input" />
-                    </BinaryOp>
-                  </BinaryOp>
-                </SetInput>
+                              <Constant text="0.55" />
+                            </SetInput>
                           </Instructions>
                         </If>
                         <ElseIf id="157" style="else">
                           <Constant style="true" bool="true" />
                           <Instructions>
                             <SetInput input="slider1" id="158" style="set-input">
-                  <BinaryOp op="min" style="op-min">
-                    <Constant text="1" />
-                    <BinaryOp op="max" style="op-max">
-                      <Constant text="-1" />
-                      <CraftProperty property="Input.Slider1" style="prop-input" />
-                    </BinaryOp>
-                  </BinaryOp>
-                </SetInput>
+                              <Constant text="0.50" />
+                            </SetInput>
                             <SetVariable id="159" style="set-variable">
                               <Variable list="false" local="false" variableName="nav_enabled" />
                               <Constant text="0" />
@@ -475,14 +426,8 @@
                               <Constant text="90" />
                             </SetTargetHeading>
                             <SetInput input="slider1" id="72" style="set-input">
-                  <BinaryOp op="min" style="op-min">
-                    <Constant text="1" />
-                    <BinaryOp op="max" style="op-max">
-                      <Constant text="-1" />
-                      <CraftProperty property="Input.Slider1" style="prop-input" />
-                    </BinaryOp>
-                  </BinaryOp>
-                </SetInput>
+                              <Constant text="0.60" />
+                            </SetInput>
                           </Instructions>
                         </If>
                         <ElseIf id="73" style="else">
@@ -492,14 +437,8 @@
                               <Constant text="90" />
                             </SetTargetHeading>
                             <SetInput input="slider1" id="75" style="set-input">
-                  <BinaryOp op="min" style="op-min">
-                    <Constant text="1" />
-                    <BinaryOp op="max" style="op-max">
-                      <Constant text="-1" />
-                      <CraftProperty property="Input.Slider1" style="prop-input" />
-                    </BinaryOp>
-                  </BinaryOp>
-                </SetInput>
+                              <Constant text="0.45" />
+                            </SetInput>
                           </Instructions>
                         </ElseIf>
                       </Instructions>
@@ -520,6 +459,18 @@
                 </SetVariable>
               </Instructions>
             </If>
+            <ElseIf id="163" style="else">
+              <Constant style="true" bool="true" />
+              <Instructions>
+                <SetVariable id="164" style="set-variable">
+                  <Variable list="false" local="false" variableName="target_alt_agl" />
+                  <BinaryOp op="+" style="op-add">
+                    <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                    <Constant text="500" />
+                  </BinaryOp>
+                </SetVariable>
+              </Instructions>
+            </ElseIf>
           </Instructions>
         </If>
         <WaitSeconds id="78" style="wait-seconds">
