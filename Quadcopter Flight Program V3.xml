@@ -34,6 +34,11 @@
     <Variable name="ag3_manual_cmd" number="0" />
     <Variable name="ag4_nav_cmd" number="0" />
     <Variable name="throttle_cmd" number="0" />
+    <Variable name="alt_error" number="0" />
+    <Variable name="alt_error_int" number="0" />
+    <Variable name="ki_alt" number="0" />
+    <Variable name="int_min" number="0" />
+    <Variable name="int_max" number="0" />
     <Variable name="pitch_cmd" number="0" />
     <Variable name="nav_heading_cmd" number="0" />
     <Variable name="nav_heading_error_deg" number="0" />
@@ -89,6 +94,26 @@
     <SetVariable id="331" style="set-variable" pos="0,1300">
       <Variable list="false" local="false" variableName="throttle_cmd" />
       <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="9201" style="set-variable" pos="0,1365">
+      <Variable list="false" local="false" variableName="alt_error" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="9202" style="set-variable" pos="0,1395">
+      <Variable list="false" local="false" variableName="alt_error_int" />
+      <Constant text="0" />
+    </SetVariable>
+    <SetVariable id="9203" style="set-variable" pos="0,1425">
+      <Variable list="false" local="false" variableName="ki_alt" />
+      <Constant text="0.0006" />
+    </SetVariable>
+    <SetVariable id="9204" style="set-variable" pos="0,1455">
+      <Variable list="false" local="false" variableName="int_min" />
+      <Constant text="-200" />
+    </SetVariable>
+    <SetVariable id="9205" style="set-variable" pos="0,1485">
+      <Variable list="false" local="false" variableName="int_max" />
+      <Constant text="200" />
     </SetVariable>
     <SetVariable id="332" style="set-variable" pos="0,1430">
       <Variable list="false" local="false" variableName="pitch_cmd" />
@@ -273,6 +298,10 @@
                         </SetVariable>
                         <SetVariable id="44" style="set-variable">
                           <Variable list="false" local="false" variableName="nav_enabled" />
+                          <Constant text="0" />
+                        </SetVariable>
+                        <SetVariable id="9220" style="set-variable">
+                          <Variable list="false" local="false" variableName="alt_error_int" />
                           <Constant text="0" />
                         </SetVariable>
                         <DisplayMessage id="9102" style="display">
@@ -500,6 +529,47 @@
                         </ElseIf>
                       </Instructions>
                     </If>
+                    <SetVariable id="9206" style="set-variable">
+                      <Variable list="false" local="false" variableName="alt_error" />
+                      <BinaryOp op="-" style="op-sub">
+                        <Variable list="false" local="false" variableName="auto_alt_agl" />
+                        <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                      </BinaryOp>
+                    </SetVariable>
+                    <SetVariable id="9207" style="set-variable">
+                      <Variable list="false" local="false" variableName="alt_error_int" />
+                      <BinaryOp op="+" style="op-add">
+                        <Variable list="false" local="false" variableName="alt_error_int" />
+                        <BinaryOp op="*" style="op-mul">
+                          <Variable list="false" local="false" variableName="alt_error" />
+                          <Constant text="0.05" />
+                        </BinaryOp>
+                      </BinaryOp>
+                    </SetVariable>
+                    <If id="9208" style="if">
+                      <Comparison op="l" style="op-lt">
+                        <Variable list="false" local="false" variableName="alt_error_int" />
+                        <Variable list="false" local="false" variableName="int_min" />
+                      </Comparison>
+                      <Instructions>
+                        <SetVariable id="9209" style="set-variable">
+                          <Variable list="false" local="false" variableName="alt_error_int" />
+                          <Variable list="false" local="false" variableName="int_min" />
+                        </SetVariable>
+                      </Instructions>
+                    </If>
+                    <If id="9210" style="if">
+                      <Comparison op="g" style="op-gt">
+                        <Variable list="false" local="false" variableName="alt_error_int" />
+                        <Variable list="false" local="false" variableName="int_max" />
+                      </Comparison>
+                      <Instructions>
+                        <SetVariable id="9211" style="set-variable">
+                          <Variable list="false" local="false" variableName="alt_error_int" />
+                          <Variable list="false" local="false" variableName="int_max" />
+                        </SetVariable>
+                      </Instructions>
+                    </If>
                     <If id="156" style="if">
                       <Comparison op="g" style="op-gt">
                         <Variable list="false" local="false" variableName="distance_to_target" />
@@ -511,11 +581,14 @@
                           <BinaryOp op="-" style="op-sub">
                             <BinaryOp op="+" style="op-add">
                               <Constant text="0.5" />
-                              <BinaryOp op="*" style="op-mul">
-                                <Constant text="0.004" />
-                                <BinaryOp op="-" style="op-sub">
-                                  <Variable list="false" local="false" variableName="auto_alt_agl" />
-                                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                              <BinaryOp op="+" style="op-add">
+                                <BinaryOp op="*" style="op-mul">
+                                  <Constant text="0.004" />
+                                  <Variable list="false" local="false" variableName="alt_error" />
+                                </BinaryOp>
+                                <BinaryOp op="*" style="op-mul">
+                                  <Variable list="false" local="false" variableName="ki_alt" />
+                                  <Variable list="false" local="false" variableName="alt_error_int" />
                                 </BinaryOp>
                               </BinaryOp>
                             </BinaryOp>
@@ -535,11 +608,14 @@
                           <BinaryOp op="-" style="op-sub">
                             <BinaryOp op="+" style="op-add">
                               <Constant text="0.5" />
-                              <BinaryOp op="*" style="op-mul">
-                                <Constant text="0.004" />
-                                <BinaryOp op="-" style="op-sub">
-                                  <Variable list="false" local="false" variableName="auto_alt_agl" />
-                                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                              <BinaryOp op="+" style="op-add">
+                                <BinaryOp op="*" style="op-mul">
+                                  <Constant text="0.004" />
+                                  <Variable list="false" local="false" variableName="alt_error" />
+                                </BinaryOp>
+                                <BinaryOp op="*" style="op-mul">
+                                  <Variable list="false" local="false" variableName="ki_alt" />
+                                  <Variable list="false" local="false" variableName="alt_error_int" />
                                 </BinaryOp>
                               </BinaryOp>
                             </BinaryOp>
@@ -569,6 +645,10 @@
                           <Variable list="false" local="false" variableName="hover_alt_target" />
                           <Variable list="false" local="false" variableName="hover_alt_agl" />
                         </SetVariable>
+                        <SetVariable id="9218" style="set-variable">
+                          <Variable list="false" local="false" variableName="alt_error_int" />
+                          <Constant text="0" />
+                        </SetVariable>
                         <DisplayMessage id="161" style="display">
                           <Constant text="Target reached. Holding position." />
                           <Constant number="3" />
@@ -588,6 +668,47 @@
                       <Variable list="false" local="false" variableName="heading_hold_enabled" />
                       <Constant text="0" />
                     </SetVariable>
+                    <SetVariable id="9212" style="set-variable">
+                      <Variable list="false" local="false" variableName="alt_error" />
+                      <BinaryOp op="-" style="op-sub">
+                        <Variable list="false" local="false" variableName="hover_alt_target" />
+                        <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                      </BinaryOp>
+                    </SetVariable>
+                    <SetVariable id="9213" style="set-variable">
+                      <Variable list="false" local="false" variableName="alt_error_int" />
+                      <BinaryOp op="+" style="op-add">
+                        <Variable list="false" local="false" variableName="alt_error_int" />
+                        <BinaryOp op="*" style="op-mul">
+                          <Variable list="false" local="false" variableName="alt_error" />
+                          <Constant text="0.05" />
+                        </BinaryOp>
+                      </BinaryOp>
+                    </SetVariable>
+                    <If id="9214" style="if">
+                      <Comparison op="l" style="op-lt">
+                        <Variable list="false" local="false" variableName="alt_error_int" />
+                        <Variable list="false" local="false" variableName="int_min" />
+                      </Comparison>
+                      <Instructions>
+                        <SetVariable id="9215" style="set-variable">
+                          <Variable list="false" local="false" variableName="alt_error_int" />
+                          <Variable list="false" local="false" variableName="int_min" />
+                        </SetVariable>
+                      </Instructions>
+                    </If>
+                    <If id="9216" style="if">
+                      <Comparison op="g" style="op-gt">
+                        <Variable list="false" local="false" variableName="alt_error_int" />
+                        <Variable list="false" local="false" variableName="int_max" />
+                      </Comparison>
+                      <Instructions>
+                        <SetVariable id="9217" style="set-variable">
+                          <Variable list="false" local="false" variableName="alt_error_int" />
+                          <Variable list="false" local="false" variableName="int_max" />
+                        </SetVariable>
+                      </Instructions>
+                    </If>
                     <If id="70" style="if">
                       <Comparison op="l" style="op-lt">
                         <CraftProperty property="Altitude.AGL" style="prop-altitude" />
@@ -599,11 +720,14 @@
                           <BinaryOp op="-" style="op-sub">
                             <BinaryOp op="+" style="op-add">
                               <Constant text="0.5" />
-                              <BinaryOp op="*" style="op-mul">
-                                <Constant text="0.005" />
-                                <BinaryOp op="-" style="op-sub">
-                                  <Variable list="false" local="false" variableName="hover_alt_target" />
-                                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                              <BinaryOp op="+" style="op-add">
+                                <BinaryOp op="*" style="op-mul">
+                                  <Constant text="0.005" />
+                                  <Variable list="false" local="false" variableName="alt_error" />
+                                </BinaryOp>
+                                <BinaryOp op="*" style="op-mul">
+                                  <Variable list="false" local="false" variableName="ki_alt" />
+                                  <Variable list="false" local="false" variableName="alt_error_int" />
                                 </BinaryOp>
                               </BinaryOp>
                             </BinaryOp>
@@ -623,11 +747,14 @@
                           <BinaryOp op="-" style="op-sub">
                             <BinaryOp op="+" style="op-add">
                               <Constant text="0.5" />
-                              <BinaryOp op="*" style="op-mul">
-                                <Constant text="0.005" />
-                                <BinaryOp op="-" style="op-sub">
-                                  <Variable list="false" local="false" variableName="hover_alt_target" />
-                                  <CraftProperty property="Altitude.AGL" style="prop-altitude" />
+                              <BinaryOp op="+" style="op-add">
+                                <BinaryOp op="*" style="op-mul">
+                                  <Constant text="0.005" />
+                                  <Variable list="false" local="false" variableName="alt_error" />
+                                </BinaryOp>
+                                <BinaryOp op="*" style="op-mul">
+                                  <Variable list="false" local="false" variableName="ki_alt" />
+                                  <Variable list="false" local="false" variableName="alt_error_int" />
                                 </BinaryOp>
                               </BinaryOp>
                             </BinaryOp>
@@ -663,6 +790,10 @@
               <Variable list="false" local="false" variableName="heading_hold_enabled" />
               <Constant text="0" />
             </SetVariable>
+            <SetVariable id="9219" style="set-variable">
+              <Variable list="false" local="false" variableName="alt_error_int" />
+              <Constant text="0" />
+            </SetVariable>
           </Instructions>
         </If>
         <ElseIf id="163" style="else">
@@ -677,6 +808,12 @@
             </SetVariable>
           </Instructions>
         </ElseIf>
+        <DisplayMessage id="9222" style="display">
+          <Variable list="false" local="false" variableName="alt_error" />
+          <Variable list="false" local="false" variableName="alt_error_int" />
+          <Variable list="false" local="false" variableName="throttle_cmd" />
+          <Constant number="0.1" />
+        </DisplayMessage>
         <WaitSeconds id="78" style="wait-seconds">
           <Constant text="0.05" />
         </WaitSeconds>
@@ -1005,6 +1142,10 @@
             <SetVariable id="328" style="set-variable">
               <Variable list="false" local="false" variableName="landing_armed" />
               <Constant text="1" />
+            </SetVariable>
+            <SetVariable id="9221" style="set-variable">
+              <Variable list="false" local="false" variableName="alt_error_int" />
+              <Constant text="0" />
             </SetVariable>
             <SetVariable id="329" style="set-variable">
               <Variable list="false" local="false" variableName="nav_enabled" />
