@@ -725,7 +725,10 @@
             <If id="78" style="if">
               <Comparison op="ge" style="op-gte">
                 <CraftProperty property="Orbit.Apoapsis" style="prop-orbit" />
-                <Variable list="false" local="false" variableName="targetalt_m" />
+                <BinaryOp op="+" style="op-add">
+                  <Variable list="false" local="false" variableName="targetalt_m" />
+                  <Constant text="1000" />
+                </BinaryOp>
               </Comparison>
               <Instructions>
                 <SetVariable id="79" style="set-variable">
