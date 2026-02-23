@@ -38,7 +38,15 @@ def apply_pos_to_id(text: str, block_id: str, new_pos: str) -> str:
     return pattern.sub(repl, text, count=1)
 
 
-def tidy_file(path: Path, lane_x_gap: float, block_y_gap: float, start_x: float, start_y: float) -> bool:
+def tidy_file(
+    path: Path,
+    lane_x_gap: float,
+    block_y_gap: float,
+    start_x: float | None,
+    start_y: float | None,
+    lanes_per_row: int,
+    row_y_gap: float,
+) -> bool:
     raw = path.read_text(encoding='utf-8-sig')
     root = ET.fromstring(raw)
 
@@ -63,15 +71,40 @@ def tidy_file(path: Path, lane_x_gap: float, block_y_gap: float, start_x: float,
 
     threads.sort(key=lambda t: (t['entry_pos'][1], t['entry_pos'][0]))
 
+    # Keep layout anchored near the previous visible region when explicit
+    # starts are not provided. This avoids moving all code far from the
+    # current viewport after a pretty pass.
+    if start_x is None:
+        start_x = min(t['entry_pos'][0] for t in threads)
+    if start_y is None:
+        start_y = min(t['entry_pos'][1] for t in threads)
+
+    # Wrap lanes into rows so large programs stay near the initial viewport.
+    lanes_per_row = max(1, lanes_per_row)
+    row_heights: list[float] = []
+    for row_start in range(0, len(threads), lanes_per_row):
+        row_threads = threads[row_start:row_start + lanes_per_row]
+        tallest = max(len(t['blocks']) for t in row_threads)
+        row_heights.append(max(1.0, (tallest - 1) * block_y_gap + row_y_gap))
+
+    row_offsets: list[float] = []
+    acc = 0.0
+    for h in row_heights:
+        row_offsets.append(acc)
+        acc += h
+
     new_positions: dict[str, str] = {}
     for lane_idx, thread in enumerate(threads):
-        base_x = start_x + lane_idx * lane_x_gap
+        row_idx = lane_idx // lanes_per_row
+        col_idx = lane_idx % lanes_per_row
+        base_x = start_x + col_idx * lane_x_gap
+        base_y = start_y + row_offsets[row_idx]
         for block_idx, block in enumerate(thread['blocks']):
             bid = block.attrib.get('id')
             if not bid:
                 continue
             x = base_x
-            y = start_y + block_idx * block_y_gap
+            y = base_y + block_idx * block_y_gap
             new_positions[bid] = f"{fmt_num(x)},{fmt_num(y)}"
 
     updated = raw
@@ -89,14 +122,16 @@ def main() -> None:
     parser.add_argument('files', nargs='+', help='XML files to tidy')
     parser.add_argument('--lane-x-gap', type=float, default=950.0)
     parser.add_argument('--block-y-gap', type=float, default=130.0)
-    parser.add_argument('--start-x', type=float, default=0.0)
-    parser.add_argument('--start-y', type=float, default=0.0)
+    parser.add_argument('--start-x', type=float, default=None)
+    parser.add_argument('--start-y', type=float, default=None)
+    parser.add_argument('--lanes-per-row', type=int, default=4)
+    parser.add_argument('--row-y-gap', type=float, default=260.0)
     args = parser.parse_args()
 
     changed = 0
     for f in args.files:
         p = Path(f)
-        if tidy_file(p, args.lane_x_gap, args.block_y_gap, args.start_x, args.start_y):
+        if tidy_file(p, args.lane_x_gap, args.block_y_gap, args.start_x, args.start_y, args.lanes_per_row, args.row_y_gap):
             changed += 1
             print(f"tidied: {p}")
         else:

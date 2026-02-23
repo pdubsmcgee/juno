@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<Program name="Quadcopter Flight Program V3.32">
+<Program name="Quadcopter Flight Program V3.33">
   <Variables>
     <Variable name="auto_enabled" number="0" />
     <Variable name="manual_override" number="0" />
@@ -107,170 +107,170 @@
       <Variable list="false" local="false" variableName="ag4_nav_cmd" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="9600" style="set-variable" pos="0,1235">
+    <SetVariable id="9600" style="set-variable" pos="0,1300">
       <Variable list="false" local="false" variableName="debug_enabled" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="9601" style="set-variable" pos="0,1265">
+    <SetVariable id="9601" style="set-variable" pos="0,1430">
       <Variable list="false" local="false" variableName="debug_period_s" />
       <Constant text="0.5" />
     </SetVariable>
-    <SetVariable id="9630" style="set-variable" pos="0,1285">
+    <SetVariable id="9630" style="set-variable" pos="0,1560">
       <Variable list="false" local="false" variableName="dt_control" />
       <Constant text="0.05" />
     </SetVariable>
-    <SetVariable id="9631" style="set-variable" pos="0,1295">
+    <SetVariable id="9631" style="set-variable" pos="0,1690">
       <Variable list="false" local="false" variableName="dt_nav" />
       <Constant text="0.1" />
     </SetVariable>
-    <SetVariable id="9632" style="set-variable" pos="0,1305">
+    <SetVariable id="9632" style="set-variable" pos="0,1820">
       <Variable list="false" local="false" variableName="dt_actuator" />
       <Constant text="0.05" />
     </SetVariable>
-    <SetVariable id="9633" style="set-variable" pos="0,1315">
+    <SetVariable id="9633" style="set-variable" pos="0,1950">
       <Variable list="false" local="false" variableName="dt_debug" />
       <Constant text="0.5" />
     </SetVariable>
-    <SetVariable id="331" style="set-variable" pos="0,1300">
+    <SetVariable id="331" style="set-variable" pos="0,2080">
       <Variable list="false" local="false" variableName="throttle_cmd" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="9201" style="set-variable" pos="0,1365">
+    <SetVariable id="9201" style="set-variable" pos="0,2210">
       <Variable list="false" local="false" variableName="alt_error" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="9202" style="set-variable" pos="0,1395">
+    <SetVariable id="9202" style="set-variable" pos="0,2340">
       <Variable list="false" local="false" variableName="alt_error_int" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="9203" style="set-variable" pos="0,1425">
+    <SetVariable id="9203" style="set-variable" pos="0,2470">
       <Variable list="false" local="false" variableName="ki_alt" />
       <Constant text="0.0006" />
     </SetVariable>
-    <SetVariable id="9204" style="set-variable" pos="0,1455">
+    <SetVariable id="9204" style="set-variable" pos="0,2600">
       <Variable list="false" local="false" variableName="int_min" />
       <Constant text="-200" />
     </SetVariable>
-    <SetVariable id="9205" style="set-variable" pos="0,1485">
+    <SetVariable id="9205" style="set-variable" pos="0,2730">
       <Variable list="false" local="false" variableName="int_max" />
       <Constant text="200" />
     </SetVariable>
-    <SetVariable id="332" style="set-variable" pos="0,1430">
+    <SetVariable id="332" style="set-variable" pos="0,2860">
       <Variable list="false" local="false" variableName="pitch_cmd" />
       <Constant text="90" />
     </SetVariable>
-    <SetVariable id="333" style="set-variable" pos="0,1560">
+    <SetVariable id="333" style="set-variable" pos="0,2990">
       <Variable list="false" local="false" variableName="nav_heading_cmd" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="391" style="set-variable" pos="0,1690">
+    <SetVariable id="391" style="set-variable" pos="0,3120">
       <Variable list="false" local="false" variableName="nav_heading_error_deg" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="334" style="set-variable" pos="0,1820">
+    <SetVariable id="334" style="set-variable" pos="0,3250">
       <Variable list="false" local="false" variableName="heading_hold_enabled" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="9401" style="set-variable" pos="0,1880">
+    <SetVariable id="9401" style="set-variable" pos="0,3380">
       <Variable list="false" local="false" variableName="desired_alt_agl" />
       <CraftProperty property="Altitude.AGL" style="prop-altitude" />
     </SetVariable>
-    <SetVariable id="9402" style="set-variable" pos="0,1910">
+    <SetVariable id="9402" style="set-variable" pos="0,3510">
       <Variable list="false" local="false" variableName="desired_heading" />
       <CraftProperty property="Heading" style="prop-heading" />
     </SetVariable>
-    <SetVariable id="9403" style="set-variable" pos="0,1940">
+    <SetVariable id="9403" style="set-variable" pos="0,3640">
       <Variable list="false" local="false" variableName="desired_pitch" />
       <Constant text="90" />
     </SetVariable>
-    <SetVariable id="9404" style="set-variable" pos="0,1970">
+    <SetVariable id="9404" style="set-variable" pos="0,3770">
       <Variable list="false" local="false" variableName="desired_heading_hold" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="362" style="set-variable" pos="0,1950">
+    <SetVariable id="362" style="set-variable" pos="0,3900">
       <Variable list="false" local="false" variableName="thread_safe_mode" />
       <Constant text="1" />
     </SetVariable>
-    <SetVariable id="6" style="set-variable" pos="0,2080">
+    <SetVariable id="6" style="set-variable" pos="0,4030">
       <Variable list="false" local="false" variableName="target_north_m" />
       <Constant text="1200" />
     </SetVariable>
-    <SetVariable id="7" style="set-variable" pos="0,2210">
+    <SetVariable id="7" style="set-variable" pos="0,4160">
       <Variable list="false" local="false" variableName="target_east_m" />
       <Constant text="800" />
     </SetVariable>
-    <SetVariable id="8" style="set-variable" pos="0,2340">
+    <SetVariable id="8" style="set-variable" pos="0,4290">
       <Variable list="false" local="false" variableName="target_tolerance_m" />
       <Constant text="100" />
     </SetVariable>
-    <SetVariable id="9301" style="set-variable" pos="0,2400">
+    <SetVariable id="9301" style="set-variable" pos="0,4420">
       <Variable list="false" local="false" variableName="target_enter_tol_m" />
       <Variable list="false" local="false" variableName="target_tolerance_m" />
     </SetVariable>
-    <SetVariable id="9302" style="set-variable" pos="0,2460">
+    <SetVariable id="9302" style="set-variable" pos="0,4550">
       <Variable list="false" local="false" variableName="target_exit_tol_m" />
       <BinaryOp op="*" style="op-mul">
         <Variable list="false" local="false" variableName="target_enter_tol_m" />
         <Constant text="1.2" />
       </BinaryOp>
     </SetVariable>
-    <SetVariable id="9303" style="set-variable" pos="0,2520">
+    <SetVariable id="9303" style="set-variable" pos="0,4680">
       <Variable list="false" local="false" variableName="target_in_range_time_s" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="9304" style="set-variable" pos="0,2580">
+    <SetVariable id="9304" style="set-variable" pos="0,4810">
       <Variable list="false" local="false" variableName="target_capture_dwell_s" />
       <Constant text="1.5" />
     </SetVariable>
-    <SetVariable id="9305" style="set-variable" pos="0,2640">
+    <SetVariable id="9305" style="set-variable" pos="0,4940">
       <Variable list="false" local="false" variableName="target_captured" />
       <Constant text="0" />
     </SetVariable>
-    <SetVariable id="9069" style="set-variable" pos="0,2470">
+    <SetVariable id="9069" style="set-variable" pos="0,5070">
       <Variable list="false" local="false" variableName="target_alt_agl" />
       <Constant text="500" />
     </SetVariable>
-    <SetVariable id="9" style="set-variable" pos="0,2600">
+    <SetVariable id="9" style="set-variable" pos="0,5200">
       <Variable list="false" local="false" variableName="hover_alt_agl" />
       <CraftProperty property="Altitude.AGL" style="prop-altitude" />
     </SetVariable>
-    <SetVariable id="9072" style="set-variable" pos="0,2730">
+    <SetVariable id="9072" style="set-variable" pos="0,5330">
       <Variable list="false" local="false" variableName="hover_alt_target" />
       <Variable list="false" local="false" variableName="hover_alt_agl" />
     </SetVariable>
-    <SetVariable id="10" style="set-variable" pos="0,2860">
+    <SetVariable id="10" style="set-variable" pos="0,5460">
       <Variable list="false" local="false" variableName="home_pos" />
       <CraftProperty property="Nav.Position" style="prop-nav" />
     </SetVariable>
-    <SetVariable id="170" style="set-variable" pos="0,2990">
+    <SetVariable id="170" style="set-variable" pos="0,5590">
       <Variable list="false" local="false" variableName="prop_pitch_deg" />
       <Constant text="50" />
     </SetVariable>
-    <SetVariable id="171" style="set-variable" pos="0,3120">
+    <SetVariable id="171" style="set-variable" pos="0,5720">
       <Variable list="false" local="false" variableName="prop_pitch_step" />
       <Constant text="1" />
     </SetVariable>
-    <SetVariable id="172" style="set-variable" pos="0,3250">
+    <SetVariable id="172" style="set-variable" pos="0,5850">
       <Variable list="false" local="false" variableName="prop_pitch_thrust_prev" />
       <CraftProperty property="Performance.CurrentEngineThrust" style="prop-performance" />
     </SetVariable>
-    <SetVariable id="190" style="set-variable" pos="0,3380">
+    <SetVariable id="190" style="set-variable" pos="0,5980">
       <Variable list="false" local="false" variableName="prop_pitch_throttle_zero_s" />
       <Constant text="0" />
     </SetVariable>
-    <DisplayMessage id="11" style="display" pos="0,3510">
+    <DisplayMessage id="11" style="display" pos="0,6110">
       <Constant text="Ready. AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
       <Constant number="7" />
     </DisplayMessage>
-    <LogFlight id="360" style="flightlog" pos="0,3640">
+    <LogFlight id="360" style="flightlog" pos="0,6240">
       <Constant text="Quadcopter controller initialized: AG1 takeoff/hold, AG4 nav, AG2 land, AG3 manual." />
       <Constant style="false" bool="false" />
     </LogFlight>
-    <Comment id="9602" style="comment" pos="0,3710">
+    <Comment id="9602" style="comment" pos="0,6370">
       <Constant style="comment-text" canReplace="false" text="Thread ownership: diagnostics (low-rate compact tuple; set debug_enabled=1 to enable, ~2 Hz via dt_debug)." />
     </Comment>
-    <Event event="FlightStart" id="9603" style="flight-start" pos="0,3840" />
-    <While id="9604" style="while" pos="0,3970">
+    <Event event="FlightStart" id="9603" style="flight-start" pos="0,6500" />
+    <While id="9604" style="while" pos="0,6630">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="9605" style="if">
@@ -308,10 +308,10 @@
         <WaitSeconds id="9608" style="wait-seconds"><Variable list="false" local="false" variableName="dt_debug" /></WaitSeconds>
       </Instructions>
     </While>
-    <Comment id="9405" style="comment" pos="0,3640">
+    <Comment id="9405" style="comment" pos="0,6760">
       <Constant style="comment-text" canReplace="false" text="Thread ownership: targets (mode-aware setpoint generation only)." />
     </Comment>
-    <While id="12" style="while" pos="0,3770">
+    <While id="12" style="while" pos="0,6890">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="9406" style="if">
@@ -376,11 +376,11 @@
         <WaitSeconds id="9435" style="wait-seconds"><Variable list="false" local="false" variableName="dt_control" /></WaitSeconds>
       </Instructions>
     </While>
-    <Comment id="9436" style="comment" pos="0,3900">
+    <Comment id="9436" style="comment" pos="0,7020">
       <Constant style="comment-text" canReplace="false" text="Thread ownership: controller (setpoints + telemetry -> throttle_cmd/attitude commands, 20 Hz via dt_control)." />
     </Comment>
-    <Event event="FlightStart" id="9437" style="flight-start" pos="0,4030" />
-    <While id="9438" style="while" pos="0,4160">
+    <Event event="FlightStart" id="9437" style="flight-start" pos="0,7150" />
+    <While id="9438" style="while" pos="0,7280">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="9439" style="if">
@@ -402,11 +402,11 @@
         <WaitSeconds id="9456" style="wait-seconds"><Variable list="false" local="false" variableName="dt_control" /></WaitSeconds>
       </Instructions>
     </While>
-    <Comment id="356" style="comment" pos="0,3900">
+    <Comment id="356" style="comment" pos="0,7410">
       <Constant style="comment-text" canReplace="false" text="Thread ownership: actuators (writes slider1 from throttle_cmd only, 20 Hz via dt_actuator)." />
     </Comment>
-    <Event event="FlightStart" id="344" style="flight-start" pos="0,4030" />
-    <While id="345" style="while" pos="0,4160">
+    <Event event="FlightStart" id="344" style="flight-start" pos="0,7540" />
+    <While id="345" style="while" pos="0,7670">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="346" style="if">
@@ -425,11 +425,11 @@
         </WaitSeconds>
       </Instructions>
     </While>
-    <Comment id="357" style="comment" pos="0,4290">
+    <Comment id="357" style="comment" pos="0,7800">
       <Constant style="comment-text" canReplace="false" text="Thread ownership: actuators (applies pitch/heading attitude commands, 20 Hz via dt_actuator)." />
     </Comment>
-    <Event event="FlightStart" id="349" style="flight-start" pos="0,4420" />
-    <While id="350" style="while" pos="0,4550">
+    <Event event="FlightStart" id="349" style="flight-start" pos="0,7930" />
+    <While id="350" style="while" pos="0,8060">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="351" style="if">
@@ -489,11 +489,11 @@
         </WaitSeconds>
       </Instructions>
     </While>
-    <Comment id="358" style="comment" pos="0,4680">
+    <Comment id="358" style="comment" pos="0,8190">
       <Constant style="comment-text" canReplace="false" text="Thread ownership: state/nav command ingestion (AG1/AG2/AG3/AG4), 10 Hz via dt_nav." />
     </Comment>
-    <Event event="FlightStart" id="300" style="flight-start" pos="0,4810" />
-    <While id="301" style="while" pos="0,4940">
+    <Event event="FlightStart" id="300" style="flight-start" pos="0,8320" />
+    <While id="301" style="while" pos="0,8450">
       <Constant style="true" bool="true" />
       <Instructions>
         <SetVariable id="308" style="set-variable">
@@ -701,11 +701,11 @@
         </WaitSeconds>
       </Instructions>
     </While>
-    <Comment id="9080" style="comment" pos="0,5070">
+    <Comment id="9080" style="comment" pos="0,8580">
       <Constant style="comment-text" canReplace="false" text="Thread ownership: state broadcast dispatcher (STATE_* transitions), 10 Hz via dt_nav." />
     </Comment>
-    <Event event="FlightStart" id="9081" style="flight-start" pos="0,5200" />
-    <While id="9082" style="while" pos="0,5330">
+    <Event event="FlightStart" id="9081" style="flight-start" pos="0,8710" />
+    <While id="9082" style="while" pos="0,8840">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="9083" style="if">
@@ -781,11 +781,11 @@
         </WaitSeconds>
       </Instructions>
     </While>
-    <Comment id="359" style="comment" pos="0,5460">
+    <Comment id="359" style="comment" pos="0,8970">
       <Constant style="comment-text" canReplace="false" text="Thread: variable-pitch prop optimization with zero-throttle and landing safeguards, 20 Hz via dt_actuator." />
     </Comment>
-    <Event event="FlightStart" id="173" style="flight-start" pos="0,5590" />
-    <While id="174" style="while" pos="0,5720">
+    <Event event="FlightStart" id="173" style="flight-start" pos="0,9100" />
+    <While id="174" style="while" pos="0,9230">
       <Constant style="true" bool="true" />
       <Instructions>
         <SetVariable id="175" style="set-variable">
@@ -1024,34 +1024,34 @@
     <SetVariable id="9467" style="set-variable" pos="2850,1690"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="1" /></SetVariable>
   </Instructions>
   <Instructions>
-    <Event event="ReceiveMessage" id="9040" style="receive-msg" pos="3800,0"><Constant canReplace="false" text="STATE_LANDING" /></Event>
-    <SetVariable id="9041" style="set-variable" pos="3800,130"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9042" style="set-variable" pos="3800,260"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9043" style="set-variable" pos="3800,390"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9044" style="set-variable" pos="3800,520"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="1" /></SetVariable>
-    <SetVariable id="9045" style="set-variable" pos="3800,650"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9046" style="set-variable" pos="3800,780"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="3" /></SetVariable>
-    <SetVariable id="9047" style="set-variable" pos="3800,910"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9048" style="set-variable" pos="3800,1040"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="1" /></SetVariable>
-    <SetVariable id="9049" style="set-variable" pos="3800,1170"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9058" style="set-variable" pos="3800,1300"><Variable list="false" local="false" variableName="nav_enabled" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9468" style="set-variable" pos="3800,1430"><Variable list="false" local="false" variableName="desired_alt_agl" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9469" style="set-variable" pos="3800,1560"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
-    <SetVariable id="9470" style="set-variable" pos="3800,1690"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
+    <Event event="ReceiveMessage" id="9040" style="receive-msg" pos="0,9490"><Constant canReplace="false" text="STATE_LANDING" /></Event>
+    <SetVariable id="9041" style="set-variable" pos="0,9620"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9042" style="set-variable" pos="0,9750"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9043" style="set-variable" pos="0,9880"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9044" style="set-variable" pos="0,10010"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9045" style="set-variable" pos="0,10140"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9046" style="set-variable" pos="0,10270"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="3" /></SetVariable>
+    <SetVariable id="9047" style="set-variable" pos="0,10400"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9048" style="set-variable" pos="0,10530"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9049" style="set-variable" pos="0,10660"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9058" style="set-variable" pos="0,10790"><Variable list="false" local="false" variableName="nav_enabled" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9468" style="set-variable" pos="0,10920"><Variable list="false" local="false" variableName="desired_alt_agl" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9469" style="set-variable" pos="0,11050"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
+    <SetVariable id="9470" style="set-variable" pos="0,11180"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
   </Instructions>
   <Instructions>
-    <Event event="ReceiveMessage" id="9050" style="receive-msg" pos="4750,0"><Constant canReplace="false" text="STATE_HOVER" /></Event>
-    <SetVariable id="9051" style="set-variable" pos="4750,130"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9052" style="set-variable" pos="4750,260"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9053" style="set-variable" pos="4750,390"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9054" style="set-variable" pos="4750,520"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9055" style="set-variable" pos="4750,650"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="1" /></SetVariable>
-    <SetVariable id="9056" style="set-variable" pos="4750,780"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="4" /></SetVariable>
-    <SetVariable id="9057" style="set-variable" pos="4750,910"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9059" style="set-variable" pos="4750,1040"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="1" /></SetVariable>
-    <SetVariable id="9060" style="set-variable" pos="4750,1170"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9471" style="set-variable" pos="4750,1300"><Variable list="false" local="false" variableName="desired_alt_agl" /><Variable list="false" local="false" variableName="hover_alt_target" /></SetVariable>
-    <SetVariable id="9472" style="set-variable" pos="4750,1430"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
-    <SetVariable id="9473" style="set-variable" pos="4750,1560"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
+    <Event event="ReceiveMessage" id="9050" style="receive-msg" pos="950,9490"><Constant canReplace="false" text="STATE_HOVER" /></Event>
+    <SetVariable id="9051" style="set-variable" pos="950,9620"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9052" style="set-variable" pos="950,9750"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9053" style="set-variable" pos="950,9880"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9054" style="set-variable" pos="950,10010"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9055" style="set-variable" pos="950,10140"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9056" style="set-variable" pos="950,10270"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="4" /></SetVariable>
+    <SetVariable id="9057" style="set-variable" pos="950,10400"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9059" style="set-variable" pos="950,10530"><Variable list="false" local="false" variableName="auto_enabled" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9060" style="set-variable" pos="950,10660"><Variable list="false" local="false" variableName="landing_armed" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9471" style="set-variable" pos="950,10790"><Variable list="false" local="false" variableName="desired_alt_agl" /><Variable list="false" local="false" variableName="hover_alt_target" /></SetVariable>
+    <SetVariable id="9472" style="set-variable" pos="950,10920"><Variable list="false" local="false" variableName="desired_pitch" /><Constant text="90" /></SetVariable>
+    <SetVariable id="9473" style="set-variable" pos="950,11050"><Variable list="false" local="false" variableName="desired_heading_hold" /><Constant text="0" /></SetVariable>
   </Instructions>
 </Program>
