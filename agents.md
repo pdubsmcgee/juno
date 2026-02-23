@@ -184,3 +184,9 @@
   - Added explicit per-thread cadence comments in `Quadcopter Flight Program V3.xml` (controller/actuator at 20 Hz, state/nav at 10 Hz, debug at ~2 Hz) to document intended loop frequencies and throttling expectations.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.32` during version bump.
   - Bumped `VERSION` to `3.32` for quadcopter control-loop timing variable refactor and cadence documentation.
+
+- 2026-02-22
+  - Updated `scripts/vizzy_layout_tidy.py` to keep pretty-layout output anchored to existing event-thread coordinates by default and to wrap event lanes across configurable rows, preventing large programs from being laid out far off-screen.
+  - Re-ran layout tidy across `Flight Program R V3.0.xml`, `Quadcopter Flight Program V3.xml`, `gpttest.xml`, and `Reference.xml` so block positions are visible on load with reduced horizontal drift.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.33` during version bump.
+  - Bumped `VERSION` to `3.33` for layout-pretty visibility fixes.

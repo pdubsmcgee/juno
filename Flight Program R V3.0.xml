@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Program name="Flight Program R V3.32">
+<Program name="Flight Program R V3.33">
   <Variables>
     <Variable name="targetalt_m" number="0" />
     <Variable name="targetinc_deg" number="0" />
@@ -137,44 +137,44 @@
     <Variable name="HoverActive" number="0" />
   </Variables>
   <Instructions>
-    <Event event="FlightStart" id="0" style="flight-start" pos="6650,0" />
-    <Comment id="1" style="comment" pos="6650,130">
+    <Event event="FlightStart" id="0" style="flight-start" pos="2850,5980" />
+    <Comment id="1" style="comment" pos="2850,6110">
       <Constant style="comment-text" canReplace="false" text="GT Guidance (frame-synced guidance loop tick)" />
     </Comment>
-    <WaitUntil id="2" style="wait-until" pos="6650,260">
+    <WaitUntil id="2" style="wait-until" pos="2850,6240">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_init_done" />
         <Constant text="1" />
       </Comparison>
     </WaitUntil>
-    <SetVariable id="3" style="set-variable" pos="6650,390">
+    <SetVariable id="3" style="set-variable" pos="2850,6370">
       <Variable list="false" local="false" variableName="gt_tsv" />
       <Constant text="250" />
     </SetVariable>
-    <SetVariable id="4" style="set-variable" pos="6650,520">
+    <SetVariable id="4" style="set-variable" pos="2850,6500">
       <Variable list="false" local="false" variableName="gt_tev" />
       <Constant text="2400" />
     </SetVariable>
-    <SetVariable id="5" style="set-variable" pos="6650,650">
+    <SetVariable id="5" style="set-variable" pos="2850,6630">
       <Variable list="false" local="false" variableName="gt_pitchmin" />
       <Constant text="15" />
     </SetVariable>
-    <SetVariable id="6" style="set-variable" pos="6650,780">
+    <SetVariable id="6" style="set-variable" pos="2850,6760">
       <Variable list="false" local="false" variableName="gt_maxaoa" />
       <Constant text="8" />
     </SetVariable>
-    <SetVariable id="7" style="set-variable" pos="6650,910">
+    <SetVariable id="7" style="set-variable" pos="2850,6890">
       <Variable list="false" local="false" variableName="gt_pitchcmd" />
       <Constant text="90" />
     </SetVariable>
-    <SetVariable id="8" style="set-variable" pos="6650,1040">
+    <SetVariable id="8" style="set-variable" pos="2850,7020">
       <Variable list="false" local="false" variableName="gt_headingcmd" />
       <BinaryOp op="+" style="op-add">
         <Variable list="false" local="false" variableName="targetinc_deg" />
         <Constant text="90" />
       </BinaryOp>
     </SetVariable>
-    <While id="9" style="while" pos="6650,1170">
+    <While id="9" style="while" pos="2850,7150">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="10" style="if">
@@ -317,27 +317,27 @@
     </Comment>
   </Instructions>
   <Instructions>
-    <Event event="FlightStart" id="35" style="flight-start" pos="9500,0" />
-    <Comment id="36" style="comment" pos="9500,130">
+    <Event event="FlightStart" id="35" style="flight-start" pos="1900,7410" />
+    <Comment id="36" style="comment" pos="1900,7540">
       <Constant style="comment-text" canReplace="false" text="K solver" />
     </Comment>
-    <WaitUntil id="37" style="wait-until" pos="9500,260">
+    <WaitUntil id="37" style="wait-until" pos="1900,7670">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_init_done" />
         <Constant text="1" />
       </Comparison>
     </WaitUntil>
-    <SetVariable id="38" style="set-variable" pos="9500,390">
+    <SetVariable id="38" style="set-variable" pos="1900,7800">
       <Variable list="false" local="false" variableName="peg_readyk" />
       <Constant number="0" />
     </SetVariable>
-    <SetVariable id="39" style="set-variable" pos="9500,520">
+    <SetVariable id="39" style="set-variable" pos="1900,7930">
       <Variable list="false" local="false" variableName="peg_e1" />
       <VectorOp op="norm" style="vec-op-1">
         <CraftProperty property="Nav.East" style="prop-nav" />
       </VectorOp>
     </SetVariable>
-    <While id="40" style="while" pos="9500,650">
+    <While id="40" style="while" pos="1900,8060">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="41" style="if">
@@ -1156,41 +1156,41 @@
     </While>
   </Instructions>
   <Instructions>
-    <Event event="FlightStart" id="174" style="flight-start" pos="8550,0" />
-    <Comment id="175" style="comment" pos="8550,130">
+    <Event event="FlightStart" id="174" style="flight-start" pos="950,7410" />
+    <Comment id="175" style="comment" pos="950,7540">
       <Constant style="comment-text" canReplace="false" text="Throttle Manager (single-branch control path with clamp + circularization guard)" />
     </Comment>
-    <WaitUntil id="176" style="wait-until" pos="8550,260">
+    <WaitUntil id="176" style="wait-until" pos="950,7670">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_init_done" />
         <Constant text="1" />
       </Comparison>
     </WaitUntil>
-    <SetVariable id="178" style="set-variable" pos="8550,390">
+    <SetVariable id="178" style="set-variable" pos="950,7800">
       <Variable list="false" local="false" variableName="twr_target_gt" />
       <Constant text="1.4" />
     </SetVariable>
-    <SetVariable id="179" style="set-variable" pos="8550,520">
+    <SetVariable id="179" style="set-variable" pos="950,7930">
       <Variable list="false" local="false" variableName="twr_target_peg" />
       <Constant text="1.35" />
     </SetVariable>
-    <SetVariable id="180" style="set-variable" pos="8550,650">
+    <SetVariable id="180" style="set-variable" pos="950,8060">
       <Variable list="false" local="false" variableName="minthrottle" />
       <Constant text=".05" />
     </SetVariable>
-    <SetVariable id="181" style="set-variable" pos="8550,780">
+    <SetVariable id="181" style="set-variable" pos="950,8190">
       <Variable list="false" local="false" variableName="maxthrottle" />
       <Constant text="1" />
     </SetVariable>
-    <SetVariable id="182" style="set-variable" pos="8550,910">
+    <SetVariable id="182" style="set-variable" pos="950,8320">
       <Variable list="false" local="false" variableName="circ_toldv" />
       <Constant text=".5" />
     </SetVariable>
-    <SetVariable id="183" style="set-variable" pos="8550,1040">
+    <SetVariable id="183" style="set-variable" pos="950,8450">
       <Variable list="false" local="false" variableName="circ_minthrust" />
       <Constant text="1" />
     </SetVariable>
-    <While id="184" style="while" pos="8550,1170">
+    <While id="184" style="while" pos="950,8580">
       <Constant style="true" bool="true" />
       <Instructions>
         <SetVariable id="194" style="set-variable">
@@ -1540,43 +1540,43 @@
     </While>
   </Instructions>
   <Instructions>
-    <Event event="FlightStart" id="242" style="flight-start" pos="7600,0" />
-    <Comment id="243" style="comment" pos="7600,130">
+    <Event event="FlightStart" id="242" style="flight-start" pos="0,7410" />
+    <Comment id="243" style="comment" pos="0,7540">
       <Constant style="comment-text" canReplace="false" text="Circularize (burn guidance frame-synced; inactive gates 0.05s)" />
     </Comment>
-    <WaitUntil id="244" style="wait-until" pos="7600,260">
+    <WaitUntil id="244" style="wait-until" pos="0,7670">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_init_done" />
         <Constant text="1" />
       </Comparison>
     </WaitUntil>
-    <WaitUntil id="245" style="wait-until" pos="7600,390">
+    <WaitUntil id="245" style="wait-until" pos="0,7800">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_mode" />
         <Variable list="false" local="false" variableName="fc_mode_circularization" />
       </Comparison>
     </WaitUntil>
-    <SetVariable id="246" style="set-variable" pos="7600,520">
+    <SetVariable id="246" style="set-variable" pos="0,7930">
       <Variable list="false" local="false" variableName="circ_tolalt" />
       <Constant text="500" />
     </SetVariable>
-    <SetVariable id="247" style="set-variable" pos="7600,650">
+    <SetVariable id="247" style="set-variable" pos="0,8060">
       <Variable list="false" local="false" variableName="circ_toldv" />
       <Constant text=".5" />
     </SetVariable>
-    <SetVariable id="248" style="set-variable" pos="7600,780">
+    <SetVariable id="248" style="set-variable" pos="0,8190">
       <Variable list="false" local="false" variableName="circ_minthrust" />
       <Constant text="1" />
     </SetVariable>
-    <SetVariable id="249" style="set-variable" pos="7600,910">
+    <SetVariable id="249" style="set-variable" pos="0,8320">
       <Variable list="false" local="false" variableName="circ_mintime" />
       <Constant text=".1" />
     </SetVariable>
-    <SetVariable id="250" style="set-variable" pos="7600,1040">
+    <SetVariable id="250" style="set-variable" pos="0,8450">
       <Variable list="false" local="false" variableName="circlocked" />
       <Constant text="0" />
     </SetVariable>
-    <While id="251" style="while" pos="7600,1170">
+    <While id="251" style="while" pos="0,8580">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="252" style="if">
@@ -2025,57 +2025,57 @@
     </While>
   </Instructions>
   <Instructions>
-    <Event event="FlightStart" id="329" style="flight-start" pos="10450,0" />
-    <Comment id="330" style="comment" pos="10450,130">
+    <Event event="FlightStart" id="329" style="flight-start" pos="2850,7410" />
+    <Comment id="330" style="comment" pos="2850,7540">
       <Constant style="comment-text" canReplace="false" text="PEG Guidance (active guidance loop frame-synced; standby gate 0.05s)" />
     </Comment>
-    <WaitUntil id="331" style="wait-until" pos="10450,260">
+    <WaitUntil id="331" style="wait-until" pos="2850,7670">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="fc_init_done" />
         <Constant text="1" />
       </Comparison>
     </WaitUntil>
-    <SetVariable id="332" style="set-variable" pos="10450,390">
+    <SetVariable id="332" style="set-variable" pos="2850,7800">
       <Variable list="false" local="false" variableName="escale" />
       <Constant text="500000" />
     </SetVariable>
-    <SetVariable id="333" style="set-variable" pos="10450,520">
+    <SetVariable id="333" style="set-variable" pos="2850,7930">
       <Variable list="false" local="false" variableName="k_e_max" />
       <Constant text=".6" />
     </SetVariable>
-    <SetVariable id="334" style="set-variable" pos="10450,650">
+    <SetVariable id="334" style="set-variable" pos="2850,8060">
       <Variable list="false" local="false" variableName="k_i_max" />
       <Constant text=".3" />
     </SetVariable>
-    <SetVariable id="335" style="set-variable" pos="10450,780">
+    <SetVariable id="335" style="set-variable" pos="2850,8190">
       <Variable list="false" local="false" variableName="peg_pitchcmd" />
       <Constant text="90" />
     </SetVariable>
-    <SetVariable id="336" style="set-variable" pos="10450,910">
+    <SetVariable id="336" style="set-variable" pos="2850,8320">
       <Variable list="false" local="false" variableName="peg_headingcmd" />
       <Constant text="90" />
     </SetVariable>
-    <SetVariable id="337" style="set-variable" pos="10450,1040">
+    <SetVariable id="337" style="set-variable" pos="2850,8450">
       <Variable list="false" local="false" variableName="targetinc_rad" />
       <MathFunction function="deg2rad" style="op-math">
         <Variable list="false" local="false" variableName="targetinc_deg" />
       </MathFunction>
     </SetVariable>
-    <WaitUntil id="338" style="wait-until" pos="10450,1170">
+    <WaitUntil id="338" style="wait-until" pos="2850,8580">
       <Comparison op="=" style="op-eq">
         <Variable list="false" local="false" variableName="attowner" />
         <Variable list="false" local="false" variableName="attowner_guidance" />
       </Comparison>
     </WaitUntil>
-    <DisplayMessage id="339" style="display" pos="10450,1300">
+    <DisplayMessage id="339" style="display" pos="2850,8710">
       <Constant text="Initializing PEG Guidance" />
       <Constant number="7" />
     </DisplayMessage>
-    <LogFlight id="340" style="flightlog" pos="10450,1430">
+    <LogFlight id="340" style="flightlog" pos="2850,8840">
       <Constant text="Initializing PEG Guidance" />
       <Constant style="false" bool="false" />
     </LogFlight>
-    <While id="341" style="while" pos="10450,1560">
+    <While id="341" style="while" pos="2850,8970">
       <Constant style="true" bool="true" />
       <Instructions>
         <If id="342" style="if">
@@ -2968,33 +2968,33 @@
     <SetVariable id="9027" style="set-variable" pos="2850,910"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
   </Instructions>
   <Instructions>
-    <Event event="ReceiveMessage" id="9030" style="receive-msg" pos="3800,0"><Constant canReplace="false" text="STATE_ORBIT" /></Event>
-    <SetVariable id="9031" style="set-variable" pos="3800,130"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9032" style="set-variable" pos="3800,260"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9033" style="set-variable" pos="3800,390"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="1" /></SetVariable>
-    <SetVariable id="9034" style="set-variable" pos="3800,520"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9035" style="set-variable" pos="3800,650"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9036" style="set-variable" pos="3800,780"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="2" /></SetVariable>
-    <SetVariable id="9037" style="set-variable" pos="3800,910"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <Event event="ReceiveMessage" id="9030" style="receive-msg" pos="0,5980"><Constant canReplace="false" text="STATE_ORBIT" /></Event>
+    <SetVariable id="9031" style="set-variable" pos="0,6110"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9032" style="set-variable" pos="0,6240"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9033" style="set-variable" pos="0,6370"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9034" style="set-variable" pos="0,6500"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9035" style="set-variable" pos="0,6630"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9036" style="set-variable" pos="0,6760"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="2" /></SetVariable>
+    <SetVariable id="9037" style="set-variable" pos="0,6890"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
   </Instructions>
   <Instructions>
-    <Event event="ReceiveMessage" id="9040" style="receive-msg" pos="4750,0"><Constant canReplace="false" text="STATE_LANDING" /></Event>
-    <SetVariable id="9041" style="set-variable" pos="4750,130"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9042" style="set-variable" pos="4750,260"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9043" style="set-variable" pos="4750,390"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9044" style="set-variable" pos="4750,520"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="1" /></SetVariable>
-    <SetVariable id="9045" style="set-variable" pos="4750,650"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9046" style="set-variable" pos="4750,780"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="3" /></SetVariable>
-    <SetVariable id="9047" style="set-variable" pos="4750,910"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <Event event="ReceiveMessage" id="9040" style="receive-msg" pos="950,5980"><Constant canReplace="false" text="STATE_LANDING" /></Event>
+    <SetVariable id="9041" style="set-variable" pos="950,6110"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9042" style="set-variable" pos="950,6240"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9043" style="set-variable" pos="950,6370"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9044" style="set-variable" pos="950,6500"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9045" style="set-variable" pos="950,6630"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9046" style="set-variable" pos="950,6760"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="3" /></SetVariable>
+    <SetVariable id="9047" style="set-variable" pos="950,6890"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
   </Instructions>
   <Instructions>
-    <Event event="ReceiveMessage" id="9050" style="receive-msg" pos="5700,0"><Constant canReplace="false" text="STATE_HOVER" /></Event>
-    <SetVariable id="9051" style="set-variable" pos="5700,130"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9052" style="set-variable" pos="5700,260"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9053" style="set-variable" pos="5700,390"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9054" style="set-variable" pos="5700,520"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
-    <SetVariable id="9055" style="set-variable" pos="5700,650"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="1" /></SetVariable>
-    <SetVariable id="9056" style="set-variable" pos="5700,780"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="4" /></SetVariable>
-    <SetVariable id="9057" style="set-variable" pos="5700,910"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
+    <Event event="ReceiveMessage" id="9050" style="receive-msg" pos="1900,5980"><Constant canReplace="false" text="STATE_HOVER" /></Event>
+    <SetVariable id="9051" style="set-variable" pos="1900,6110"><Variable list="false" local="false" variableName="StandbyActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9052" style="set-variable" pos="1900,6240"><Variable list="false" local="false" variableName="AscentActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9053" style="set-variable" pos="1900,6370"><Variable list="false" local="false" variableName="OrbitActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9054" style="set-variable" pos="1900,6500"><Variable list="false" local="false" variableName="LandingActive" /><Constant text="0" /></SetVariable>
+    <SetVariable id="9055" style="set-variable" pos="1900,6630"><Variable list="false" local="false" variableName="HoverActive" /><Constant text="1" /></SetVariable>
+    <SetVariable id="9056" style="set-variable" pos="1900,6760"><Variable list="false" local="false" variableName="ProgramState" /><Constant text="4" /></SetVariable>
+    <SetVariable id="9057" style="set-variable" pos="1900,6890"><Variable list="false" local="false" variableName="StateChangePending" /><Constant text="0" /></SetVariable>
   </Instructions>
 </Program>
