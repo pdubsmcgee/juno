@@ -190,3 +190,9 @@
   - Re-ran layout tidy across `Flight Program R V3.0.xml`, `Quadcopter Flight Program V3.xml`, `gpttest.xml`, and `Reference.xml` so block positions are visible on load with reduced horizontal drift.
   - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.33` during version bump.
   - Bumped `VERSION` to `3.33` for layout-pretty visibility fixes.
+
+- 2026-02-25
+  - Updated `Quadcopter Flight Program V3.xml` throttle controller to bias `slider1` commands toward `Performance.TWR` target tracking (`twr_target=1`) so hover throttle converges around TWR 1.0 while retaining altitude-error and vertical-speed damping terms.
+  - Added `twr_target` and `twr_kp` startup tuning variables in `Quadcopter Flight Program V3.xml` for TWR-hold behavior tuning.
+  - Auto-updated `Flight Program R V3.0.xml` and `Quadcopter Flight Program V3.xml` program names to `V3.34` during version bump.
+  - Bumped `VERSION` to `3.34` for quadcopter TWR-hover throttle control update.
